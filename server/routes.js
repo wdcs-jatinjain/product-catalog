@@ -1,4 +1,4 @@
-// routes.js (not .tsx)
+
 const express = require("express");
 const connectDB = require("./mongoConnection");
 const app = express();
