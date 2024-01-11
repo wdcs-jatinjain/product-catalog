@@ -14,7 +14,7 @@ app.get("/api/home", (req: any, res: { json: (arg0: { message: string; name: str
 });
 
 
-console.log(process.env.PORT);
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
