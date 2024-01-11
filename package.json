@@ -1,0 +1,8 @@
+{
+  "name": "product-catalog",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": "https://github.com/wdcs-jatinjain/product-catalog.git",
+  "author": "harshit shah <harshit.shah@codezeros>",
+  "license": "MIT"
+}
