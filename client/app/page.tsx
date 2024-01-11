@@ -1,38 +1,20 @@
-'use client'
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const env = require('dotenv')
+require('dotenv').config();
 
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
 
-function Home() {
+app.use(cors());
 
-  const [message, setMessage] = useState("Loading")
-  const [name, setName] = useState([]);
+const PORT = process.env.PORT || 9000;
 
-  useEffect(() => {
-    fetch("http://localhost:8000/api/home").then(
-      response => response.json()
-    ).then(
-      data => {
-        setMessage(data.message)
-        setName(data.name)
-      }
-    )
-  }, [])
+app.get("/api/home", (req: any, res: { json: (arg0: { message: string; name: string[]; }) => void; }) => {
+  res.json({ message: "Hello World from Server Side. Please find the Product List Below:-", name: ["Mobile", "TV", "AC", "Tab", "Laptop"] });
+});
 
-  return (
-    <div>
-       <Link href="/admin">Admin Dashboard </Link>
-       
-      <div>{message}</div>
-      {
-        name.map((name, index) => (
-          <div key={index}>
-            {name}
-          </div>
-        ))
-      }
-    </div>
-  )
-}
 
-export default Home
+console.log(process.env.PORT);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
