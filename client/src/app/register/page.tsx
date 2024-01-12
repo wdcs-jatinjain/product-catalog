@@ -1,33 +1,31 @@
-"use client";
-
-import Link from "next/link";
-import { useState } from "react";
+'use client'
+import Link from 'next/link';
+import { useState } from 'react';
+import { registerUser } from '../components/DataProvider/register';
+import Input from '../components/Input/index';
 
 export default function RegisterPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [userCreated, setUserCreated] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [creatingUser, setCreatingUser] = useState(false);
+  const [userCreated, setUserCreated] = useState(false);
   const [error, setError] = useState(false);
 
-  async function handleFormSubmit(ev: React.FormEvent<HTMLFormElement>) {
+  const handleFormSubmit = async (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
     setCreatingUser(true);
     setError(false);
     setUserCreated(false);
 
-    const response = await fetch("/api/register", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-      headers: { "Content-Type": "application/json" },
-    });
-    if (response.ok) {
+    try {
+      await registerUser(email, password);
       setUserCreated(true);
-    } else {
+    } catch (error) {
       setError(true);
+    } finally {
+      setCreatingUser(false);
     }
-    setCreatingUser(false);
-  }
+  };
 
   return (
     <section className="mt-8">
@@ -36,37 +34,46 @@ export default function RegisterPage() {
         <div className="my-4">
           User Created.
           <br /> Now you can Login
-          <Link className="underline" href={"/login"}>Login &raquo; </Link>
+          <Link className="underline" href="/login">
+            Login &raquo;{' '}
+          </Link>
         </div>
       )}
       {error && (
         <div className="my-4 text-center">
-          An Error has occured. <br />
+          An Error has occurred. <br />
           Please try again later!
         </div>
       )}
       <form className="block max-w-xs mx-auto" onSubmit={handleFormSubmit}>
-        <input
+        <Input
           type="email"
+          name="email"
           value={email}
           disabled={creatingUser}
           onChange={(ev) => setEmail(ev.target.value)}
           placeholder="email"
         />
 
-        <input
+        <Input
           type="password"
-          placeholder="password"
+          name="password"
           value={password}
           disabled={creatingUser}
           onChange={(ev) => setPassword(ev.target.value)}
+          placeholder="password"
         />
-        <button type="submit" disabled={creatingUser}>Register</button>
-        <div className="my-4 text-center text-gray-500">or login with Provider</div>
+
+        <button type="submit" disabled={creatingUser}>
+          Register
+        </button>
+        <div className="my-4 text-center text-gray-500">
+          or login with Provider
+        </div>
         <button className="flex gap-4 justify-center">Login with Google</button>
         <div className="text-center my-4 border-t pt-4">
-          Existing Account?{" "}
-          <Link className="underline" href={"/login"}>
+          Existing Account?{' '}
+          <Link className="underline" href="/login">
             Login Here &raquo;
           </Link>
         </div>

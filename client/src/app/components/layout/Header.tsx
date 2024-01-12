@@ -9,7 +9,7 @@ const Header: React.FC = () => {
             APPLE STORE
           </Link>
         </Link>
-        <Link href={"/admin"}>ADMIN</Link>
+
         <Link href={"/"}>HOME</Link>
         <Link href={""}>PRODUCTS</Link>
         <Link href={""}>ABOUT</Link>

@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Input from "../components/Input";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -12,14 +13,14 @@ ev.preventDefault()
     <section className="mt-8">
      <h1 className="text-center text-primary text-4xl mb-4">Login</h1>
       <form className="max-w-xs mx-auto" onSubmit={handleFormSubmit}>
-        <input
+        <Input
           type="email"
           name="email"
           value={email}
           placeholder="Enter your Email Address"
           onChange={(ev) => setEmail(ev.target.value)}
         />
-        <input
+        <Input
           type="password"
           name="password"
           value={password}
