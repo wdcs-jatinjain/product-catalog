@@ -1,13 +1,5 @@
-import React, { ChangeEvent } from "react";
-
-interface InputProps {
-  type: string;
-  value: string;
-  name: string;
-  disabled?: boolean;
-  placeholder?: string;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-}
+import React from "react";
+import { InputProps } from "../../Interface";
 
 const Input: React.FC<InputProps> = ({
   type,
