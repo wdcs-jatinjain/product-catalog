@@ -4,10 +4,8 @@ const connectDB = require("./src/shared/utils/dataBase/mongo/index.js");
 const app = express();
 app.use(express.json());
 const User = require("./src/models/user/user.model.ts");
-const createDefaultAdminUser = require('./src/controllers/user/index.js')
 
 connectDB();
-createDefaultAdminUser()
 app.get("/", (req, res) => {
   console.log("connectDB");
   res.json({
