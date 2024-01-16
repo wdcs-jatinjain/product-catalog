@@ -4,8 +4,11 @@ const connectDB = require("./mongoConnection");
 const app = express();
 app.use(express.json());
 const User = require("./src/models/user/user.model.ts");
+const createDefaultAdminUser = require('./defaultAdmin.js')
 
 connectDB();
+
+createDefaultAdminUser()
 app.get("/", (req, res) => {
   console.log("connectDB");
   res.json({

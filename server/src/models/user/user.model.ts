@@ -5,11 +5,11 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String },
   streetAddress: {type: String},
-  postalCode: {type: String},
+  postalCode: {type: Number},
   city: {type: String},
   country: {type: String},
   phone: {type: String},
-  admin: {type: Boolean, default: false},
+  admin: {type: Boolean, default: true},
   
 }, { timestamps: true });
 

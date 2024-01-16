@@ -1,6 +1,10 @@
 "use client";
 
 import { useState } from "react";
+<<<<<<< HEAD
+=======
+import Input from "../Components/CommanComponents/Input/index";
+>>>>>>> 10bb578cfc076ea56889b98c3441f386c2fd6cd0
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState("");
@@ -14,14 +18,22 @@ export default function AdminLoginPage() {
     <section className="mt-8">
       <h1 className="text-center text-primary text-4xl mb-4">Admin Login</h1>
       <form className="max-w-xs mx-auto" onSubmit={handleFormSubmit}>
+<<<<<<< HEAD
         <input
+=======
+        <Input
+>>>>>>> 10bb578cfc076ea56889b98c3441f386c2fd6cd0
           type="email"
           name="email"
           value={email}
           placeholder="Enter your Email Address"
           onChange={(ev) => setEmail(ev.target.value)}
         />
+<<<<<<< HEAD
         <input
+=======
+        <Input
+>>>>>>> 10bb578cfc076ea56889b98c3441f386c2fd6cd0
           type="password"
           name="password"
           value={password}
