@@ -1,30 +1,18 @@
-const User = require("./src/models/user/user.model.ts");
+import { Request, Response } from 'express';
+import User from '../../models/user/user.model';
 
-async function createDefaultAdminUser() {
+const registerUser = async (req: Request, res: Response) => {
+  const { name, email,password , streetAddress,postalCode ,city,country ,  phone} = req.body;
+
   try {
-    const existingAdminUser = await User.findOne({ admin: true });
-
-    if (!existingAdminUser) {
-      const adminUser = new User({
-        name: "Admin",
-        email: "harshit.shah@codexeros.com",
-        password: "admin123",
-        streetAddress:"Ahmedabad",
-        postalCode: 380054,
-        city: "Ahmedabad",
-        country: "India",
-        phone: 7777712345,
-        admin: true,
-      });
-
-      await adminUser.save();
-      console.log("Default admin user created successfully.");
-    } else {
-      console.log("Default admin user already exists.");
-    }
+    const newUser = await User.create({ name, email, password,streetAddress, postalCode,city
+      ,country , phone });
+    console.log("New user:", newUser);
+    res.status(201).json({ message: "User created successfully", user: newUser });
   } catch (error) {
-    console.error("Error creating default admin user:", error.message);
+    console.error("Error creating user:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
-}
+};
 
-module.exports = createDefaultAdminUser;
+export default registerUser ;
