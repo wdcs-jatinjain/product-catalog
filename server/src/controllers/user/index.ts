@@ -1,16 +1,15 @@
 import { Request, Response } from 'express';
-import User from '../../models/user/user.model';
+import Customer from '../../models/customer/customer.model';
 
 const registerUser = async (req: Request, res: Response) => {
-  const { name, email,password , streetAddress,postalCode ,city,country ,  phone} = req.body;
+  const { name, email,password  }= req.body;
 
   try {
-    const newUser = await User.create({ name, email, password,streetAddress, postalCode,city
-      ,country , phone });
-    console.log("New user:", newUser);
-    res.status(201).json({ message: "User created successfully", user: newUser });
+    const newCustomer = await Customer.create({ name, email, password });
+    console.log("New user:", newCustomer);
+    res.status(201).json({ message: "Customer created successfully", customer: newCustomer });
   } catch (error) {
-    console.error("Error creating user:", error);
+    console.error("Error creating Customer:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
