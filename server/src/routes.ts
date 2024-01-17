@@ -1,5 +1,5 @@
 import express from 'express';
-import router from './routes/user.routes';
+import router from './controllers/user.routes';
 import connectDB from './shared/utils/dataBase/mongo';
 
 
