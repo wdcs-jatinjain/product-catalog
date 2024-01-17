@@ -1,6 +1,6 @@
 
 import { Request, Response } from 'express';
-import User from '../../models/user/user.model';
+import User from '../../models/user';
 
 const checkAdminLogin = async (req: Request, res: Response) => {
   const { email, password } = req.body;

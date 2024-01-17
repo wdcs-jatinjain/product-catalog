@@ -1,6 +1,6 @@
 import express from "express";
-import checkAdminLogin from "../views/user/checkadminlogin";
-import registerUser from '../views/user/index';
+import checkAdminLogin from "../../views/user/checkadminlogin";
+import registerUser from '../../views/user/index';
 
 
 const router = express.Router();
