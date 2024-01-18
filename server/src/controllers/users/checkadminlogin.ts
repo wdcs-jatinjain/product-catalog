@@ -1,25 +1,32 @@
-// import bcrypt from 'bcrypt';
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
+import { ValidationError } from 'joi';
 import User from '../../models/user';
+import { checkAdminValidator } from '../../views/user/validations';
 
-const checkAdminLogin = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
-
+const checkAdminLogin = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    await checkAdminValidator.validateAsync(req.body, { abortEarly: false });
+
+    const { email, password } = req.body;
     const admin = await User.findOne({ email }).exec();
 
     if (admin) {
-      if (password === admin.password) {
-        res.json({ message: 'Login Successful' });
+      if (password !== admin.password) {
+        return res.status(401).json({ message: 'Invalid Password' });
       } else {
-        res.status(401).json({ message: 'Invalid Password' });
+        return res.status(200).json({ message: 'Login Successful' });
       }
     } else {
-      res.status(404).json({ message: 'Admin not found' });
+      return res.status(404).json({ message: 'Admin not found' });
     }
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    if (error instanceof ValidationError) {
+      return res.status(400).json({ message: error.message });
+    }
+
+    console.error('Error in checkAdminLogin:', error);
+
+    return res.status(500).json({ message: 'Internal Server Error' });
   }
 };
 
