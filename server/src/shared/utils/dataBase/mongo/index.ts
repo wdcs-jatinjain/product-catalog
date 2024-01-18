@@ -5,12 +5,9 @@ dotenv.config();
 
 export const connectDB = async () => {
   try {
-    const options: any = {
-      useCreateIndex: true,
-      useFindAndModify: false,
-    };
-
-    await mongoose.connect(process.env.MONGO_URL || '', options);
+    await mongoose.connect(process.env.MONGO_URL || '', {
+      dbName: 'product-catalogs',
+    });
 
     console.log("Connected to the database");
   } catch (error) {
