@@ -1,6 +1,7 @@
 import express from 'express';
-import router from './routes/user.routes';
+import router from './controllers/users';
 import connectDB from './shared/utils/dataBase/mongo';
+
 
 export const app = express();
 app.use(express.json());
@@ -15,7 +16,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/register", router);
+app.use("/", router);
 
 export default app
 
