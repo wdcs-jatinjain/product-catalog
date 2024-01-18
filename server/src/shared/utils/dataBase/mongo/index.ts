@@ -5,7 +5,12 @@ dotenv.config();
 
 export const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URL || '');
+    const options: any = {
+      useCreateIndex: true,
+      useFindAndModify: false,
+    };
+
+    await mongoose.connect(process.env.MONGO_URL || '', options);
 
     console.log("Connected to the database");
   } catch (error) {
