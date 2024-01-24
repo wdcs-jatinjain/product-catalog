@@ -1,4 +1,4 @@
-import AdminLoginPage from "./adminlogin/page";
+import AdminLoginPage from '../app/login/page'
 
 export default function Home() {
   return (
