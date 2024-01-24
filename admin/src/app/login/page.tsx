@@ -1,14 +1,13 @@
 "use client";
 
-import axios from "axios";
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup";
+import { LoginFormInput } from ".";
+import { ADMIN_URL } from '../../../config';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-interface LoginFormInput {
-  email: string;
-  password: string;
-}
 
 const schema = yup.object().shape({
   email: yup.string().required("Email is a required Field"),
@@ -23,33 +22,83 @@ export default function AdminLoginPage() {
   } = useForm<LoginFormInput>({ resolver: yupResolver(schema) });
 
   const onSubmit = async (data: LoginFormInput) => {
-    console.log("data",data)
+    const { email, password } = data;
+
+    console.log("ADMIN_URL", ADMIN_URL)
     try {
-      const response = await axios.post('/api/login', data);
-      console.log("response",response);
-      
-      if (response.status === 200) {
+     
+
+      const Response = await fetch(`${ADMIN_URL}/login`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password}),
+    });
+      console.log("Response", Response);
+
+      if (Response.status === 200) {
         console.log("Login Successful");
+        toast.success('Login Successful', {
+          position: 'top-right',
+          autoClose: 3000, 
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
       }
 
-    } catch (error) {
-      console.log(error);
+    } catch (error:any) {
+      console.info(error.message);
+      toast.error('Login Failed. Please try again.', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+
     }
   };
 
   return (
     <section className="mt-8">
       <h1 className="text-center text-primary text-4xl mb-4">Admin Login</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label>Email</label>
-        <input {...register("email")} /> 
-        {errors?.email && <p>{errors.email.message}</p>}
+      <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto">
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+            Email
+          </label>
+          <input
+            className="w-full border rounded-md py-2 px-3 focus:outline-none focus:shadow-outline"
+            type="text"
+            id="email"
+            {...register("email")}
+          />
+          {errors?.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
+        </div>
 
-        <label>Password</label>
-        <input type="password" {...register("password")} /> 
-        {errors?.password && <p>{errors.password.message}</p>}
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+            Password
+          </label>
+          <input
+            className="w-full border rounded-md py-2 px-3 focus:outline-none focus:shadow-outline"
+            type="password"
+            id="password"
+            {...register("password")}
+          />
+          {errors?.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
+        </div>
 
-        <input type="submit" value="Login" />
+        <button
+          type="submit"
+          className="bg-primary text-black py-2 px-4 rounded-md hover:bg-primary-dark focus:outline-none focus:shadow-outline"
+        >
+          Login
+        </button>
       </form>
     </section>
   );

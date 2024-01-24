@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema({
   city: {type: String},
   country: {type: String},
   phone: {type: String},
-  admin: {type: Boolean, default: true},
+  isAdmin: {type: Boolean, default: true},
   
 }, { timestamps: true });
 
