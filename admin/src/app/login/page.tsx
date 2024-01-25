@@ -23,23 +23,26 @@ export default function AdminLoginPage() {
 
   const onSubmit = async (data: LoginFormInput) => {
     const { email, password } = data;
-
-    console.log("ADMIN_URL", ADMIN_URL)
     try {
-     
-
-      const Response = await fetch(`${ADMIN_URL}/login`, {
+      const response = await fetch(`${ADMIN_URL}api/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password}),
     });
-      console.log("Response", Response);
-
-      if (Response.status === 200) {
-        console.log("Login Successful");
-        toast.success('Login Successful', {
+    const res = await response.json();
+      if (res.status === 'Success' ) {
+        toast.success(res.message, {
+          position: 'top-right',
+          autoClose: 3000, 
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      } else if (res.status === 'Failure'){
+        toast.error(res.message, {
           position: 'top-right',
           autoClose: 3000, 
           hideProgressBar: false,
@@ -50,7 +53,6 @@ export default function AdminLoginPage() {
       }
 
     } catch (error:any) {
-      console.info(error.message);
       toast.error('Login Failed. Please try again.', {
         position: 'top-right',
         autoClose: 3000,
