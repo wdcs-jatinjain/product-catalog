@@ -23,23 +23,26 @@ export default function AdminLoginPage() {
 
   const onSubmit = async (data: LoginFormInput) => {
     const { email, password } = data;
-
-    console.log("ADMIN_URL", ADMIN_URL)
     try {
-     
-
-      const Response = await fetch(`${ADMIN_URL}/login`, {
+      const response = await fetch(`${ADMIN_URL}api/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password}),
     });
-      console.log("Response", Response);
-
-      if (Response.status === 200) {
-        console.log("Login Successful");
-        toast.success('Login Successful', {
+    const res = await response.json();
+      if (res.status === 'Success' ) {
+        toast.success(res.message, {
+          position: 'top-right',
+          autoClose: 3000, 
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      } else if (res.status === 'Failure'){
+        toast.error(res.message, {
           position: 'top-right',
           autoClose: 3000, 
           hideProgressBar: false,
@@ -50,7 +53,6 @@ export default function AdminLoginPage() {
       }
 
     } catch (error:any) {
-      console.info(error.message);
       toast.error('Login Failed. Please try again.', {
         position: 'top-right',
         autoClose: 3000,
@@ -94,11 +96,19 @@ export default function AdminLoginPage() {
         </div>
 
         <button
-          type="submit"
-          className="bg-primary text-black py-2 px-4 rounded-md hover:bg-primary-dark focus:outline-none focus:shadow-outline"
-        >
-          Login
-        </button>
+  style={{
+    backgroundColor: '#4299e1' ,
+    color: 'black',
+    padding: '0.5rem 1rem',
+    borderRadius: '0.25rem',
+    border: 'none',
+    cursor: 'pointer',
+  }}
+>
+  Login
+</button>
+
+
       </form>
     </section>
   );

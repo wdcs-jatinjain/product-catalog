@@ -1,24 +1,26 @@
 
-import { NextApiRequest, NextApiResponse } from 'next';
 import { API_URL } from '../../../../config';
+import { NextResponse } from 'next/server';
 
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: Request) {
 
   try {
-    const { email, password } = req.body;
+    const { email, password } = await req.json();
+<<<<<<< Updated upstream
+    const res = await fetch(`${API_URL}admin/login`, {
+=======
     const res = await fetch(`${API_URL}/admin/login`, {
+>>>>>>> Stashed changes
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ email, password }),
     });
-    const user = await res.json();
-    console.log("🚀 ~ POST ~ user:", user)
+      const data = await res.json();
+      return NextResponse.json(data);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Something went wrong' });
+    console.info('Something Went Wrong', error);
   }
 }
-

@@ -16,20 +16,20 @@ const checkAdminLogin = async (
 
     if (admin) {
       if (password !== admin.password) {
-        return res.status(401).json({ message: "Invalid Password" });
+        return res.status(401).json({ status: "Failure", message: "Invalid Password" });
       } else {
-        return res.status(200).json({ message: "Login Successful" });
+        return res.status(200).json({ status: "Success", message: "Login Successful" });
       }
     } else {
-      return res.status(404).json({ message: "Admin not found" });
+      return res.status(404).json({ status: "Failure", message: "User not found" });
     }
   } catch (error) {
     if (error instanceof ValidationError) {
-      return res.status(400).json({ message: error.message });
+      return res.status(400).json({ status: "Failure", message: error.message });
     }
 
     console.error("Error in checkAdminLogin:", error);
-    return res.status(500).json({ message: "Internal Server Error" });
+    return res.status(500).json({status: "Failure", message: "Internal Server Error" });
   }
 };
 
