@@ -1,6 +1,6 @@
-import { Request, Response } from 'express';
+// import { Request, Response } from 'express';
 
-const registerUser = async (req: Request, res: Response) => {
-}
+// const registerUser = async (req: Request, res: Response) => {
+// }
 
-export default registerUser ;
+// export default registerUser ;
