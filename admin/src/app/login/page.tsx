@@ -96,11 +96,19 @@ export default function AdminLoginPage() {
         </div>
 
         <button
-          type="submit"
-          className="bg-primary text-black py-2 px-4 rounded-md hover:bg-primary-dark focus:outline-none focus:shadow-outline"
-        >
-          Login
-        </button>
+  style={{
+    backgroundColor: '#4299e1' ,
+    color: 'black',
+    padding: '0.5rem 1rem',
+    borderRadius: '0.25rem',
+    border: 'none',
+    cursor: 'pointer',
+  }}
+>
+  Login
+</button>
+
+
       </form>
     </section>
   );
