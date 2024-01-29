@@ -1,4 +1,4 @@
-import { RegisterUser } from "../../views/customer-register";
+import { RegisterUser } from "../../views/customer";
 import { validateCustomerRegistration } from "./CustomerValidations"; 
 
 export default async function CheckRegisterCustomer(req: any, res: any) {
