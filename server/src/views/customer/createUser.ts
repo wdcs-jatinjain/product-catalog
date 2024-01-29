@@ -3,17 +3,10 @@ import bcrypt from "bcryptjs";
 
 export default async function createUser(req: any, res: any){
     try {
-<<<<<<< HEAD
         const { name, email, password, phone, zipCode } = req.body;
 
         async function findOneCustomerByEmail(email: string) {
 
-=======
-        const { name, email, password, phone, zipcode } = req.body;
-    
-        async function findOneCustomerByEmail(email: string) {
-    
->>>>>>> 97462e939d33d92d290a993a0f7e18414737dd0a
           try {
             const customer = await CustomerModel.findOne({ email });
             return customer;
