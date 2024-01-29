@@ -1,8 +1,7 @@
-import Customer from "../../models/customer";
 import { RegisterUser } from "../../views/customer-register";
 import { validateCustomerRegistration } from "./CustomerValidations"; 
 
-export default async function RegisterCustomer(req: any, res: any) {
+export default async function CheckRegisterCustomer(req: any, res: any) {
   try {
     await validateCustomerRegistration.validateAsync(req.body, { abortEarly: false });
     const createdUser = await RegisterUser(req, res);
