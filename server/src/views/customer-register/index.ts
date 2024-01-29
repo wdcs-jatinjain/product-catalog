@@ -1,4 +1,3 @@
-import CheckRegisterCustomer from "../../controllers/customer/RegisterCustomer";
 import Customer from "../../models/customer";
 import bcrypt from "bcryptjs";
 
@@ -7,6 +6,7 @@ export async function RegisterUser(req: any, res: any) {
     const { name, email, password, phone, zipcode } = req.body;
 
     async function findOneCustomerByEmail(email: string) {
+
       try {
         const customer = await Customer.findOne({ email });
         return customer;
