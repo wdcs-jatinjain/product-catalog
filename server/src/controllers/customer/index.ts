@@ -1,9 +1,9 @@
-import {checkCustomerRegister} from "./checkcustomerregister";
+import RegisterCustomer from "./RegisterCustomer";
 import express from 'express';
 
 
 const CustomerController = express.Router()
-console.log('thi')
-CustomerController.post ('/register',checkCustomerRegister )
+
+CustomerController.post ('/register',RegisterCustomer )
 
 export default CustomerController;
