@@ -1,16 +1,12 @@
 import Views from "../../views";
 import { validateCustomerRegistration } from "./CustomerValidations"; 
 
-export default async function CheckRegisterCustomer(req: any, res: any) {
-  console.log("🚀 ~ CheckRegisterCustomer ~ req:", req.body)
+export default async function RegisterCustomer(req: any, res: any) {
   try {
     await validateCustomerRegistration.validateAsync(req.body, { abortEarly: false });
     const createdUser = await Views.CustomerViews.createCustomerViews(req, res);
-    return res.status(200).json({
-      status: "Success",
-      message: "User Created Successfully",
-      data: createdUser
-    });
+    
+    return res.status(200).json(createdUser);
   } catch (error:any) {
     if (error.name === "ValidationError") {
       return res.status(400).json({
@@ -19,6 +15,7 @@ export default async function CheckRegisterCustomer(req: any, res: any) {
         error: error.details.map((err: any) => err.message),
       });
     } else {
+      console.error("An error occurred while registering the user:", error);
       return res.status(500).json({
         status: "Failure",
         message: "An error occurred while registering the user.",
