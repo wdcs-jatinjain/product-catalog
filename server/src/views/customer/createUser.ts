@@ -4,18 +4,7 @@ import bcrypt from "bcryptjs";
 export default async function createUser(req: any, res: any){
     try {
         const { name, email, password, phone, zipCode } = req.body;
-
-        async function findOneCustomerByEmail(email: string) {
-
-          try {
-            const customer = await CustomerModel.findOne({ email });
-            return customer;
-          } catch (error) {
-            console.error("Error occurred while finding customer by email:", error);
-            throw error;
-          }
-        }
-        const existingCustomer = await findOneCustomerByEmail(email);
+        const existingCustomer =  await CustomerModel.findOne({ email });
         if (existingCustomer) {
           return res.status(400).json({
             status: "Failure",
@@ -36,7 +25,6 @@ export default async function createUser(req: any, res: any){
         return res.status(200).json({
           status: "Success",
           message: "User registered.",
-          //data: newCustomer,
           data: {
             id:newCustomer._id
           }

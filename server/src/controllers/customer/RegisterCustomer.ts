@@ -2,7 +2,6 @@ import Views from "../../views";
 import { validateCustomerRegistration } from "./CustomerValidations"; 
 
 export default async function CheckRegisterCustomer(req: any, res: any) {
-  console.log("🚀 ~ CheckRegisterCustomer ~ req:", req.body)
   try {
     await validateCustomerRegistration.validateAsync(req.body, { abortEarly: false });
     const createdUser = await Views.CustomerViews.createCustomerViews(req, res);
