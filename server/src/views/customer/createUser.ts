@@ -33,7 +33,7 @@ export default async function createUser(req: any, res: any){
         };
     } catch (error:any) {
         console.error("An error occurred while registering the user:", error);
-        
+
         throw new Error(error.message || "Unknown error")
     }
 }

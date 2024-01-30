@@ -5,7 +5,7 @@ export default async function RegisterCustomer(req: any, res: any) {
   try {
     await validateCustomerRegistration.validateAsync(req.body, { abortEarly: false });
     const createdUser = await Views.CustomerViews.createCustomerViews(req, res);
-    
+
     return res.status(200).json(createdUser);
   } catch (error:any) {
     if (error.name === "ValidationError") {
