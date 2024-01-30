@@ -1,6 +1,7 @@
-// import { Request, Response } from 'express';
+import checkAdminLogin from "./checkAdminLogin";;
 
-// const registerUser = async (req: Request, res: Response) => {
-// }
+const UserViews = Object.freeze({
+    checkAdminLoginViews: checkAdminLogin
+})
 
-// export default registerUser ;
+export default UserViews;

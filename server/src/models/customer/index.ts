@@ -8,7 +8,7 @@ const CustomerSchema = new mongoose.Schema({
   city:{type:String , default:''},
   address:{type:String},
   country:{type:String},
-  zipcode:{type:String, required: true}
+  zipCode:{type:String, required: true}
 
   }, { timestamps: true });
 
