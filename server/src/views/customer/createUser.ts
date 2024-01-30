@@ -22,21 +22,14 @@ export default async function createUser(req: any, res: any){
             message: "User already exists. Please login.",
           });
         }
-<<<<<<< HEAD
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
-=======
-    
-        const hashedPassword = await bcrypt.hash(password, 12);
-    
->>>>>>> 97462e939d33d92d290a993a0f7e18414737dd0a
         const newCustomer = await CustomerModel.create({
           name,
           email,
           password: hashedPassword,
           phone,
-<<<<<<< HEAD
           zipCode,
         });
 
@@ -47,15 +40,6 @@ export default async function createUser(req: any, res: any){
           data: {
             id:newCustomer._id
           }
-=======
-          zipcode,
-        });
-    
-        return res.status(200).json({
-          status: "Success",
-          message: "User registered.",
-          data: newCustomer,
->>>>>>> 97462e939d33d92d290a993a0f7e18414737dd0a
         });
       } catch (error) {
         console.error("An error occurred while registering the user:", error);
