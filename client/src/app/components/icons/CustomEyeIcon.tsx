@@ -2,10 +2,10 @@ import React from "react";
 
 interface CustomEyeIconProps {
   onClick: () => void;
-  visible: boolean;
+  visible?: boolean; className:string
 }
 
-const CustomEyeIcon: React.FC<CustomEyeIconProps> = ({ onClick, visible }) => {
+const CustomEyeIcon: React.FC<CustomEyeIconProps> = ({ onClick, visible, className }) => {
   return (
     <i
       className={`fas fa-eye${visible ? "" : "-slash"}`}

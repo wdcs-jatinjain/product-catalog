@@ -1,180 +1,220 @@
-'use client'
+"use client";
 
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 import * as Yup from "yup";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import CustomEyeIcon from "./icons/CustomEyeIcon";
+import "@fortawesome/fontawesome-free/css/all.css";
 
-interface FormData {
-  name: string;
-  email: string;
-  password: string;
-  phone: string;
-  zipCode: string;
-}
+import { yupResolver } from "@hookform/resolvers/yup";
 
-const UserForm = () => {
+export default function RegisterPage() {
   const router = useRouter();
-  const [formData, setFormData] = useState<FormData>({
-    name: "",
+  const [user, setUser] = useState({
     email: "",
     password: "",
+    confirmPassword: "",
     phone: "",
     zipCode: "",
+    name: "",
   });
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState<boolean>();
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Name is required"),
-    email: Yup.string().email("Invalid email").required("Email is required"),
+    name: Yup.string().required("Name is required."),
+    email: Yup.string().email("Invalid email").required("Email is required."),
     password: Yup.string()
       .trim()
-      .required("Please enter password")
-      .matches(/^\S*$/, "Whitespace is not allowed")
+      .required("Please enter password.")
+      .matches(/^\S*$/, "Whitespace is not allowed.")
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character."
       ),
-    phone: Yup.string().required("Phone number is required"),
-    zipCode: Yup.string().required("Zip code is required"),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("password")], "Passwords must match.")
+      .required("Please confirm your password"),
+    phone: Yup.string().required("Phone number is required."),
+    zipCode: Yup.string().required("Zip code is required."),
   });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
+
+
+
+  const onRegister = async () => {
+    console.log("first");
     try {
-      await validationSchema.validate(formData, { abortEarly: false });
-      setErrorMessage("");
-      const res = await fetch("/api/register", {
+      setLoading(true);
+      await validationSchema.validate(user, { abortEarly: false });
+
+      const response = await fetch("/api/register", {
         method: "POST",
-        body: JSON.stringify(formData),
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify(user),
       });
-      
-      const response = await res.json();
-      if (!res.ok) {
-        setErrorMessage(response.message);
-        toast.error(response.message, { 
-          position: 'top-right',
-          autoClose: 3000, 
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
-      } else {
-        toast.success(response.message, { 
-          position: 'top-right',
-          autoClose: 3000, 
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
-        router.push("/");
+      const res = await response.json();
+
+      if (res.status === "Failure") {
+        toast.error("Failure", res.message);
+        console.log("second");
       }
+      console.log("Register success");
+      router.push("/login");
     } catch (error: any) {
-      if (error instanceof Yup.ValidationError) {
-        const validationErrors: string[] = [];
-        error.inner.forEach((e) => {
-          validationErrors.push(e.message);
-        });
-        setErrorMessage(validationErrors.join(", "));
-        toast.error(validationErrors.join(", "), { 
-          position: 'top-right',
-          autoClose: 3000, 
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
-      } else {
-        setErrorMessage(error.message);
-        toast.error('An Error occurred while registering a new Customer', {
-          position: 'top-right',
-          autoClose: 3000, 
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
-      }
+      console.log("Signup failed", error.message);
+
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+      console.log("Third");
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
+ 
+  
   return (
-    <>
+    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+      <h1>{loading ? "Processing" : "Register"}</h1>
+      <hr />
       <form
-        onSubmit={handleSubmit}
-        method="post"
-        className="flex flex-col gap-3 w-1/2"
+        onSubmit={handleSubmit(onRegister)}
+        className="w-full text-sm max-w-[500px] shadow border-2 p-4 flex flex-col space-y-3.5"
       >
-        <h1>Register New Customer</h1>
-        <label>Full Name</label>
-        <input
-          id="name"
-          name="name"
-          type="text"
-          onChange={handleChange}
-          required={true}
-          value={formData.name}
-          className="m-2 bg-slate-400 rounded"
-        />
-        <label>Email</label>
-        <input
-          id="email"
-          name="email"
-          type="text"
-          onChange={handleChange}
-          required={true}
-          value={formData.email}
-          className="m-2 bg-slate-400 rounded"
-        />
-        <label>Enter Phone Number</label>
-        <input
-          id="phone"
-          name="phone"
-          type="text"
-          onChange={handleChange}
-          required={true}
-          value={formData.phone}
-          className="m-2 bg-slate-400 rounded"
-        />
-        <label>Enter ZipCode</label>
-        <input
-          id="zipCode"
-          name="zipCode"
-          type="text"
-          onChange={handleChange}
-          required={true}
-          value={formData.zipCode}
-          className="m-2 bg-slate-400 rounded"
-        />
-        <label>Password</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          onChange={handleChange}
-          required={true}
-          value={formData.password}
-          className="m-2 bg-slate-400 rounded"
-        />
-        <input
-          type="submit"
-          value="Create User"
-          className="bg-blue-300 hover:bg-blue-100"
-        />
-      </form>
-      <p className="text-red-500">{errorMessage}</p>
-    </>
-  );
-};
+ <div className={`flex flex-col gap-2 ${errors.name && 'error'}`}>
+ <label htmlFor="name" className={`text-sm ${errors.name ? 'text-red-500' : ''}`}>
+    Name*
+  </label>
 
-export default UserForm;
+  <input
+    {...register("name")}
+    id="name"
+    type="text"
+    placeholder="Enter your Full Name"
+    value={user.name}
+    onChange={(e) => setUser({ ...user, name: e.target.value })}
+    className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${errors.name && 'border-red-500 border-2'}`}
+  />
+  {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+</div>
+
+
+        <div className={`flex flex-col gap-2 ${errors.email && 'error'}`}>
+          <label htmlFor="email" className={`text-sm ${errors.email ? 'text-red-500' : ''}`}>
+            Email*
+          </label>
+          <input
+            {...register("email")}
+            type="email"
+            id="email"
+            placeholder="Enter your Valid Email ID  "
+            value={user.email}
+            onChange={(e) => setUser({ ...user, email: e.target.value })}
+            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${errors.name && 'border-red-500 border-2'}`}
+          />
+          {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+        </div>
+        <div className={`flex flex-col gap-2 ${errors.phone && 'error'}`}>
+          <label htmlFor="phone" className={`text-sm ${errors.phone ? 'text-red-500' : ''}`}>
+            Phone*
+          </label>
+          <input
+            {...register("phone")}
+            type="phone"
+            id="phone"
+            placeholder="Enter your Phone Number"
+            value={user.phone}
+            onChange={(e) => setUser({ ...user, phone: e.target.value })}
+            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${errors.phone && 'border-red-500 border-2'}`}
+          />
+          {errors.phone && <p className="text-red-500">{errors.phone.message} </p>}
+        </div>
+        <div className={`flex flex-col gap-2 ${errors.zipCode && 'error'}`}>
+          <label htmlFor="zipCode" className={`text-sm ${errors.zipCode ? 'text-red-500' : ''}`}>
+            Zip Code*
+          </label>
+          <input
+            {...register("zipCode")}
+            type="text"
+            id="zipCode"
+            value={user.zipCode}
+            placeholder="Enter your Current ZipCode"
+            onChange={(e) => setUser({ ...user, zipCode: e.target.value })}
+            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${errors.zipCode && 'border-red-500 border-2'}`}
+          />
+          {errors.zipCode && <p className="text-red-500">{errors.zipCode.message} </p>}
+        </div>
+        <div className={`relative ${errors.password ? 'text-red-500' : ''}`}>
+          <label htmlFor="password" className={`block mb-2 ${errors.name && 'error'}`}>
+            Password*
+          </label>
+          <div className="relative">
+            <input
+              {...register("password")}
+              type={showPassword ? "text" : "password"}
+              id="password"
+              value={user.password}
+              placeholder="Password with 1 capital letter & 1 special case letter"
+              onChange={(e) => setUser({ ...user, password: e.target.value })}
+              className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${errors.password && 'border-red-500 border-2'}`}
+            />
+            {errors.password && <p className="text-red-500">{errors.password.message}</p>}
+
+            <div className="absolute right-2 top-2">
+              <CustomEyeIcon
+                onClick={() => setShowPassword(!showPassword)}
+                visible={showPassword}
+                className="absolute top-0 right-0 mt-8 mr-4 cursor-pointer text-gray-500 hover:text-gray-700"
+              />
+            </div>
+          </div>
+        </div>
+        <div className={`relative ${errors.confirmPassword ? 'text-red-500' : ''}`}>
+          <label htmlFor="confirmPassword" className={`block mb-2 ${errors.name && 'error'}`}>
+            Confirm Password*
+          </label>
+          <input
+            {...register("confirmPassword")}
+            type="password"
+            id="confirmPassword"
+            value={user.confirmPassword}
+            onChange={(e) =>
+              setUser({ ...user, confirmPassword: e.target.value })
+            }
+            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${errors.confirmPassword && 'border-red-500 border-2'}`}
+          />
+          {errors.confirmPassword && <p className="text-red-500">{errors.confirmPassword.message}</p>}
+        </div>
+        <button
+          type="submit"
+          className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          disabled={ loading}
+        >
+          {loading ? "Loading..." : "Register"}
+        </button>
+      </form>
+      <p className="mt-4">
+        Already have an account?{" "}
+        <Link href="/login" className="text-blue-500">
+          Log in here
+        </Link>
+      </p>
+    </div>
+  );
+}
+
+function setError(arg0: string, arg1: string) {
+  throw new Error("Function not implemented.");
+}
