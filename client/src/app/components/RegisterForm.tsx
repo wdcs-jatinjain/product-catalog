@@ -43,11 +43,13 @@ export default function RegisterPage() {
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password")], "Passwords must match.")
       .required("Please confirm your password"),
-    phone: Yup.string()
-    .matches(/^\d{10}$/, "Phone number should be exactly 10 digits.")
-    .required("Phone number is required."),
+      phone: Yup.string()
+      .matches(/^[0-9]+$/, "Phone number should only contain numeric characters.")
+      .length(10, 'Phone number should be exactly 10 digits.')
+      .required("Phone number is required."),
     zipCode: Yup.string()
-    .matches(/^\d{6}$/, "Zip code should be exactly 6 digits.")
+    .matches(/^[0-9]+$/, "Zip code should only contain numeric characters")
+    .length(6, 'Zip code should be exactly 6 digits.')
     .required("Zip code is required."),
   });
 
