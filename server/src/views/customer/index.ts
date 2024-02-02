@@ -1,7 +1,7 @@
-import createUser from "./createUser";
+import createCustomer from "./createCustomer";
 
 const CustomerViews = Object.freeze({
-  createCustomerViews: createUser,
+  createCustomerViews: createCustomer,
 })
 
 export default CustomerViews;
