@@ -1,15 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { toast } from "react-hot-toast";
 import * as Yup from "yup";
 import CustomEyeIcon from "./icons/CustomEyeIcon";
 import "@fortawesome/fontawesome-free/css/all.css";
 
 import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -21,17 +21,16 @@ export default function RegisterPage() {
     zipCode: "",
     name: "",
   });
-  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState<boolean>();
 
   const validationSchema = Yup.object().shape({
     name: Yup.string()
-    .min(4, "Name should be at least 4 characters long.")
-    .matches(/^[a-zA-Z\s]*$/, "Numbers are not allowed in the name.")
-    .required("Name is required."),
+      .min(4, "Name should be at least 4 characters long.")
+      .matches(/^[a-zA-Z\s]*$/, "Numbers are not allowed in the name.")
+      .required("Name is required."),
     email: Yup.string().email("Invalid email")
-    .matches(/\.com$/, "Email should end with '.com'.")
-    .required("Email is required."),
+      .matches(/\.com$/, "Email should end with '.com'.")
+      .required("Email is required."),
     password: Yup.string()
       .trim()
       .required("Please enter password.")
@@ -43,83 +42,68 @@ export default function RegisterPage() {
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password")], "Passwords must match.")
       .required("Please confirm your password"),
-      phone: Yup.string()
+    phone: Yup.string()
       .matches(/^[0-9]+$/, "Phone number should only contain numeric characters.")
       .length(10, 'Phone number should be exactly 10 digits.')
       .required("Phone number is required."),
     zipCode: Yup.string()
-    .matches(/^[0-9]+$/, "Zip code should only contain numeric characters")
-    .length(6, 'Zip code should be exactly 6 digits.')
-    .required("Zip code is required."),
+      .matches(/^[0-9]+$/, "Zip code should only contain numeric characters")
+      .length(6, 'Zip code should be exactly 6 digits.')
+      .required("Zip code is required."),
   });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(validationSchema),
   });
 
 
 
   const onRegister = async () => {
-    console.log("first");
-    try {
-      setLoading(true);
-      await validationSchema.validate(user, { abortEarly: false });
+    await validationSchema.validate(user, { abortEarly: false });
 
-      const response = await fetch("/api/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
-      const res = await response.json();
-
-      if (res.status === "Failure") {
-        toast.error("Failure", res.message);
-        console.log("second");
-      }
-      console.log("Register success");
+    const response = await fetch("/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+    const res = await response.json();
+    if (res.status === "Failure") {
+      toast.error(res.message);
+    }
+    if (res.status === 'Success') {
+      toast.success(res.message)
       router.push("/login");
-    } catch (error: any) {
-      console.log("Signup failed", error.message);
-
-      toast.error(error.message);
-    } finally {
-      setLoading(false);
-      console.log("Third");
     }
   };
 
- 
-  
+
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <h1>{loading ? "Processing" : "Register"}</h1>
+      <h1>Register </h1>
       <hr />
       <form
         onSubmit={handleSubmit(onRegister)}
         className="w-full text-sm max-w-[500px] shadow border-2 p-4 flex flex-col space-y-3.5"
       >
- <div className={`flex flex-col gap-2 ${errors.name && 'error'}`}>
- <label htmlFor="name" className={`text-sm ${errors.name ? 'text-red-500' : ''}`}>
-    Name*
-  </label>
+        <div className={`flex flex-col gap-2 ${errors.name && 'error'}`}>
+          <label htmlFor="name" className={`text-sm ${errors.name ? 'text-red-500' : ''}`}>
+            Name*
+          </label>
 
-  <input
-    {...register("name")}
-    id="name"
-    type="text"
-    placeholder="Enter your Full Name"
-    value={user.name}
-    onChange={(e) => setUser({ ...user, name: e.target.value })}
-    className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${errors.name && 'border-red-500 border-2'}`}
-  />
-  {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-</div>
+          <input
+            {...register("name")}
+            id="name"
+            type="text"
+            placeholder="Enter your Full Name"
+            value={user.name}
+            onChange={(e) => setUser({ ...user, name: e.target.value })}
+            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${errors.name && 'border-red-500 border-2'}`}
+          />
+          {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+        </div>
 
 
         <div className={`flex flex-col gap-2 ${errors.email && 'error'}`}>
@@ -211,9 +195,8 @@ export default function RegisterPage() {
         <button
           type="submit"
           className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-          disabled={ loading}
         >
-          {loading ? "Loading..." : "Register"}
+          Register
         </button>
       </form>
       <p className="mt-4">
@@ -224,8 +207,4 @@ export default function RegisterPage() {
       </p>
     </div>
   );
-}
-
-function setError(arg0: string, arg1: string) {
-  throw new Error("Function not implemented.");
 }
