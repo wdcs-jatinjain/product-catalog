@@ -7,4 +7,3 @@ export interface RegisterFormInput {
     address: string,
     country: string, zipcode: string
   }
-  
