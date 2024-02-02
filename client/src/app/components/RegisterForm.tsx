@@ -25,8 +25,13 @@ export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState<boolean>();
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Name is required."),
-    email: Yup.string().email("Invalid email").required("Email is required."),
+    name: Yup.string()
+    .min(4, "Name should be at least 4 characters long.")
+    .matches(/^[a-zA-Z\s]*$/, "Numbers are not allowed in the name.")
+    .required("Name is required."),
+    email: Yup.string().email("Invalid email")
+    .matches(/\.com$/, "Email should end with '.com'.")
+    .required("Email is required."),
     password: Yup.string()
       .trim()
       .required("Please enter password.")
@@ -38,8 +43,12 @@ export default function RegisterPage() {
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password")], "Passwords must match.")
       .required("Please confirm your password"),
-    phone: Yup.string().required("Phone number is required."),
-    zipCode: Yup.string().required("Zip code is required."),
+    phone: Yup.string()
+    .matches(/^\d{10}$/, "Phone number should be exactly 10 digits.")
+    .required("Phone number is required."),
+    zipCode: Yup.string()
+    .matches(/^\d{6}$/, "Zip code should be exactly 6 digits.")
+    .required("Zip code is required."),
   });
 
   const {
