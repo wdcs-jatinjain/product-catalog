@@ -10,9 +10,7 @@ const checkAdminLogin = async (
 ) => {
   try {
     await checkAdminValidator.validateAsync(req.body, { abortEarly: false });
-
     const { email, password } = req.body;
-
     const isLoggedUser = Views.UserViews.checkAdminLoginViews(email, password, res)
    return isLoggedUser;
   } catch (error) {

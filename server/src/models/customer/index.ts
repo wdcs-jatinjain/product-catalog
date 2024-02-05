@@ -9,7 +9,6 @@ const CustomerSchema = new mongoose.Schema({
   address:{type:String},
   country:{type:String},
   zipCode:{type:String, required: true}
-
   }, { timestamps: true });
 
 const Customer = mongoose.models.Customer || mongoose.model('customers', CustomerSchema);
