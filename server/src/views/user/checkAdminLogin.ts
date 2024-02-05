@@ -12,4 +12,5 @@ export default async function checkAdminLogin(email: string, password: string, r
     } else {
       return res.status(404).json({ status: "Failure", message: "User not found" });
     }
+    
 }
