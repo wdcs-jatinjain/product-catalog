@@ -5,5 +5,6 @@ export interface RegisterFormInput {
     phone: string,
     city: string,
     address: string,
-    country: string, zipcode: string
+    country: string,
+    zipcode: string
   }

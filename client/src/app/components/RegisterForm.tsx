@@ -51,7 +51,7 @@ export default function RegisterPage() {
       .length(6, 'Zip code should be exactly 6 digits.')
       .required("Zip code is required."),
   });
-
+  
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(validationSchema),
   });
