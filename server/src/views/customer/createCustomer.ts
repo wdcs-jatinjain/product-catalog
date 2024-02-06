@@ -1,13 +1,13 @@
-import CustomerModel from "../../models/customer";
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken'
 import Customer from "../../models/customer";
+import {SECRET_KEY} from '../../config'
 
-export default async function createCustomer(req: any, res: any) {
+export default async function createCustomer(req: any, res:any) {
   try {
     const { name, email, password, phone, zipCode } = req.body;
 
-    const existingCustomer = await CustomerModel.findOne({ email });
+    const existingCustomer = await Customer.findOne({ email });
     if (existingCustomer) {
       return {
         status: "failure",
@@ -15,7 +15,7 @@ export default async function createCustomer(req: any, res: any) {
       };
     }
     const hashedPassword = await bcrypt.hash(password, 12);
-    const newCustomer = await CustomerModel.create({
+    const newCustomer = await Customer.create({
       name,
       email,
       password: hashedPassword,
@@ -25,8 +25,7 @@ export default async function createCustomer(req: any, res: any) {
 
     await newCustomer.save();
     const saved_customer = await Customer.findOne({ email: email });
-    const SECRET: any = process.env.JWT_SECRET_KEY;
-    const token = jwt.sign({ customerID: saved_customer._id }, SECRET, {
+    const token = jwt.sign({ customerID: saved_customer._id }, SECRET_KEY as string, {
       expiresIn: "2d",
     });
     return({
