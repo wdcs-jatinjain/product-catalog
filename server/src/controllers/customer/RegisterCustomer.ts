@@ -9,18 +9,18 @@ export default async function RegisterCustomer(req: any, res: any) {
     
   } catch (error:any) {
     if (error.name === "ValidationError") {
-      return res.status(400).json({
-        status: "Failure",
+      return {
+        status: "failure",
         message: "Validation error occurred while registering the user.",
         error: error.details.map((err: any) => err.message),
-      });
+      };
     } else {
       console.error("An error occurred while registering the user:", error);
-      return res.status(500).json({
-        status: "Failure",
+      return {
+        status: "failure",
         message: "An error occurred while registering the user.",
         error: error.message || "Unknown error",
-      });
+      }
     }
   }
 }

@@ -9,10 +9,10 @@ export default async function createCustomer(req: any, res: any) {
 
     const existingCustomer = await CustomerModel.findOne({ email });
     if (existingCustomer) {
-      return res.status(400).send({
+      return {
         status: "failure",
         message: "User already exists. Please login.",
-      });
+      };
     }
     const hashedPassword = await bcrypt.hash(password, 12);
     const newCustomer = await CustomerModel.create({
@@ -29,7 +29,7 @@ export default async function createCustomer(req: any, res: any) {
     const token = jwt.sign({ customerID: saved_customer._id }, SECRET, {
       expiresIn: "2d",
     });
-    res.status(201).send({
+    return({
       status: "success",
       message: "Registration Success",
       token: token,
@@ -37,8 +37,6 @@ export default async function createCustomer(req: any, res: any) {
         id: newCustomer._id,
       },
     });
-
-
   } catch (error: any) {
     console.error("An error occurred while registering the user:", error);
 throw new error;

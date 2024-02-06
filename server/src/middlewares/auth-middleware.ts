@@ -12,7 +12,6 @@ const checkCustomerAuth = async (req: any, res: any, next:any) => {
             const decodedToken: any = jwt.verify(token, SECRET);
             const { customerID } = decodedToken;
             req.customer = await Customer.findById(customerID).select('-password');
-
             console.log('first')
             next()
         } catch (error) {
@@ -23,7 +22,6 @@ const checkCustomerAuth = async (req: any, res: any, next:any) => {
     if (!token) {
         console.log('second')
         return res.status(401).send({ status: "failed", message: "Unauthorized User, No Token" });
-
     }
 }
 export default checkCustomerAuth;
