@@ -1,7 +1,8 @@
 import bcrypt from "bcryptjs";
 import Customer from "../../models/customer";
+import { registerBody } from "../../controllers/customer/commanParams/registerBody";
 
-export default async function createCustomer({name, email, password}:{name:string, email:string, password:string}) {
+export default async function createCustomer({name, email, password,phone,zipCode}:registerBody) {
   try {
     const existingCustomer = await Customer.findOne({ email });
     if (existingCustomer) {
@@ -14,8 +15,8 @@ export default async function createCustomer({name, email, password}:{name:strin
     const newCustomer = await Customer.create({
       name,
       email,
-      password: hashedPassword,
-      
+      password: hashedPassword,phone,zipCode
+
     });
     await newCustomer.save();
        return {

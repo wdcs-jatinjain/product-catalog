@@ -1,7 +1,8 @@
 import Views from "../../views";
 import { validateCustomerLogin } from "./CustomerValidations";
+import { loginBody } from "./commanParams/loginBody";
 
-export default async function LoginCustomer({ body: { email, password } }: { body: { email: string, password: string } }, res: any) 
+export default async function LoginCustomer({ body: { email, password } }: { body:  loginBody  },res:any) 
 {
   try {
     await validateCustomerLogin.validateAsync({email,password}, { abortEarly: false });
