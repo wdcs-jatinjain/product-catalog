@@ -6,5 +6,4 @@ const CustomerController = express.Router();
 
 CustomerController.post("/register", RegisterCustomer);
 CustomerController.post("/login", LoginCustomer);
-
 export default CustomerController;

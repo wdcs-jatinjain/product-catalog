@@ -1,12 +1,11 @@
-import Views from "../../views";
+import Views from "../../views"; 
 import { validateCustomerRegistration } from "./CustomerValidations";
+import { registerBody } from "../../types";
 
-export default async function RegisterCustomer(req: any, res: any) {
+export default async function RegisterCustomer({ body: { email, name, password ,phone,zipCode} }: {body:registerBody}, res: any) {
   try {
-    await validateCustomerRegistration.validateAsync(req.body, {
-      abortEarly: false,
-    });
-    const createdUser = await Views.CustomerViews.createCustomerViews(req, res);
+    await validateCustomerRegistration.validateAsync({ name, email, password,phone,zipCode }, {abortEarly: false});
+    const createdUser = await Views.CustomerViews.createCustomerViews({name, email, password,phone,zipCode});
     return res.status(200).json(createdUser);
   } catch (error: any) {
     if (error.name === "ValidationError") {

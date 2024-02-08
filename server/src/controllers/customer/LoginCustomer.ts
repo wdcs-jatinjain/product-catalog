@@ -1,15 +1,14 @@
 import Views from "../../views";
 import { validateCustomerLogin } from "./CustomerValidations";
+import { loginBody } from "../../types";
 
-export default async function LoginCustomer(req: any, res: any) {
+export default async function LoginCustomer({ body: { email, password } }: { body:  loginBody  },res:any) 
+{
   try {
-    await validateCustomerLogin.validateAsync(req.body, { abortEarly: false });
-    const logedinCustomer = await Views.CustomerViews.loginCustomerViews(
-      req,
-      res,
-      null
-    );
-    return res.status(200).json(logedinCustomer);
+    await validateCustomerLogin.validateAsync({email,password}, { abortEarly: false });
+    const loggedInCustomer = await Views.CustomerViews.loginCustomerViews(
+      {email,password});
+    return res.status(200).json(loggedInCustomer);
   } catch (error: any) {
     if (error.name === "ValidationError") {
       return {

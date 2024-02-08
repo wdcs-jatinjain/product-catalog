@@ -1,24 +1,28 @@
-import { NextFunction, Request, Response } from "express";
-import { ValidationError } from "joi";
 import { checkAdminValidator } from "./user-type";
 import Views from "../../views";
 
-const checkAdminLogin = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export default async function checkAdminLogin(
+  { body: { email, password } }: { body: { email: string; password: string } },
+  res: any) {
   try {
-    await checkAdminValidator.validateAsync(req.body, { abortEarly: false });
-    const { email, password } = req.body;
-    const isLoggedUser = Views.UserViews.checkAdminLoginViews(email, password, res)
-   return isLoggedUser;
-  } catch (error) {
-    if (error instanceof ValidationError) {
-      return res.status(400).json({ status: "Failure", message: error.message });
+    await checkAdminValidator.validateAsync({ email, password },{ abortEarly: false });
+    const isLoggedUser = await Views.UserViews.checkAdminLoginViews({ email, password });
+    return res.status(200).json(isLoggedUser);
+  } catch (error: any) {
+    if (error.name === "ValidationError") {
+      return {
+        status: "Failure",
+        message: "Validation error occurred while Logging the Admin.",
+        error: error.details.map((err: any) => err.message),
     }
-    console.error("Error in checkAdminLogin:", error);
-    return res.status(500).json({status: "Failure", message: "Internal Server Error" });
+  } else {
+    console.error("An error occurred while Logging the Admin:", error);
+    return {
+      status: "Failure",
+      message: "An error occurred while Logging in the Admin.",
+      error: error.message || "Unknown error",
+    };
   }
-};
-export default checkAdminLogin;
+}
+}
+

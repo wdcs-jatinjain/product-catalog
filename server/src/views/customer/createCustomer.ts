@@ -1,12 +1,8 @@
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import Customer from "../../models/customer";
-import { SECRET_KEY } from "../../config";
-
-export default async function createCustomer(req: any, res: any) {
+import { registerBody } from '../../types'
+export default async function createCustomer({name, email, password,phone,zipCode}:registerBody) {
   try {
-    const { name, email, password, phone, zipCode } = req.body;
-
     const existingCustomer = await Customer.findOne({ email });
     if (existingCustomer) {
       return {
@@ -18,23 +14,13 @@ export default async function createCustomer(req: any, res: any) {
     const newCustomer = await Customer.create({
       name,
       email,
-      password: hashedPassword,
-      phone,
-      zipCode,
+      password: hashedPassword,phone,zipCode
+
     });
     await newCustomer.save();
-    const saved_customer = await Customer.findOne({ email: email });
-    const token = jwt.sign(
-      { customerID: saved_customer._id },
-      SECRET_KEY as string,
-      {
-        expiresIn: "2d",
-      }
-    );
-    return {
+       return {
       status: "success",
       message: "Registration Success",
-      token: token,
       data: {
         id: newCustomer._id,
       },

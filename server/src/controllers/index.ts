@@ -5,7 +5,6 @@ import  CustomerController  from "./customer/index";
 const router = express.Router();
 
 router.post("/admin/login", UserController.checkAdminLogin);
-
 router.use("/customer", CustomerController)
 
 export default router;
