@@ -1,7 +1,6 @@
 import bcrypt from "bcryptjs";
 import Customer from "../../models/customer";
-import { registerBody } from "../../controllers/customer/commanParams/registerBody";
-
+import { registerBody } from '../../types'
 export default async function createCustomer({name, email, password,phone,zipCode}:registerBody) {
   try {
     const existingCustomer = await Customer.findOne({ email });

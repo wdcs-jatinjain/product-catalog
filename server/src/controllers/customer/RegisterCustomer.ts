@@ -1,6 +1,6 @@
 import Views from "../../views"; 
 import { validateCustomerRegistration } from "./CustomerValidations";
-import { registerBody } from "./commanParams/registerBody";
+import { registerBody } from "../../types";
 
 export default async function RegisterCustomer({ body: { email, name, password ,phone,zipCode} }: {body:registerBody}, res: any) {
   try {

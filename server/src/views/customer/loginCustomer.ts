@@ -2,7 +2,7 @@ import Customer from "../../models/customer";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { SECRET_KEY } from "../../config";
-import { loginBody } from "../../controllers/customer/commanParams/loginBody";
+import { loginBody } from "../../types";
 
 const loginCustomer = async (
   { email, password }: loginBody,
