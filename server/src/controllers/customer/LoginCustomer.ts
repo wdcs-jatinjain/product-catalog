@@ -6,9 +6,9 @@ export default async function LoginCustomer({ body: { email, password } }: { bod
 {
   try {
     await validateCustomerLogin.validateAsync({email,password}, { abortEarly: false });
-    const logedinCustomer = await Views.CustomerViews.loginCustomerViews(
-      {email,password},res);
-    return res.status(200).json(logedinCustomer);
+    const loggedInCustomer = await Views.CustomerViews.loginCustomerViews(
+      {email,password});
+    return res.status(200).json(loggedInCustomer);
   } catch (error: any) {
     if (error.name === "ValidationError") {
       return {

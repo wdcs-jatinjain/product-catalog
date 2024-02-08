@@ -5,8 +5,7 @@ import { SECRET_KEY } from "../../config";
 import { loginBody } from "../../types";
 
 const loginCustomer = async (
-  { email, password }: loginBody,
-  _next: any
+  { email, password }: loginBody
 ) => {
   try {
     const existingCustomer = await Customer.findOne({ email });
