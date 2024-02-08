@@ -5,5 +5,4 @@ const Views = Object.freeze({
     UserViews: UserViews,
     CustomerViews: CustomerViews
 })
-
 export default Views;
