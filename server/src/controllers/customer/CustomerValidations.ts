@@ -11,14 +11,7 @@ export const validateCustomerRegistration = Joi.object().keys({
   password: Joi.string()
     .required()
     .messages({ "any.requires": "Please provide Correct Password format" }),
-  phone: Joi.string()
-    .required()
-    .messages({ "any.requires": "Please provide valid phone number format" }),
-  zipCode: Joi.string()
-    .required()
-    .messages({ "any.requires": "Please provide valid ZipCode" }),
 });
-
 export const validateCustomerLogin = Joi.object().keys({
   email: Joi.string()
     .email()

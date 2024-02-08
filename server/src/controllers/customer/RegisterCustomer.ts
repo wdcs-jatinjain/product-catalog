@@ -1,12 +1,10 @@
 import Views from "../../views";
 import { validateCustomerRegistration } from "./CustomerValidations";
 
-export default async function RegisterCustomer(req: any, res: any) {
+export default async function RegisterCustomer({ body: { email, name, password } }: { body: { email: string, name: string, password: string } }, res: any) {
   try {
-    await validateCustomerRegistration.validateAsync(req.body, {
-      abortEarly: false,
-    });
-    const createdUser = await Views.CustomerViews.createCustomerViews(req, res);
+    await validateCustomerRegistration.validateAsync({ name, email, password }, {abortEarly: false});
+    const createdUser = await Views.CustomerViews.createCustomerViews({name, email, password});
     return res.status(200).json(createdUser);
   } catch (error: any) {
     if (error.name === "ValidationError") {

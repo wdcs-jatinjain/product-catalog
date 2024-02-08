@@ -1,14 +1,12 @@
 import Views from "../../views";
 import { validateCustomerLogin } from "./CustomerValidations";
 
-export default async function LoginCustomer(req: any, res: any) {
+export default async function LoginCustomer({ body: { email, password } }: { body: { email: string, password: string } }, res: any) 
+{
   try {
-    await validateCustomerLogin.validateAsync(req.body, { abortEarly: false });
+    await validateCustomerLogin.validateAsync({email,password}, { abortEarly: false });
     const logedinCustomer = await Views.CustomerViews.loginCustomerViews(
-      req,
-      res,
-      null
-    );
+      {email,password},res);
     return res.status(200).json(logedinCustomer);
   } catch (error: any) {
     if (error.name === "ValidationError") {
