@@ -1,13 +1,14 @@
 import bcrypt from "bcryptjs";
 import Customer from "../../models/customer";
 import { registerBody } from '../../types'
+import { RESULT_STATUS } from "../../constant";
 
 export default async function createCustomer({name, email, password,phone,zipCode}:registerBody) {
   try {
     const existingCustomer = await Customer.findOne({ email });
     if (existingCustomer) {
       return {
-        status: "Failure",
+        status: RESULT_STATUS.FAILURE,
         message: "User already exists. Please login.",
       };
     }
@@ -20,7 +21,7 @@ export default async function createCustomer({name, email, password,phone,zipCod
     });
     await newCustomer.save();
        return {
-      status: "Success",
+      status: RESULT_STATUS.SUCCESS,
       message: "Registration Success",
       data: {
         id: newCustomer._id,

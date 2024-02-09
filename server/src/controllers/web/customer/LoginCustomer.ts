@@ -1,6 +1,6 @@
-import Views from "../../views";
+import Views from "../../../views";
 import { validateCustomerLogin } from "./CustomerValidations";
-import { loginBody } from "../../types";
+import { loginBody } from "../../../types";
 
 export default async function LoginCustomer({ body: { email, password } }: { body:  loginBody  },res:any) 
 {

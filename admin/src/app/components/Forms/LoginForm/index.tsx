@@ -1,14 +1,12 @@
 "use client";
-import Link from "next/link";
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import * as Yup from "yup";
-import CustomEyeIcon from "./icons/CustomEyeIcon";
+import CustomEyeIcon from "../../Icons/CustomEyeIcon";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
-import "@fortawesome/fontawesome-free/css/all.css";
-import { useForm } from "react-hook-form";
 
+import { useForm } from "react-hook-form";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -23,14 +21,7 @@ export default function LoginPage() {
       .email("Invalid email")
       .matches(/\.com$/, "Email should end with '.com'.")
       .required("Email is required."),
-    password: Yup.string()
-      .trim()
-      .required("Please enter password.")
-      .matches(/^\S*$/, "Whitespace is not allowed.")
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character."
-      ),
+    password: Yup.string().trim().required("Please enter password."),
   });
 
   const {
@@ -41,27 +32,25 @@ export default function LoginPage() {
     resolver: yupResolver(validationSchema),
   });
 
-  const onLogin = async (userData: any) => {
+  const onLogin = async (adminData: any) => {
     try {
-      await validationSchema.validate(userData, { abortEarly: false });
-  
+      await validationSchema.validate(adminData, { abortEarly: false });
+
       const response = await fetch("/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(userData),
+        body: JSON.stringify(adminData),
       });
-  
+
       const res = await response.json();
       if (res.status === "Failure") {
         toast.error(res.message);
-        console.log('Customer2', res)
-  
       } else if (res.status === "Success") {
         toast.success(res.message);
-        console.log('Customer1', res)
-        router.push("/home");
+        console.log("Customer1", res);
+        router.push("/adminDashboard");
       }
     } catch (error: any) {
       console.error("Login failed:", error.message);
@@ -136,8 +125,6 @@ export default function LoginPage() {
           Login here
         </button>
       </form>
-
-      <Link href="/register">Visit Register page</Link>
     </div>
   );
 }

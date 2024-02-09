@@ -1,10 +1,10 @@
-import bcryptjs from "bcryptjs";
+import bcrypt from 'bcrypt';
 
 export const hashPassword = async (password: any) => {
   try {
-    const salt = await bcryptjs.genSalt(12);
+    const salt = await bcrypt.genSalt(12);
 
-    const hash = await bcryptjs.hash(password, salt);
+    const hash = await bcrypt.hash(password, salt);
 
     return hash;
   } catch (err) {
@@ -14,7 +14,7 @@ export const hashPassword = async (password: any) => {
 
 export const comparePassword = async (password: any, hashed: any) => {
   try {
-    const match = await bcryptjs.compare(password, hashed);
+    const match = await bcrypt.compare(password, hashed);
 
     return match;
   } catch (err) {

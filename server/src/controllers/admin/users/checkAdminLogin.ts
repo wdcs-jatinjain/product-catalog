@@ -1,5 +1,5 @@
 import { checkAdminValidator } from "./user-type";
-import Views from "../../views";
+import Views from "../../../views";
 
 export default async function checkAdminLogin(
   { body: { email, password } }: { body: { email: string; password: string } },

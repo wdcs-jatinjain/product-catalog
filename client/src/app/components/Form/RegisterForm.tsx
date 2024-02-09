@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
-import CustomEyeIcon from "./icons/CustomEyeIcon";
+import CustomEyeIcon from "../Icons/CustomEyeIcon";
 import "@fortawesome/fontawesome-free/css/all.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
