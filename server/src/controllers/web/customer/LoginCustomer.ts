@@ -2,8 +2,9 @@ import Views from "../../../views";
 import { validateCustomerLogin } from "./CustomerValidations";
 import { loginBody } from "../../../types";
 import { RESULT_STATUS } from "../../../constant";
+import { Response } from "express";
 
-export default async function LoginCustomer({ body: { email, password } }: { body:  loginBody  },res:any) 
+export default async function LoginCustomer({ body: { email, password } }: { body:  loginBody  },res:Response) 
 {
   try {
     await validateCustomerLogin.validateAsync({email,password}, { abortEarly: false });

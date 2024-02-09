@@ -1,10 +1,11 @@
 import { checkAdminValidator } from "./user-type";
 import Views from "../../../views";
 import { RESULT_STATUS } from '../../../constant'
+import { Response } from "express";
 
 export default async function checkAdminLogin(
   { body: { email, password } }: { body: { email: string; password: string } },
-  res: any) {
+  res:Response ) {
   try {
     await checkAdminValidator.validateAsync({ email, password },{ abortEarly: false });
     const isLoggedUser = await Views.UserViews.checkAdminLoginViews({ email, password });

@@ -1,3 +1,4 @@
+import { AdminLoginDataType } from "@/types";
 import { API_URL } from "../../../../config";
 import { NextResponse } from "next/server";
 
@@ -11,7 +12,7 @@ export async function POST(req: Request) {
       },
       body: JSON.stringify({ email, password }),
     });
-    const data = await res.json();
+    const data:AdminLoginDataType = await res.json();
     return NextResponse.json(data);
   } catch (error) {
     console.info("Something Went Wrong", error);

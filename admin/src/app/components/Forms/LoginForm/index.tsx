@@ -1,39 +1,35 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import * as Yup from "yup";
 import CustomEyeIcon from "../../Icons/CustomEyeIcon";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { RESULT_STATUS } from "../../../../constant";
 import { useForm } from "react-hook-form";
+import AdminLoginValidationSchema from "./loginValidation";
+import { AdminLoginType } from "../../../../types";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [admin, setAdmin] = useState({
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const validationSchema = Yup.object().shape({
-    email: Yup.string()
-      .email("Invalid email")
-      .matches(/\.com$/, "Email should end with '.com'.")
-      .required("Email is required."),
-    password: Yup.string().trim().required("Please enter password."),
-  });
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(AdminLoginValidationSchema),
   });
 
-  const onLogin = async (adminData: any) => {
+  const onLogin = async (adminData: AdminLoginType) => {
     try {
-      await validationSchema.validate(adminData, { abortEarly: false });
+      await AdminLoginValidationSchema.validate(adminData, {
+        abortEarly: false,
+      });
       const response = await fetch("/api/login", {
         method: "POST",
         headers: {
@@ -71,8 +67,10 @@ export default function LoginPage() {
             type="email"
             id="email"
             placeholder="Enter your Valid Email ID"
-            value={admin.email}
-            onChange={(e) => setAdmin({ ...admin, email: e.target.value })}
+            value={formData.email}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
             className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
               errors.email && "border-red-500 border-2"
             }`}
@@ -94,9 +92,11 @@ export default function LoginPage() {
               {...register("password")}
               type={showPassword ? "text" : "password"}
               id="password"
-              value={admin.password}
+              value={formData.password}
               placeholder="Password"
-              onChange={(e) => setAdmin({ ...admin, password: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
               className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
                 errors.password && "border-red-500 border-2"
               }`}

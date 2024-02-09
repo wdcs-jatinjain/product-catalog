@@ -2,8 +2,9 @@ import Views from "../../../views";
 import { validateCustomerRegistration } from "./CustomerValidations";
 import { registerBody } from "../../../types";
 import { RESULT_STATUS } from "../../../constant";
+import { Response } from "express";
 
-export default async function RegisterCustomer({ body: { email, name, password ,phone,zipCode} }: {body:registerBody}, res: any) {
+export default async function RegisterCustomer({ body: { email, name, password ,phone,zipCode} }: {body:registerBody}, res: Response) {
   try {
     await validateCustomerRegistration.validateAsync({ name, email, password,phone,zipCode }, {abortEarly: false});
     const createdUser = await Views.CustomerViews.createCustomerViews({name, email, password,phone,zipCode});

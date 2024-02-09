@@ -6,5 +6,9 @@ export const RESULT_STATUS = {
 export const RESULT_MESSAGES = {
     INVALID_PASSWORD: '',
     NOT_FOUND: '',
-    SOMETHING_WENT_WRONG: ''
+    SOMETHING_WENT_WRONG: '',
+    INTERNAL_SERVER_ERROR:'',
+    PAGE_NOT_FOUND:'',
+    
+
 }

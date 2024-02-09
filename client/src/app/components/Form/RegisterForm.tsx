@@ -4,16 +4,17 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import * as Yup from "yup";
 import CustomEyeIcon from "../Icons/CustomEyeIcon";
 import "@fortawesome/fontawesome-free/css/all.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { RESULT_STATUS } from "../../../constant";
+import RegistervalidationSchema from "./RegisterValidation";
+import { calculatePasswordStrength, checkPasswordStrength } from "../helpers/passwordStrengthChecker";
 
 export default function RegisterPage() {
   const router = useRouter();
-  const [user, setUser] = useState({
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
     confirmPassword: "",
@@ -21,58 +22,25 @@ export default function RegisterPage() {
     zipCode: "",
     name: "",
   });
-  const [showPassword, setShowPassword] = useState<boolean>();
-
-  const validationSchema = Yup.object().shape({
-    name: Yup.string()
-      .min(4, "Name should be at least 4 characters long.")
-      .matches(/^[a-zA-Z\s]*$/, "Numbers are not allowed in the name.")
-      .required("Name is required."),
-    email: Yup.string()
-      .email("Invalid email")
-      .matches(/\.com$/, "Email should end with '.com'.")
-      .required("Email is required."),
-    password: Yup.string()
-      .trim()
-      .required("Please enter password.")
-      .matches(/^\S*$/, "Whitespace is not allowed.")
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character."
-      ),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password")], "Passwords must match.")
-      .required("Please confirm your password"),
-    phone: Yup.string()
-      .matches(
-        /^[0-9]+$/,
-        "Phone number should only contain numeric characters."
-      )
-      .length(10, "Phone number should be exactly 10 digits.")
-      .required("Phone number is required."),
-    zipCode: Yup.string()
-      .matches(/^[0-9]+$/, "Zip code should only contain numeric characters")
-      .length(6, "Zip code should be exactly 6 digits.")
-      .required("Zip code is required."),
-  });
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(RegistervalidationSchema),
   });
 
   const onRegister = async () => {
-    await validationSchema.validate(user, { abortEarly: false });
+    await RegistervalidationSchema.validate(formData, { abortEarly: false });
 
     const response = await fetch("/api/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(user),
+      body: JSON.stringify(formData),
     });
     const res = await response.json();
     if (res.status === RESULT_STATUS.FAILURE) {
@@ -81,34 +49,6 @@ export default function RegisterPage() {
     if (res.status === RESULT_STATUS.SUCCESS) {
       toast.success(res.message);
       router.push("/login");
-    }
-  };
-
-  const checkPasswordStrength = (password: any) => {
-    if (
-      password.length >= 8 &&
-      /\d/.test(password) &&
-      /[a-zA-Z]/.test(password)
-    ) {
-      return "Strong";
-    } else if (password.length >= 8 && /[a-zA-Z]/.test(password)) {
-      return "Medium";
-    } else {
-      return "Weak";
-    }
-  };
-
-  const calculatePasswordStrength = (password: any) => {
-    const strength = checkPasswordStrength(password);
-    switch (strength) {
-      case "Strong":
-        return "text-green-500";
-      case "Medium":
-        return "text-yellow-500";
-      case "Weak":
-        return "text-red-500";
-      default:
-        return "";
     }
   };
 
@@ -133,11 +73,10 @@ export default function RegisterPage() {
             id="name"
             type="text"
             placeholder="Enter your Full Name"
-            value={user.name}
-            onChange={(e) => setUser({ ...user, name: e.target.value })}
-            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
-              errors.name && "border-red-500 border-2"
-            }`}
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${errors.name && "border-red-500 border-2"
+              }`}
           />
           {errors.name && <p className="text-red-500">{errors.name.message}</p>}
         </div>
@@ -154,11 +93,12 @@ export default function RegisterPage() {
             type="email"
             id="email"
             placeholder="Enter your Valid Email ID  "
-            value={user.email}
-            onChange={(e) => setUser({ ...user, email: e.target.value })}
-            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
-              errors.name && "border-red-500 border-2"
-            }`}
+            value={formData.email}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
+            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${errors.name && "border-red-500 border-2"
+              }`}
           />
           {errors.email && (
             <p className="text-red-500">{errors.email.message}</p>
@@ -176,11 +116,12 @@ export default function RegisterPage() {
             type="phone"
             id="phone"
             placeholder="Enter your Phone Number"
-            value={user.phone}
-            onChange={(e) => setUser({ ...user, phone: e.target.value })}
-            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
-              errors.phone && "border-red-500 border-2"
-            }`}
+            value={formData.phone}
+            onChange={(e) =>
+              setFormData({ ...formData, phone: e.target.value })
+            }
+            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${errors.phone && "border-red-500 border-2"
+              }`}
           />
           {errors.phone && (
             <p className="text-red-500">{errors.phone.message} </p>
@@ -197,12 +138,13 @@ export default function RegisterPage() {
             {...register("zipCode")}
             type="text"
             id="zipCode"
-            value={user.zipCode}
+            value={formData.zipCode}
             placeholder="Enter your Current ZipCode"
-            onChange={(e) => setUser({ ...user, zipCode: e.target.value })}
-            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
-              errors.zipCode && "border-red-500 border-2"
-            }`}
+            onChange={(e) =>
+              setFormData({ ...formData, zipCode: e.target.value })
+            }
+            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${errors.zipCode && "border-red-500 border-2"
+              }`}
           />
           {errors.zipCode && (
             <p className="text-red-500">{errors.zipCode.message} </p>
@@ -220,21 +162,22 @@ export default function RegisterPage() {
               {...register("password")}
               type={showPassword ? "text" : "password"}
               id="password"
-              value={user.password}
+              value={formData.password}
               placeholder="Password with 1 capital letter & 1 special case letter"
-              onChange={(e) => setUser({ ...user, password: e.target.value })}
-              className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
-                errors.password && "border-red-500 border-2"
-              }`}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
+              className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${errors.password && "border-red-500 border-2"
+                }`}
             />
             {errors.password && (
               <p className="text-red-500">{errors.password.message}</p>
             )}
-            {user.password && (
+            {formData.password && (
               <p className="text-gray-500 mt-1">
                 Strength:{" "}
-                <span className={calculatePasswordStrength(user.password)}>
-                  {checkPasswordStrength(user.password)}
+                <span className={calculatePasswordStrength(formData.password)}>
+                  {checkPasswordStrength(formData.password)}
                 </span>
               </p>
             )}
@@ -261,13 +204,12 @@ export default function RegisterPage() {
             {...register("confirmPassword")}
             type="password"
             id="confirmPassword"
-            value={user.confirmPassword}
+            value={formData.confirmPassword}
             onChange={(e) =>
-              setUser({ ...user, confirmPassword: e.target.value })
+              setFormData({ ...formData, confirmPassword: e.target.value })
             }
-            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
-              errors.confirmPassword && "border-red-500 border-2"
-            }`}
+            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${errors.confirmPassword && "border-red-500 border-2"
+              }`}
           />
           {errors.confirmPassword && (
             <p className="text-red-500">{errors.confirmPassword.message}</p>

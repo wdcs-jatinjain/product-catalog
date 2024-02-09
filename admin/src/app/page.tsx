@@ -1,4 +1,3 @@
-import { ToastContainer } from "react-toastify";
 import Link from "next/link";
 
 const Home = () => {
@@ -12,7 +11,6 @@ const Home = () => {
           </div>
         </Link>
       </div>
-      <ToastContainer />
     </>
   );
 };

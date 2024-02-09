@@ -2,48 +2,35 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import * as Yup from "yup";
 import CustomEyeIcon from "../Icons/CustomEyeIcon";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import "@fortawesome/fontawesome-free/css/all.css";
 import { useForm } from "react-hook-form";
 import { RESULT_STATUS } from "../../../constant";
+import LoginValidationSchema from "./loginValidation";
+import { LoginType } from "@/types";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [user, setUser] = useState({
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-
-  const validationSchema = Yup.object().shape({
-    email: Yup.string()
-      .email("Invalid email")
-      .matches(/\.com$/, "Email should end with '.com'.")
-      .required("Email is required."),
-    password: Yup.string()
-      .trim()
-      .required("Please enter password.")
-      .matches(/^\S*$/, "Whitespace is not allowed.")
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character."
-      ),
-  });
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(LoginValidationSchema),
   });
 
-  const onLogin = async (userData: any) => {
+  const onLogin = async (userData: LoginType) => {
+    console.log(userData);
     try {
-      await validationSchema.validate(userData, { abortEarly: false });
+      await LoginValidationSchema.validate(userData, { abortEarly: false });
 
       const response = await fetch("/api/login", {
         method: "POST",
@@ -52,7 +39,7 @@ export default function LoginPage() {
         },
         body: JSON.stringify(userData),
       });
-
+      console.log(userData);
       const res = await response.json();
       if (res.status === RESULT_STATUS.FAILURE) {
         toast.error(res.message);
@@ -82,8 +69,10 @@ export default function LoginPage() {
             type="email"
             id="email"
             placeholder="Enter your Valid Email ID"
-            value={user.email}
-            onChange={(e) => setUser({ ...user, email: e.target.value })}
+            value={formData.email}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
             className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
               errors.email && "border-red-500 border-2"
             }`}
@@ -105,9 +94,11 @@ export default function LoginPage() {
               {...register("password")}
               type={showPassword ? "text" : "password"}
               id="password"
-              value={user.password}
+              value={formData.password}
               placeholder="Password "
-              onChange={(e) => setUser({ ...user, password: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
               className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
                 errors.password && "border-red-500 border-2"
               }`}
