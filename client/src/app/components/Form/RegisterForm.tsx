@@ -9,6 +9,7 @@ import CustomEyeIcon from "../Icons/CustomEyeIcon";
 import "@fortawesome/fontawesome-free/css/all.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
+import { RESULT_STATUS } from "../../../constant";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -74,16 +75,12 @@ export default function RegisterPage() {
       body: JSON.stringify(user),
     });
     const res = await response.json();
-    if (res.status === "Failure") {
-      setTimeout(() => {
-        toast.error(res.message);
-      }, 2500);
+    if (res.status === RESULT_STATUS.FAILURE) {
+      toast.error(res.message);
     }
-    if (res.status === "Success") {
-      setTimeout(() => {
-        toast.success(res.message);
-        router.push("/login");
-      }, 2500);
+    if (res.status === RESULT_STATUS.SUCCESS) {
+      toast.success(res.message);
+      router.push("/login");
     }
   };
 

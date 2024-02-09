@@ -1,6 +1,7 @@
 import Views from "../../../views";
 import { validateCustomerRegistration } from "./CustomerValidations";
 import { registerBody } from "../../../types";
+import { RESULT_STATUS } from "../../../constant";
 
 export default async function RegisterCustomer({ body: { email, name, password ,phone,zipCode} }: {body:registerBody}, res: any) {
   try {
@@ -10,14 +11,14 @@ export default async function RegisterCustomer({ body: { email, name, password ,
   } catch (error: any) {
     if (error.name === "ValidationError") {
       return {
-        status: "Failure",
+        status: RESULT_STATUS.FAILURE,
         message: "Validation error occurred while registering the user.",
         error: error.details.map((err: any) => err.message),
       };
     } else {
       console.error("An error occurred while registering the user:", error);
       return {
-        status: "Failure",
+        status: RESULT_STATUS.FAILURE,
         message: "An error occurred while registering the user.",
         error: error.message || "Unknown error",
       };

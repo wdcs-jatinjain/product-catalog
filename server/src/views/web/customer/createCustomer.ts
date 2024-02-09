@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
-import Customer from "../../models/customer";
-import { registerBody } from '../../types'
-import { RESULT_STATUS } from "../../constant";
+import Customer from '../../../models/customer'
+import { registerBody } from '../../../types'
+import { RESULT_STATUS } from '../../../constant';
 
 export default async function createCustomer({name, email, password,phone,zipCode}:registerBody) {
   try {

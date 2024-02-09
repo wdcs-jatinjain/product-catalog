@@ -1,9 +1,9 @@
-import Customer from "../../models/customer";
+import Customer from "../../../models/customer";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { SECRET_KEY } from "../../config";
-import { loginBody } from "../../types";
-import { RESULT_STATUS } from "../../constant";
+import { SECRET_KEY } from "../../../config";
+import { loginBody } from "../../../types";
+import { RESULT_STATUS } from "../../../constant";
 
 const loginCustomer = async (
   { email, password }: loginBody
@@ -12,7 +12,7 @@ const loginCustomer = async (
     const existingCustomer = await Customer.findOne({ email });
     if (!existingCustomer) {
       return {
-        status: "Failure",
+        status: 'RESULT_STATUS.FAILURE',
         message: "User not found in the database.",
       };
     }

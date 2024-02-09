@@ -1,22 +1,19 @@
-
-import { API_URL } from '../../../../config';
-import { NextResponse } from 'next/server';
-
+import { API_URL } from "../../../../config";
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-
   try {
     const { email, password } = await req.json();
-    const res = await fetch(`${API_URL}/admin/login`, {
-      method: 'POST',
+    const res = await fetch(`${API_URL}/user/login`, {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ email, password }),
     });
-      const data = await res.json();
-      return NextResponse.json(data);
+    const data = await res.json();
+    return NextResponse.json(data);
   } catch (error) {
-    console.info('Something Went Wrong', error);
+    console.info("Something Went Wrong", error);
   }
 }

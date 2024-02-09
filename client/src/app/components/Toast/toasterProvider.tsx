@@ -11,7 +11,7 @@ export default function ToastProvider({ children }: ToastProviderProps) {
   return (
     <>
       {children}
-      <ToastContainer transition={Slide} />
+      <ToastContainer transition={Slide} autoClose={2500} />
     </>
   );
 }

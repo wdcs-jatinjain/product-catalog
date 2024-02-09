@@ -13,9 +13,7 @@ export async function POST(req: Request) {
       body: JSON.stringify({ name, email, password, phone, zipCode }),
     });
     const data: any = await response.json();
-    console.log("🚀 ~ POST ~ data:", data)
     return NextResponse.json(data)
-
   } catch (error) {
     console.error("Error registering new customer:", error);
   throw error;

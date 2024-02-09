@@ -5,17 +5,16 @@ import * as Yup from "yup";
 import CustomEyeIcon from "../../Icons/CustomEyeIcon";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
-
+import { RESULT_STATUS } from "../../../../constant";
 import { useForm } from "react-hook-form";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [user, setUser] = useState({
+  const [admin, setAdmin] = useState({
     email: "",
     password: "",
   });
-  const [showPassword, setShowPassword] = useState(false);
-
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .email("Invalid email")
@@ -35,7 +34,6 @@ export default function LoginPage() {
   const onLogin = async (adminData: any) => {
     try {
       await validationSchema.validate(adminData, { abortEarly: false });
-
       const response = await fetch("/api/login", {
         method: "POST",
         headers: {
@@ -45,19 +43,17 @@ export default function LoginPage() {
       });
 
       const res = await response.json();
-      if (res.status === "Failure") {
+      if (res.status === RESULT_STATUS.FAILURE) {
         toast.error(res.message);
-      } else if (res.status === "Success") {
+      } else if (res.status === RESULT_STATUS.SUCCESS) {
         toast.success(res.message);
-        console.log("Customer1", res);
-        router.push("/adminDashboard");
+        router.push("/dashboard");
       }
     } catch (error: any) {
       console.error("Login failed:", error.message);
       toast.error(error.message);
     }
   };
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <h1>Login</h1>
@@ -75,8 +71,8 @@ export default function LoginPage() {
             type="email"
             id="email"
             placeholder="Enter your Valid Email ID"
-            value={user.email}
-            onChange={(e) => setUser({ ...user, email: e.target.value })}
+            value={admin.email}
+            onChange={(e) => setAdmin({ ...admin, email: e.target.value })}
             className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
               errors.email && "border-red-500 border-2"
             }`}
@@ -98,9 +94,9 @@ export default function LoginPage() {
               {...register("password")}
               type={showPassword ? "text" : "password"}
               id="password"
-              value={user.password}
-              placeholder="Password with 1 capital letter & 1 special case letter"
-              onChange={(e) => setUser({ ...user, password: e.target.value })}
+              value={admin.password}
+              placeholder="Password"
+              onChange={(e) => setAdmin({ ...admin, password: e.target.value })}
               className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
                 errors.password && "border-red-500 border-2"
               }`}

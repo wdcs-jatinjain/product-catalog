@@ -1,5 +1,6 @@
 import { checkAdminValidator } from "./user-type";
 import Views from "../../../views";
+import { RESULT_STATUS } from '../../../constant'
 
 export default async function checkAdminLogin(
   { body: { email, password } }: { body: { email: string; password: string } },
@@ -11,14 +12,14 @@ export default async function checkAdminLogin(
   } catch (error: any) {
     if (error.name === "ValidationError") {
       return {
-        status: "Failure",
+        status: RESULT_STATUS.FAILURE,
         message: "Validation error occurred while Logging the Admin.",
         error: error.details.map((err: any) => err.message),
     }
   } else {
     console.error("An error occurred while Logging the Admin:", error);
     return {
-      status: "Failure",
+      status: RESULT_STATUS.FAILURE,
       message: "An error occurred while Logging in the Admin.",
       error: error.message || "Unknown error",
     };

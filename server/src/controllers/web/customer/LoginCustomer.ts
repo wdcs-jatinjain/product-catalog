@@ -1,6 +1,7 @@
 import Views from "../../../views";
 import { validateCustomerLogin } from "./CustomerValidations";
 import { loginBody } from "../../../types";
+import { RESULT_STATUS } from "../../../constant";
 
 export default async function LoginCustomer({ body: { email, password } }: { body:  loginBody  },res:any) 
 {
@@ -12,14 +13,14 @@ export default async function LoginCustomer({ body: { email, password } }: { bod
   } catch (error: any) {
     if (error.name === "ValidationError") {
       return {
-        status: "Failure",
+        status: RESULT_STATUS.FAILURE,
         message: "Validation error occurred while Logging the user.",
         error: error.details.map((err: any) => err.message),
       };
     } else {
       console.error("An error occurred while Logging the Customer:", error);
       return {
-        status: "Failure",
+        status: RESULT_STATUS.FAILURE,
         message: "An error occurred while Logging in the Customer.",
         error: error.message || "Unknown error",
       };

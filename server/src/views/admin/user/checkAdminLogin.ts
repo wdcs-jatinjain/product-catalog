@@ -1,18 +1,20 @@
-import { ADMIN_SECRET_KEY } from "../../config";
-import User from "../../models/user";
+import { ADMIN_SECRET_KEY } from '../../../config'
+import User from '../../../models/user'
 import jwt from "jsonwebtoken";
+import { RESULT_STATUS } from '../../../constant';
+
 
 export default async function checkAdminLogin({ email, password }: { email: string; password: string }){
 try {
   const admin = await User.findOne({ email })
   if (!admin){
     return {
-      status: "Failure",
+      status:RESULT_STATUS.FAILURE,
       message: "Admin not found in the database.",
     };
   }
   if (password !== admin.password) {
-         return{ status: "Failure", message: "Invalid Password" }
+         return{ status: "RESULT_STATUS.FAILURE", message: "Invalid Password" }
   }
          const newToken = jwt.sign(
       { adminID: admin._id },
@@ -20,7 +22,7 @@ try {
       { expiresIn: "2d" }
     );
     return {
-      status: "Success",
+      status: RESULT_STATUS.SUCCESS,
       message: "Customer found in the database. New token generated.",
       token: newToken,
     };

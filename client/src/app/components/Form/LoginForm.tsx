@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import * as Yup from "yup";
 import CustomEyeIcon from "../Icons/CustomEyeIcon";
@@ -8,7 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import "@fortawesome/fontawesome-free/css/all.css";
 import { useForm } from "react-hook-form";
-
+import { RESULT_STATUS } from "../../../constant";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -44,7 +44,7 @@ export default function LoginPage() {
   const onLogin = async (userData: any) => {
     try {
       await validationSchema.validate(userData, { abortEarly: false });
-  
+
       const response = await fetch("/api/login", {
         method: "POST",
         headers: {
@@ -52,15 +52,12 @@ export default function LoginPage() {
         },
         body: JSON.stringify(userData),
       });
-  
+
       const res = await response.json();
-      if (res.status === "Failure") {
+      if (res.status === RESULT_STATUS.FAILURE) {
         toast.error(res.message);
-        console.log('Customer2', res)
-  
-      } else if (res.status === "Success") {
+      } else if (res.status === RESULT_STATUS.SUCCESS) {
         toast.success(res.message);
-        console.log('Customer1', res)
         router.push("/home");
       }
     } catch (error: any) {
@@ -68,7 +65,6 @@ export default function LoginPage() {
       toast.error(error.message);
     }
   };
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <h1>Login</h1>
@@ -110,7 +106,7 @@ export default function LoginPage() {
               type={showPassword ? "text" : "password"}
               id="password"
               value={user.password}
-              placeholder="Password with 1 capital letter & 1 special case letter"
+              placeholder="Password "
               onChange={(e) => setUser({ ...user, password: e.target.value })}
               className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
                 errors.password && "border-red-500 border-2"
