@@ -7,7 +7,7 @@ try {
   const admin = await User.findOne({ email })
   if (!admin){
     return {
-      status: "failure",
+      status: "Failure",
       message: "Admin not found in the database.",
     };
   }
@@ -20,7 +20,7 @@ try {
       { expiresIn: "2d" }
     );
     return {
-      status: "success",
+      status: "Success",
       message: "Customer found in the database. New token generated.",
       token: newToken,
     };

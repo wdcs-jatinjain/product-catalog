@@ -1,49 +1,22 @@
+import { NextRequest, NextResponse } from "next/server";
+import { API_URL } from "../../../../config";
 
-// import { NextRequest, NextResponse } from "next/server";
-// import bcryptjs from "bcryptjs";
-// import jwt from "jsonwebtoken";
+export async function POST(request: NextRequest) {
+  try {
+    const { email, password } = await request.json();
 
-
-// export async function POST(request: NextRequest){
-//     try {
-
-//         const reqBody = await request.json()
-//         const {email, password} = reqBody;
-//         console.log(reqBody);
-
-//         const user = await User.findOne({email})
-//         if(!user){
-//             return NextResponse.json({error: "User does not exist"}, {status: 400})
-//         }
-//         console.log("user exists");
-        
-        
-//         const validPassword = await bcryptjs.compare(password, user.password)
-//         if(!validPassword){
-//             return NextResponse.json({error: "Invalid password"}, {status: 400})
-//         }
-//         console.log(user);
-        
-       
-//         const tokenData = {
-//             id: user._id,
-//             username: user.username,
-//             email: user.email
-//         }
-
-//         const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET!, {expiresIn: "1d"})
-
-//         const response = NextResponse.json({
-//             message: "Login successful",
-//             success: true,
-//         })
-//         response.cookies.set("token", token, {
-//             httpOnly: true, 
-            
-//         })
-//         return response;
-
-//     } catch (error: any) {
-//         return NextResponse.json({error: error.message}, {status: 500})
-//     }
-// }
+    const response = await fetch(`${API_URL}/customer/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+    const data: any = await response.json();
+    console.log("🚀 ~ POST ~ data:", data);
+    return NextResponse.json(data);
+  } catch (error) {
+    console.error("Error registering new customer:", error);
+    throw error;
+  }
+}

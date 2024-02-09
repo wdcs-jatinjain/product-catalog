@@ -8,10 +8,10 @@ interface ToastProviderProps {
 }
 
 export default function ToastProvider({ children }: ToastProviderProps) {
-  return (
-    <>
-      {children}
-      <ToastContainer transition={Slide} />
-    </>
-  );
+ return(
+  <>
+  {children}
+  <ToastContainer transition={Slide} />
+</>
+ )
 }

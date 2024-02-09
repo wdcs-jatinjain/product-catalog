@@ -11,7 +11,7 @@ const loginCustomer = async (
     const existingCustomer = await Customer.findOne({ email });
     if (!existingCustomer) {
       return {
-        status: "failure",
+        status: "Failure",
         message: "User not found in the database.",
       };
     }
@@ -21,7 +21,7 @@ const loginCustomer = async (
     );
     if (!isPasswordCorrect) {
       return {
-        status: "failure",
+        status: "Failure",
         message: "Invalid email or password.",
       };
     }
@@ -31,7 +31,7 @@ const loginCustomer = async (
       { expiresIn: "2d" }
     );
     return {
-      status: "success",
+      status: "Success",
       message: "Customer found in the database. New token generated.",
       token: newToken,
     };

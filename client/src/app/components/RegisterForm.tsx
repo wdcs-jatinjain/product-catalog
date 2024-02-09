@@ -7,7 +7,6 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import CustomEyeIcon from "./icons/CustomEyeIcon";
 import "@fortawesome/fontawesome-free/css/all.css";
-
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 
@@ -28,7 +27,8 @@ export default function RegisterPage() {
       .min(4, "Name should be at least 4 characters long.")
       .matches(/^[a-zA-Z\s]*$/, "Numbers are not allowed in the name.")
       .required("Name is required."),
-    email: Yup.string().email("Invalid email")
+    email: Yup.string()
+      .email("Invalid email")
       .matches(/\.com$/, "Email should end with '.com'.")
       .required("Email is required."),
     password: Yup.string()
@@ -43,20 +43,25 @@ export default function RegisterPage() {
       .oneOf([Yup.ref("password")], "Passwords must match.")
       .required("Please confirm your password"),
     phone: Yup.string()
-      .matches(/^[0-9]+$/, "Phone number should only contain numeric characters.")
-      .length(10, 'Phone number should be exactly 10 digits.')
+      .matches(
+        /^[0-9]+$/,
+        "Phone number should only contain numeric characters."
+      )
+      .length(10, "Phone number should be exactly 10 digits.")
       .required("Phone number is required."),
     zipCode: Yup.string()
       .matches(/^[0-9]+$/, "Zip code should only contain numeric characters")
-      .length(6, 'Zip code should be exactly 6 digits.')
+      .length(6, "Zip code should be exactly 6 digits.")
       .required("Zip code is required."),
   });
-  
-  const { register, handleSubmit, formState: { errors } } = useForm({
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(validationSchema),
   });
-
-
 
   const onRegister = async () => {
     await validationSchema.validate(user, { abortEarly: false });
@@ -70,15 +75,45 @@ export default function RegisterPage() {
     });
     const res = await response.json();
     if (res.status === "Failure") {
-      toast.error(res.message);
+      setTimeout(() => {
+        toast.error(res.message);
+      }, 2500);
     }
-    if (res.status === 'Success') {
-      toast.success(res.message)
-      router.push("/login");
+    if (res.status === "Success") {
+      setTimeout(() => {
+        toast.success(res.message);
+        router.push("/login");
+      }, 2500);
     }
   };
 
+  const checkPasswordStrength = (password: any) => {
+    if (
+      password.length >= 8 &&
+      /\d/.test(password) &&
+      /[a-zA-Z]/.test(password)
+    ) {
+      return "Strong";
+    } else if (password.length >= 8 && /[a-zA-Z]/.test(password)) {
+      return "Medium";
+    } else {
+      return "Weak";
+    }
+  };
 
+  const calculatePasswordStrength = (password: any) => {
+    const strength = checkPasswordStrength(password);
+    switch (strength) {
+      case "Strong":
+        return "text-green-500";
+      case "Medium":
+        return "text-yellow-500";
+      case "Weak":
+        return "text-red-500";
+      default:
+        return "";
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
@@ -88,8 +123,11 @@ export default function RegisterPage() {
         onSubmit={handleSubmit(onRegister)}
         className="w-full text-sm max-w-[500px] shadow border-2 p-4 flex flex-col space-y-3.5"
       >
-        <div className={`flex flex-col gap-2 ${errors.name && 'error'}`}>
-          <label htmlFor="name" className={`text-sm ${errors.name ? 'text-red-500' : ''}`}>
+        <div className={`flex flex-col gap-2 ${errors.name && "error"}`}>
+          <label
+            htmlFor="name"
+            className={`text-sm ${errors.name ? "text-red-500" : ""}`}
+          >
             Name*
           </label>
 
@@ -100,14 +138,18 @@ export default function RegisterPage() {
             placeholder="Enter your Full Name"
             value={user.name}
             onChange={(e) => setUser({ ...user, name: e.target.value })}
-            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${errors.name && 'border-red-500 border-2'}`}
+            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
+              errors.name && "border-red-500 border-2"
+            }`}
           />
           {errors.name && <p className="text-red-500">{errors.name.message}</p>}
         </div>
 
-
-        <div className={`flex flex-col gap-2 ${errors.email && 'error'}`}>
-          <label htmlFor="email" className={`text-sm ${errors.email ? 'text-red-500' : ''}`}>
+        <div className={`flex flex-col gap-2 ${errors.email && "error"}`}>
+          <label
+            htmlFor="email"
+            className={`text-sm ${errors.email ? "text-red-500" : ""}`}
+          >
             Email*
           </label>
           <input
@@ -117,12 +159,19 @@ export default function RegisterPage() {
             placeholder="Enter your Valid Email ID  "
             value={user.email}
             onChange={(e) => setUser({ ...user, email: e.target.value })}
-            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${errors.name && 'border-red-500 border-2'}`}
+            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
+              errors.name && "border-red-500 border-2"
+            }`}
           />
-          {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+          {errors.email && (
+            <p className="text-red-500">{errors.email.message}</p>
+          )}
         </div>
-        <div className={`flex flex-col gap-2 ${errors.phone && 'error'}`}>
-          <label htmlFor="phone" className={`text-sm ${errors.phone ? 'text-red-500' : ''}`}>
+        <div className={`flex flex-col gap-2 ${errors.phone && "error"}`}>
+          <label
+            htmlFor="phone"
+            className={`text-sm ${errors.phone ? "text-red-500" : ""}`}
+          >
             Phone*
           </label>
           <input
@@ -132,12 +181,19 @@ export default function RegisterPage() {
             placeholder="Enter your Phone Number"
             value={user.phone}
             onChange={(e) => setUser({ ...user, phone: e.target.value })}
-            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${errors.phone && 'border-red-500 border-2'}`}
+            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
+              errors.phone && "border-red-500 border-2"
+            }`}
           />
-          {errors.phone && <p className="text-red-500">{errors.phone.message} </p>}
+          {errors.phone && (
+            <p className="text-red-500">{errors.phone.message} </p>
+          )}
         </div>
-        <div className={`flex flex-col gap-2 ${errors.zipCode && 'error'}`}>
-          <label htmlFor="zipCode" className={`text-sm ${errors.zipCode ? 'text-red-500' : ''}`}>
+        <div className={`flex flex-col gap-2 ${errors.zipCode && "error"}`}>
+          <label
+            htmlFor="zipCode"
+            className={`text-sm ${errors.zipCode ? "text-red-500" : ""}`}
+          >
             Zip Code*
           </label>
           <input
@@ -147,12 +203,19 @@ export default function RegisterPage() {
             value={user.zipCode}
             placeholder="Enter your Current ZipCode"
             onChange={(e) => setUser({ ...user, zipCode: e.target.value })}
-            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${errors.zipCode && 'border-red-500 border-2'}`}
+            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
+              errors.zipCode && "border-red-500 border-2"
+            }`}
           />
-          {errors.zipCode && <p className="text-red-500">{errors.zipCode.message} </p>}
+          {errors.zipCode && (
+            <p className="text-red-500">{errors.zipCode.message} </p>
+          )}
         </div>
-        <div className={`relative ${errors.password ? 'text-red-500' : ''}`}>
-          <label htmlFor="password" className={`block mb-2 ${errors.name && 'error'}`}>
+        <div className={`relative ${errors.password ? "text-red-500" : ""}`}>
+          <label
+            htmlFor="password"
+            className={`block mb-2 ${errors.name && "error"}`}
+          >
             Password*
           </label>
           <div className="relative">
@@ -163,9 +226,21 @@ export default function RegisterPage() {
               value={user.password}
               placeholder="Password with 1 capital letter & 1 special case letter"
               onChange={(e) => setUser({ ...user, password: e.target.value })}
-              className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${errors.password && 'border-red-500 border-2'}`}
+              className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
+                errors.password && "border-red-500 border-2"
+              }`}
             />
-            {errors.password && <p className="text-red-500">{errors.password.message}</p>}
+            {errors.password && (
+              <p className="text-red-500">{errors.password.message}</p>
+            )}
+            {user.password && (
+              <p className="text-gray-500 mt-1">
+                Strength:{" "}
+                <span className={calculatePasswordStrength(user.password)}>
+                  {checkPasswordStrength(user.password)}
+                </span>
+              </p>
+            )}
 
             <div className="absolute right-2 top-2">
               <CustomEyeIcon
@@ -176,8 +251,13 @@ export default function RegisterPage() {
             </div>
           </div>
         </div>
-        <div className={`relative ${errors.confirmPassword ? 'text-red-500' : ''}`}>
-          <label htmlFor="confirmPassword" className={`block mb-2 ${errors.name && 'error'}`}>
+        <div
+          className={`relative ${errors.confirmPassword ? "text-red-500" : ""}`}
+        >
+          <label
+            htmlFor="confirmPassword"
+            className={`block mb-2 ${errors.name && "error"}`}
+          >
             Confirm Password*
           </label>
           <input
@@ -188,9 +268,13 @@ export default function RegisterPage() {
             onChange={(e) =>
               setUser({ ...user, confirmPassword: e.target.value })
             }
-            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${errors.confirmPassword && 'border-red-500 border-2'}`}
+            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
+              errors.confirmPassword && "border-red-500 border-2"
+            }`}
           />
-          {errors.confirmPassword && <p className="text-red-500">{errors.confirmPassword.message}</p>}
+          {errors.confirmPassword && (
+            <p className="text-red-500">{errors.confirmPassword.message}</p>
+          )}
         </div>
         <button
           type="submit"
