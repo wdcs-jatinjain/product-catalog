@@ -10,3 +10,4 @@ export type registerBody = {
   phone: string;
   zipCode: string;
 };
+

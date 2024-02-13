@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-const RegistervalidationSchema = Yup.object().shape({
+const CustomerRegistervalidationSchema = Yup.object().shape({
     name: Yup.string()
       .min(4, "Name should be at least 4 characters long.")
       .matches(/^[a-zA-Z\s]*$/, "Numbers are not allowed in the name.")
@@ -32,4 +32,4 @@ const RegistervalidationSchema = Yup.object().shape({
       .required("Zip code is required."),
   });
 
-  export default RegistervalidationSchema
+  export default CustomerRegistervalidationSchema 

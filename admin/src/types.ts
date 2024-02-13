@@ -1,12 +1,12 @@
-export type AdminLoginReturnType = {
-    status: string,
-    message: string,
-    token: string,
+export type inputFormDataTypes= {
+  
     email: string,
      password: string;
 }
-export type AdminLoginType = {
-  
+export type UserFormData = {
+    status: string,
+    message: string,
+    token: string,
     email: string,
      password: string;
 }

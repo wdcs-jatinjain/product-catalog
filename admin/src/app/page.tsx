@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const Home = () => {
+export default async function Home()  {
   return (
     <>
       <div className="flex flex-col items-center justify-center h-screen">
@@ -15,4 +15,3 @@ const Home = () => {
   );
 };
 
-export default Home;

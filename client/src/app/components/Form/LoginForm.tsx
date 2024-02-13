@@ -8,8 +8,8 @@ import { toast } from "react-toastify";
 import "@fortawesome/fontawesome-free/css/all.css";
 import { useForm } from "react-hook-form";
 import { RESULT_STATUS } from "../../../constant";
-import LoginValidationSchema from "./loginValidation";
-import { LoginType } from "@/types";
+import CustomerLoginValidationSchema from "./loginValidation";
+import { CustomerLoginType } from "@/types";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -24,22 +24,22 @@ export default function LoginPage() {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(LoginValidationSchema),
+    resolver: yupResolver(CustomerLoginValidationSchema),
   });
 
-  const onLogin = async (userData: LoginType) => {
-    console.log(userData);
+  const onLogin = async (customerData: CustomerLoginType) => {
+    console.log(customerData);
     try {
-      await LoginValidationSchema.validate(userData, { abortEarly: false });
+      await CustomerLoginValidationSchema.validate(customerData, { abortEarly: false });
 
       const response = await fetch("/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(userData),
+        body: JSON.stringify(customerData),
       });
-      console.log(userData);
+      console.log(customerData);
       const res = await response.json();
       if (res.status === RESULT_STATUS.FAILURE) {
         toast.error(res.message);
@@ -57,7 +57,7 @@ export default function LoginPage() {
       <h1>Login</h1>
       <hr />
       <form onSubmit={handleSubmit(onLogin)}>
-        <div className={`flex flex-col gap-2 ${errors.email && "error"}`}>
+        <div className={`flex flex-col gap-2 ${errors.email ? "error" : null}`}>
           <label
             htmlFor="email"
             className={`text-sm ${errors.email ? "text-red-500" : ""}`}
@@ -74,7 +74,7 @@ export default function LoginPage() {
               setFormData({ ...formData, email: e.target.value })
             }
             className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
-              errors.email && "border-red-500 border-2"
+              errors.email ? "border-red-500 border-2" : null
             }`}
           />
           {errors.email && (
@@ -100,7 +100,7 @@ export default function LoginPage() {
                 setFormData({ ...formData, password: e.target.value })
               }
               className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
-                errors.password && "border-red-500 border-2"
+                errors.password ? "border-red-500 border-2" : null
               }`}
             />
             {errors.password && (
@@ -128,3 +128,18 @@ export default function LoginPage() {
     </div>
   );
 }
+
+// import React from "react";
+// import FormInput from "../CommanComponents/shared/form/FormInput";
+
+// const LoginPage=()=> {
+//   const LoginFields = [
+//     {name:'email', type:'email',placeholder:'email'},
+//     {name:'password', type:'password',placeholder:'Password'},
+
+//   ]
+//   const handleLoginSubmit = (formData: any)=> {
+//     console.log('Login form data:', formData)
+//   }
+//   return
+// }

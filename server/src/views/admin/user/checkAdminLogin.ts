@@ -15,7 +15,7 @@ export default async function checkAdminLogin({
     if (!admin) {
       return {
         status: RESULT_STATUS.FAILURE,
-        message: "Admin not found in the database.",
+        message: "User not found in the database.",
       };
     }
     if (password !== admin.password) {
@@ -28,7 +28,7 @@ export default async function checkAdminLogin({
     );
     return {
       status: RESULT_STATUS.SUCCESS,
-      message: "Customer found in the database. New token generated.",
+      message: "User found in the database. New token generated.",
       token: newToken,
     };
   } catch (error: any) {

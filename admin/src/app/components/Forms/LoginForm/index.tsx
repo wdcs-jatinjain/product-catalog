@@ -1,20 +1,23 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import CustomEyeIcon from "../../Icons/CustomEyeIcon";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
+import CustomEyeIcon from "../../Icons/CustomEyeIcon";
 import { RESULT_STATUS } from "../../../../constant";
-import { useForm } from "react-hook-form";
-import AdminLoginValidationSchema from "./loginValidation";
-import { AdminLoginType } from "../../../../types";
+import UserLoginValidationSchema from "./loginValidation";
+import { inputFormDataTypes } from "../../../../types";
+
 
 export default function LoginPage() {
   const router = useRouter();
+
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email:  "",
+    password:  "",
   });
+
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const {
@@ -22,12 +25,12 @@ export default function LoginPage() {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(AdminLoginValidationSchema),
+    resolver: yupResolver(UserLoginValidationSchema),
   });
 
-  const onLogin = async (adminData: AdminLoginType) => {
+  const onLogin= async (inputFormData: inputFormDataTypes) => {
     try {
-      await AdminLoginValidationSchema.validate(adminData, {
+      await UserLoginValidationSchema.validate(inputFormData, {
         abortEarly: false,
       });
       const response = await fetch("/api/login", {
@@ -35,14 +38,14 @@ export default function LoginPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(adminData),
+        body: JSON.stringify(inputFormData),
       });
 
-      const res = await response.json();
-      if (res.status === RESULT_STATUS.FAILURE) {
-        toast.error(res.message);
-      } else if (res.status === RESULT_STATUS.SUCCESS) {
-        toast.success(res.message);
+      const userLoginResponse = await response.json();
+      if (userLoginResponse.status === RESULT_STATUS.FAILURE) {
+        toast.error(userLoginResponse.message);
+      } else if (userLoginResponse.status === RESULT_STATUS.SUCCESS) {
+        toast.success(userLoginResponse.message);
         router.push("/dashboard");
       }
     } catch (error: any) {
@@ -55,7 +58,7 @@ export default function LoginPage() {
       <h1>Login</h1>
       <hr />
       <form onSubmit={handleSubmit(onLogin)}>
-        <div className={`flex flex-col gap-2 ${errors.email && "error"}`}>
+        <div className={`flex flex-col gap-2 ${errors.email ? "error" : ""}`}>
           <label
             htmlFor="email"
             className={`text-sm ${errors.email ? "text-red-500" : ""}`}
@@ -66,13 +69,13 @@ export default function LoginPage() {
             {...register("email")}
             type="email"
             id="email"
-            placeholder="Enter your Valid Email ID"
+            placeholder="Enter valid Email Id."
             value={formData.email}
             onChange={(e) =>
               setFormData({ ...formData, email: e.target.value })
             }
             className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
-              errors.email && "border-red-500 border-2"
+              errors.email ? "border-red-500 border-2" : ""
             }`}
           />
           {errors.email && (
@@ -93,12 +96,12 @@ export default function LoginPage() {
               type={showPassword ? "text" : "password"}
               id="password"
               value={formData.password}
-              placeholder="Password"
+              placeholder="Enter your Password."
               onChange={(e) =>
                 setFormData({ ...formData, password: e.target.value })
               }
               className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
-                errors.password && "border-red-500 border-2"
+                errors.password ? "border-red-500 border-2" : ""
               }`}
             />
             {errors.password && (

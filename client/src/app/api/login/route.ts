@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { API_URL } from "../../../../config";
-import { LoginReturnType, LoginType } from "@/types";
+import { LoginReturnType } from "@/types";
 
 export async function POST(request: NextRequest) {
   try {

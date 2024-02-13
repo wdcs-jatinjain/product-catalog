@@ -28,3 +28,8 @@ export const validateCustomerLogin = Joi.object().keys({
     .required()
     .messages({ "any.requires": "Please provide Correct Password format" }),
 });
+export const validateCustomerDelete = Joi.object().keys({
+    id: Joi.string()
+    .required()
+    .messages({ "any.requires": "Please provide valid ID number" }),
+});

@@ -1,12 +1,8 @@
 import LoginForm from "../components/Form/LoginForm";
-
-
-const LoginPage = () => {
+export default async function LoginPage() {
   return (
     <div>
       <LoginForm />
     </div>
   );
 };
-
-export default LoginPage;

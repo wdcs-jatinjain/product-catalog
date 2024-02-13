@@ -9,6 +9,5 @@ export const RESULT_MESSAGES = {
     SOMETHING_WENT_WRONG: '',
     INTERNAL_SERVER_ERROR:'',
     PAGE_NOT_FOUND:'',
-    
 
 }

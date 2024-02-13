@@ -20,7 +20,7 @@ export type LoginReturnType = {
   token: string;
 };
 
-export type LoginType = {
+export type CustomerLoginType = {
   email: string;
   password: string;
 };

@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-const LoginValidationSchema = Yup.object().shape({
+const CustomerLoginValidationSchema = Yup.object().shape({
     email: Yup.string()
       .email("Invalid email")
       .required("Email is required."),
@@ -13,4 +13,4 @@ const LoginValidationSchema = Yup.object().shape({
         "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character."
       ),
   });
-  export default LoginValidationSchema
+  export default CustomerLoginValidationSchema
