@@ -28,7 +28,6 @@ export default function LoginPage() {
   });
 
   const onLogin = async (customerData: CustomerLoginType) => {
-    console.log(customerData);
     try {
       await CustomerLoginValidationSchema.validate(customerData, {
         abortEarly: false,
@@ -41,12 +40,12 @@ export default function LoginPage() {
         },
         body: JSON.stringify(customerData),
       });
-      console.log(customerData);
       const CustomerLoginRes: LoginReturnType = await response.json();
       if (CustomerLoginRes.status === RESULT_STATUS.FAILURE) {
         toast.error(CustomerLoginRes.message);
       } else if (CustomerLoginRes.status === RESULT_STATUS.SUCCESS) {
         toast.success(CustomerLoginRes.message);
+        sessionStorage.setItem('token', CustomerLoginRes.token)
         router.push("/home");
       }
     } catch (error: any) {
@@ -123,20 +122,19 @@ export default function LoginPage() {
                 </div>
               </div>
 
-           <div className="flex flex-col gap-2 m-5">
-           <button
-                type="submit"
-                className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-              >
-                Login here
-              </button>
-           </div>
+              <div className="flex flex-col gap-2 m-5">
+                <button
+                  type="submit"
+                  className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                >
+                  Login here
+                </button>
+              </div>
             </div>
           </form>
-<div className="flex flex-col gap-2 m-5">
-<Link href="/register">Visit Register page</Link>
-</div>
-        
+          <div className="flex flex-col gap-2 m-5">
+            <Link href="/register">Visit Register page</Link>
+          </div>
         </div>
       </div>
     </div>

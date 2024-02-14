@@ -4,6 +4,7 @@ export type inputFormDataTypes= {
      password: string;
 }
 export type UserFormData = {
+  cookies: any;
     status: string,
     message: string,
     token: string,

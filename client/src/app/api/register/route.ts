@@ -13,8 +13,8 @@ export async function POST(req: Request) {
       },
       body: JSON.stringify({ name, email, password, phone, zipCode }),
     });
-    const data: RegisterReturnType = await CustomerRegisterResponse.json();
-    return NextResponse.json(data)
+    const ClientRegisterReturnData: RegisterReturnType = await CustomerRegisterResponse.json();
+    return NextResponse.json(ClientRegisterReturnData)
   } catch (error) {
     console.error("Error registering new customer:", error);
   throw error;
