@@ -10,7 +10,7 @@ export async function POST(req: Request) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "cache":"no-cache"
+        "cache":"no-store"
       },
       body: JSON.stringify({ email, password }),
     });

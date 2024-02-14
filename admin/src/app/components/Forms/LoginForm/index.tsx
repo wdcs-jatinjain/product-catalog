@@ -78,9 +78,9 @@ export default function LoginPage() {
               errors.email ? "border-red-500 border-2" : ""
             }`}
           />
-          {errors.email && (
+          {errors.email ? (
             <p className="text-red-500">{errors.email.message}</p>
-          )}
+          ):null}
         </div>
 
         <div className={`relative ${errors.password ? "text-red-500" : ""}`}>
@@ -104,9 +104,9 @@ export default function LoginPage() {
                 errors.password ? "border-red-500 border-2" : ""
               }`}
             />
-            {errors.password && (
+            {errors.password ? (
               <p className="text-red-500">{errors.password.message}</p>
-            )}
+            ):null}
             <div className="absolute right-2 top-2">
               <CustomEyeIcon
                 onClick={() => setShowPassword(!showPassword)}

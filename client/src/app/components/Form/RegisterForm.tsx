@@ -80,7 +80,7 @@ export default function RegisterPage() {
               errors.name ? "border-red-500 border-2" : null
             }`}
           />
-          {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+          {errors.name ? <p className="text-red-500">{errors.name.message}</p>:null}
         </div>
 
         <div className={`flex flex-col gap-2 ${errors.email ? "error" : null}`}>
@@ -103,9 +103,9 @@ export default function RegisterPage() {
               errors.name ? "border-red-500 border-2" : null
             }`}
           />
-          {errors.email && (
+          {errors.email ? (
             <p className="text-red-500">{errors.email.message}</p>
-          )}
+          ):null}
         </div>
         <div className={`flex flex-col gap-2 ${errors.phone ? "error" : null}`}>
           <label
@@ -127,9 +127,9 @@ export default function RegisterPage() {
               errors.phone ? "border-red-500 border-2" : null
             }`}
           />
-          {errors.phone && (
+          {errors.phone ? (
             <p className="text-red-500">{errors.phone.message} </p>
-          )}
+          ):null}
         </div>
         <div
           className={`flex flex-col gap-2 ${errors.zipCode ? "error" : null}`}
@@ -153,9 +153,9 @@ export default function RegisterPage() {
               errors.zipCode ? "border-red-500 border-2" : null
             }`}
           />
-          {errors.zipCode && (
+          {errors.zipCode ? (
             <p className="text-red-500">{errors.zipCode.message} </p>
-          )}
+          ):null}
         </div>
         <div className={`relative ${errors.password ? "text-red-500" : ""}`}>
           <label
@@ -178,17 +178,17 @@ export default function RegisterPage() {
                 errors.password ? "border-red-500 border-2" : null
               }`}
             />
-            {errors.password && (
+            {errors.password ? (
               <p className="text-red-500">{errors.password.message}</p>
-            )}
-            {formData.password && (
+            ):null}
+            {formData.password ? (
               <p className="text-gray-500 mt-1">
                 Strength:{" "}
                 <span className={calculatePasswordStrength(formData.password)}>
                   {checkPasswordStrength(formData.password)}
                 </span>
               </p>
-            )}
+            ):null}
 
             <div className="absolute right-2 top-2">
               <CustomEyeIcon
@@ -220,9 +220,9 @@ export default function RegisterPage() {
               errors.confirmPassword ? "border-red-500 border-2" : null
             }`}
           />
-          {errors.confirmPassword && (
+          {errors.confirmPassword ? (
             <p className="text-red-500">{errors.confirmPassword.message}</p>
-          )}
+          ):null}
         </div>
         <button
           type="submit"

@@ -77,9 +77,9 @@ export default function LoginPage() {
               errors.email ? "border-red-500 border-2" : null
             }`}
           />
-          {errors.email && (
+          {errors.email ? (
             <p className="text-red-500">{errors.email.message}</p>
-          )}
+          ):null}
         </div>
 
         <div className={`relative ${errors.password ? "text-red-500" : ""}`}>
@@ -103,9 +103,9 @@ export default function LoginPage() {
                 errors.password ? "border-red-500 border-2" : null
               }`}
             />
-            {errors.password && (
+            {errors.password ? (
               <p className="text-red-500">{errors.password.message}</p>
-            )}
+            ):null}
             <div className="absolute right-2 top-2">
               <CustomEyeIcon
                 onClick={() => setShowPassword(!showPassword)}
@@ -128,18 +128,3 @@ export default function LoginPage() {
     </div>
   );
 }
-
-// import React from "react";
-// import FormInput from "../CommanComponents/shared/form/FormInput";
-
-// const LoginPage=()=> {
-//   const LoginFields = [
-//     {name:'email', type:'email',placeholder:'email'},
-//     {name:'password', type:'password',placeholder:'Password'},
-
-//   ]
-//   const handleLoginSubmit = (formData: any)=> {
-//     console.log('Login form data:', formData)
-//   }
-//   return
-// }
