@@ -54,9 +54,9 @@ export default function LoginPage() {
   };
   return (
     <div className="flex flex-col items-center justify-center min-h-screen  py-2">
-      <div className="flex-col gap-3 border-[30px] p-6">
+      <div className="flex-col gap-3 border-[30px] border-slate-700 p-6">
         <div className="mb-4 text-center font-extrabold">Login</div>
-        <div className=" p-5">
+        <div className=" p-5 bg-slate-300">
           <form onSubmit={handleSubmit(onLogin)}>
             <div>
               <div
