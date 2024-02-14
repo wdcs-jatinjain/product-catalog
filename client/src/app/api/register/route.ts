@@ -4,6 +4,7 @@ import { RegisterReturnType } from "@/types";
 
 export async function POST(req: Request) {
   try {
+    
     const { name, email, password, phone, zipCode} = await req.json();
     const CustomerRegisterResponse = await fetch(`${API_URL}/customer/register`, {
       method: "POST",

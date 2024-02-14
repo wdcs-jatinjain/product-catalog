@@ -5,7 +5,6 @@ import { LoginReturnType } from "@/types";
 export async function POST(request: NextRequest) {
   try {
     const { email, password } = await request.json();
-
     const CustomerLoginResponse = await fetch(`${API_URL}/customer/login`, {
       method: "POST",
       headers: {
