@@ -6,6 +6,6 @@
     @apply font-bold text-3xl;
   }
   a {
-    @apply underline font-bold;
+    @apply  font-bold;
   }
 }

@@ -1,12 +1,11 @@
-import RegisterForm from "../components/RegisterForm";
+"use client";
+import React from "react";
+import RegisterForm from "../components/Form/RegisterForm";
 
-
-const RegisterPage = () => {
+export default function RegisterPage() {
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center  py-2">
       <RegisterForm />
     </div>
   );
-};
-
-export default RegisterPage;
+}

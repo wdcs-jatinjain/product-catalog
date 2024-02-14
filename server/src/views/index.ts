@@ -1,5 +1,5 @@
-import CustomerViews from "./customer";
-import UserViews from "./user";
+import CustomerViews from "./web/customer";
+import UserViews from './admin/user'
 
 const Views = Object.freeze({
     UserViews: UserViews,
