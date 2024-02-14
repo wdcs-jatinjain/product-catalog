@@ -13,6 +13,8 @@ import {
   calculatePasswordStrength,
   checkPasswordStrength,
 } from "../../staticFunctions/passwordStrengthChecker";
+import { RegisterReturnType } from "@/types";
+import Link from "next/link";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -44,24 +46,27 @@ export default function RegisterPage() {
       },
       body: JSON.stringify(formData),
     });
-    const res = await response.json();
-    if (res.status === RESULT_STATUS.FAILURE) {
-      toast.error(res.message);
+    const CustomerRegisterRes:RegisterReturnType = await response.json();
+    if (CustomerRegisterRes.status === RESULT_STATUS.FAILURE) {
+      toast.error(CustomerRegisterRes.message);
     }
-    if (res.status === RESULT_STATUS.SUCCESS) {
-      toast.success(res.message);
+    if (CustomerRegisterRes.status === RESULT_STATUS.SUCCESS) {
+      toast.success(CustomerRegisterRes.message);
       router.push("/login");
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <div className="w-full flex flex-col items-center justify-center py-2">
       <hr />
-      <form
+  
+
+      <form 
         onSubmit={handleSubmit(onRegister)}
-        className="w-full text-sm max-w-[500px] shadow border-2 p-4 flex flex-col space-y-3.5"
+        className="w-full text-sm max-w-[500px] shadow border-2 p-4 flex flex-col space-y-3.5 max-height-90vh"
       >
         <div className={`flex flex-col gap-2 ${errors.name ? "error" : null}`}>
+        <h1>Register</h1>
           <label
             htmlFor="name"
             className={`text-sm ${errors.name ? "text-red-500" : ""}`}
@@ -76,7 +81,7 @@ export default function RegisterPage() {
             placeholder="Enter your Full Name"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
+            className={`border border-2px-solid w-full px-3 py-1.5 rounded-md ${
               errors.name ? "border-red-500 border-2" : null
             }`}
           />
@@ -99,7 +104,7 @@ export default function RegisterPage() {
             onChange={(e) =>
               setFormData({ ...formData, email: e.target.value })
             }
-            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
+            className={`w-full px-3 py-1.5 rounded-md border border-2px-solid ${
               errors.name ? "border-red-500 border-2" : null
             }`}
           />
@@ -123,7 +128,7 @@ export default function RegisterPage() {
             onChange={(e) =>
               setFormData({ ...formData, phone: e.target.value })
             }
-            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
+            className={`w-full px-3 py-1.5 rounded-md border border-2px-solid ${
               errors.phone ? "border-red-500 border-2" : null
             }`}
           />
@@ -149,7 +154,7 @@ export default function RegisterPage() {
             onChange={(e) =>
               setFormData({ ...formData, zipCode: e.target.value })
             }
-            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
+            className={`w-full px-3 py-1.5 rounded-md border border-2px-solid ${
               errors.zipCode ? "border-red-500 border-2" : null
             }`}
           />
@@ -174,7 +179,7 @@ export default function RegisterPage() {
               onChange={(e) =>
                 setFormData({ ...formData, password: e.target.value })
               }
-              className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
+              className={`w-full px-3 py-1.5 rounded-md border border-2px-solid ${
                 errors.password ? "border-red-500 border-2" : null
               }`}
             />
@@ -216,7 +221,7 @@ export default function RegisterPage() {
             onChange={(e) =>
               setFormData({ ...formData, confirmPassword: e.target.value })
             }
-            className={`w-full px-3 py-1.5 rounded-md bg-gray-700 focus:outline-none focus:bg-gray-600 ${
+            className={`w-full px-3 py-1.5 rounded-md border border-2px-solid ${
               errors.confirmPassword ? "border-red-500 border-2" : null
             }`}
           />
@@ -230,7 +235,14 @@ export default function RegisterPage() {
         >
           Register
         </button>
+        <p className="mt-4">
+        Already have an account?{" "}
+        <Link href="/login" className="text-blue-500">
+          Log in here
+        </Link>
+      </p>
       </form>
     </div>
+    
   );
 }

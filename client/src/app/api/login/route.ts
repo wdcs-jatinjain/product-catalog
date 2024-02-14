@@ -6,14 +6,14 @@ export async function POST(request: NextRequest) {
   try {
     const { email, password } = await request.json();
 
-    const response = await fetch(`${API_URL}/customer/login`, {
+    const CustomerLoginResponse = await fetch(`${API_URL}/customer/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ email, password }),
     });
-    const data: LoginReturnType = await response.json();
+    const data: LoginReturnType = await CustomerLoginResponse.json();
     return NextResponse.json(data);
   } catch (error) {
     console.error("Error registering new customer:", error);
