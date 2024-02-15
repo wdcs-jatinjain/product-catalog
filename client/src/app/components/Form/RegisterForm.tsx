@@ -52,7 +52,7 @@ export default function RegisterPage() {
     }
     if (CustomerRegisterRes.status === RESULT_STATUS.SUCCESS) {
       toast.success(CustomerRegisterRes.message);
-      router.push("/login");
+      router.push("/home");
     }
   };
 
