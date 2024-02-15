@@ -1,11 +1,14 @@
+import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+
 export function middleware(request: NextRequest) {
+  const token =cookies().get('token') || ''
+
   const path = request.nextUrl.pathname
   const isPublicPath = path === '/login' 
-  const token = request.cookies.get('token')?.value || ''
   if(isPublicPath && token) {
-    return NextResponse.redirect(new URL('/', request.nextUrl))
+    return NextResponse.redirect(new URL('/dashboard', request.nextUrl))
   }
   if (!isPublicPath && !token) {
     return NextResponse.redirect(new URL('/login', request.nextUrl))
@@ -13,7 +16,6 @@ export function middleware(request: NextRequest) {
 }
 export const config = {
   matcher: [
-    '/',
     '/login'
   ]
 }
