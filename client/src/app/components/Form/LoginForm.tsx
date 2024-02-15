@@ -45,7 +45,6 @@ export default function LoginPage() {
         toast.error(CustomerLoginRes.message);
       } else if (CustomerLoginRes.status === RESULT_STATUS.SUCCESS) {
         toast.success(CustomerLoginRes.message);
-        sessionStorage.setItem("token", CustomerLoginRes.token);
         router.push("/home");
       }
     } catch (error: any) {

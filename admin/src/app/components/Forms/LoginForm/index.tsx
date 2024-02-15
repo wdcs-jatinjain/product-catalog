@@ -39,7 +39,6 @@ export default function LoginPage() {
         toast.error(userLoginResponse.message);
       } else if (userLoginResponse.status === RESULT_STATUS.SUCCESS) {
         toast.success(userLoginResponse.message);
-        sessionStorage.setItem("token", userLoginResponse.token);
         router.push("/dashboard");
       }
     } catch (error: any) {

@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
-  const token = cookies().get('token') || ''
+  const token =cookies().get('token') || ''
 
   const path = request.nextUrl.pathname
   const isPublicPath = path === '/login' 

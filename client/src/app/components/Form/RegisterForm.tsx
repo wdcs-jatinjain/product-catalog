@@ -52,7 +52,6 @@ export default function RegisterPage() {
     }
     if (CustomerRegisterRes.status === RESULT_STATUS.SUCCESS) {
       toast.success(CustomerRegisterRes.message);
-      sessionStorage.setItem('token',CustomerRegisterRes.data.token)
       router.push("/login");
     }
   };
