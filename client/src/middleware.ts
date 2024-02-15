@@ -4,8 +4,10 @@ import { cookies } from "next/headers";
 
 export function middleware(request: NextRequest) {
   const token = cookies().get("token") || "";
+  console.log(token)
 
   const path = request.nextUrl.pathname;
+  console.log(path)
 
   const isPublicPath =
     path === "/login" || path === "/register" || path === "/";
@@ -18,5 +20,5 @@ export function middleware(request: NextRequest) {
   }
 }
 export const config = {
-  matcher: ["/"],
+  matcher: ["/", '/home'],
 };
