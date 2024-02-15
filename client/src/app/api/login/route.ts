@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { API_URL } from "../../../../config";
 import { LoginReturnType } from "@/types";
+import { cookies } from "next/headers";
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,8 +13,9 @@ export async function POST(request: NextRequest) {
       },
       body: JSON.stringify({ email, password }),
     });
-    const data: LoginReturnType = await CustomerLoginResponse.json();
-    return NextResponse.json(data);
+    const ClientLoginReturnData: LoginReturnType = await CustomerLoginResponse.json();
+    cookies().set('token', ClientLoginReturnData.token)
+    return NextResponse.json(ClientLoginReturnData);
   } catch (error) {
     console.error("Error registering new customer:", error);
     throw error;

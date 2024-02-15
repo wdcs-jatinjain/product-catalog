@@ -8,17 +8,13 @@ import CustomEyeIcon from "../../Icons/CustomEyeIcon";
 import { RESULT_STATUS } from "../../../../constant";
 import UserLoginValidationSchema from "./loginValidation";
 import { UserFormData, inputFormDataTypes } from "../../../../types";
-
 export default function LoginPage() {
   const router = useRouter();
-
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
   const [showPassword, setShowPassword] = useState<boolean>(false);
-
   const {
     register,
     handleSubmit,
@@ -26,7 +22,6 @@ export default function LoginPage() {
   } = useForm({
     resolver: yupResolver(UserLoginValidationSchema),
   });
-
   const onLogin = async (inputFormData: inputFormDataTypes) => {
     try {
       await UserLoginValidationSchema.validate(inputFormData, {
@@ -39,12 +34,12 @@ export default function LoginPage() {
         },
         body: JSON.stringify(inputFormData),
       });
-
       const userLoginResponse: UserFormData = await response.json();
       if (userLoginResponse.status === RESULT_STATUS.FAILURE) {
         toast.error(userLoginResponse.message);
       } else if (userLoginResponse.status === RESULT_STATUS.SUCCESS) {
         toast.success(userLoginResponse.message);
+        sessionStorage.setItem("token", userLoginResponse.token);
         router.push("/dashboard");
       }
     } catch (error: any) {
@@ -54,9 +49,9 @@ export default function LoginPage() {
   };
   return (
     <div className="flex flex-col items-center justify-center min-h-screen  py-2">
-      <div className="flex-col gap-3 border-[30px] border-slate-700 p-6">
+      <div className="flex-col gap-3 border-[30px] p-6">
         <div className="mb-4 text-center font-extrabold">Login</div>
-        <div className=" p-5 bg-slate-300">
+        <div className=" p-5">
           <form onSubmit={handleSubmit(onLogin)}>
             <div>
               <div
@@ -83,11 +78,10 @@ export default function LoginPage() {
                     errors.email ? "border-red-500 border-2" : ""
                   }`}
                 />
-                {errors.email ?(
+                {errors.email ? (
                   <p className="text-red-500">{errors.email.message}</p>
                 ) : null}
               </div>
-
               <div
                 className={`flex flex-col gap-2 m-5  ${
                   errors.password ? "text-red-500" : ""
@@ -125,7 +119,6 @@ export default function LoginPage() {
                   </div>
                 </div>
               </div>
-
               <div className="flex flex-col gap-2 m-5">
                 <button
                   type="submit"

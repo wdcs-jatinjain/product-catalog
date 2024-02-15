@@ -3,6 +3,8 @@ export type RegisterReturnType = {
   message: string;
   data: {
     id: string;
+    token: string;
+
   };
 };
 

@@ -52,15 +52,13 @@ export default function RegisterPage() {
     }
     if (CustomerRegisterRes.status === RESULT_STATUS.SUCCESS) {
       toast.success(CustomerRegisterRes.message);
+      sessionStorage.setItem('token',CustomerRegisterRes.data.token)
       router.push("/login");
     }
   };
 
   return (
     <div className="w-full flex flex-col items-center justify-center py-2">
-      <hr />
-  
-
       <form 
         onSubmit={handleSubmit(onRegister)}
         className="w-full text-sm max-w-[500px] shadow border-2 p-4 flex flex-col space-y-3.5 max-height-90vh"
