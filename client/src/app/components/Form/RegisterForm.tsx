@@ -19,12 +19,12 @@ import Link from "next/link";
 export default function RegisterPage() {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    email:  "",
-    password:   "",
+    email: "",
+    password: "",
     confirmPassword: "",
-    phone:  "",
-    zipCode:  "",
-    name:  "",
+    phone: "",
+    zipCode: "",
+    name: "",
   });
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -37,7 +37,9 @@ export default function RegisterPage() {
   });
 
   const onRegister = async () => {
-    await CustomerRegistervalidationSchema.validate(formData, { abortEarly: false });
+    await CustomerRegistervalidationSchema.validate(formData, {
+      abortEarly: false,
+    });
 
     const response = await fetch("/api/register", {
       method: "POST",
@@ -46,29 +48,29 @@ export default function RegisterPage() {
       },
       body: JSON.stringify(formData),
     });
-    const CustomerRegisterRes:RegisterReturnType = await response.json();
+    const CustomerRegisterRes: RegisterReturnType = await response.json();
     if (CustomerRegisterRes.status === RESULT_STATUS.FAILURE) {
       toast.error(CustomerRegisterRes.message);
     }
     if (CustomerRegisterRes.status === RESULT_STATUS.SUCCESS) {
       toast.success(CustomerRegisterRes.message);
-      router.push("/login");
+      router.push("/home");
     }
   };
 
   return (
     <div className="w-full flex flex-col items-center justify-center py-2">
-      <form 
+      <form
         onSubmit={handleSubmit(onRegister)}
         className="w-full text-sm max-w-[500px] shadow border-2 p-4 flex flex-col space-y-3.5 max-height-90vh"
       >
         <div className={`flex flex-col gap-2 ${errors.name ? "error" : null}`}>
-        <h1>Register</h1>
+          <h1>Register</h1>
           <label
             htmlFor="name"
             className={`text-sm ${errors.name ? "text-red-500" : ""}`}
           >
-            Name*
+            Name <span className="text-red-500">*</span>
           </label>
 
           <input
@@ -82,7 +84,9 @@ export default function RegisterPage() {
               errors.name ? "border-red-500 border-2" : null
             }`}
           />
-          {errors.name ? <p className="text-red-500">{errors.name.message}</p>:null}
+          {errors.name ? (
+            <p className="text-red-500">{errors.name.message}</p>
+          ) : null}
         </div>
 
         <div className={`flex flex-col gap-2 ${errors.email ? "error" : null}`}>
@@ -90,7 +94,7 @@ export default function RegisterPage() {
             htmlFor="email"
             className={`text-sm ${errors.email ? "text-red-500" : ""}`}
           >
-            Email*
+            Email <span className="text-red-500">*</span>
           </label>
           <input
             {...register("email")}
@@ -107,14 +111,14 @@ export default function RegisterPage() {
           />
           {errors.email ? (
             <p className="text-red-500">{errors.email.message}</p>
-          ):null}
+          ) : null}
         </div>
         <div className={`flex flex-col gap-2 ${errors.phone ? "error" : null}`}>
           <label
             htmlFor="phone"
             className={`text-sm ${errors.phone ? "text-red-500" : ""}`}
           >
-            Phone*
+            Phone <span className="text-red-500">*</span>
           </label>
           <input
             {...register("phone")}
@@ -131,7 +135,7 @@ export default function RegisterPage() {
           />
           {errors.phone ? (
             <p className="text-red-500">{errors.phone.message} </p>
-          ):null}
+          ) : null}
         </div>
         <div
           className={`flex flex-col gap-2 ${errors.zipCode ? "error" : null}`}
@@ -140,7 +144,7 @@ export default function RegisterPage() {
             htmlFor="zipCode"
             className={`text-sm ${errors.zipCode ? "text-red-500" : ""}`}
           >
-            Zip Code*
+            Zip Code <span className="text-red-500">*</span>
           </label>
           <input
             {...register("zipCode")}
@@ -157,14 +161,14 @@ export default function RegisterPage() {
           />
           {errors.zipCode ? (
             <p className="text-red-500">{errors.zipCode.message} </p>
-          ):null}
+          ) : null}
         </div>
         <div className={`relative ${errors.password ? "text-red-500" : ""}`}>
           <label
             htmlFor="password"
             className={`block mb-2 ${errors.name ? "error" : null}`}
           >
-            Password*
+            Password <span className="text-red-500">*</span>
           </label>
           <div className="relative">
             <input
@@ -182,7 +186,7 @@ export default function RegisterPage() {
             />
             {errors.password ? (
               <p className="text-red-500">{errors.password.message}</p>
-            ):null}
+            ) : null}
             {formData.password ? (
               <p className="text-gray-500 mt-1">
                 Strength:{" "}
@@ -190,7 +194,7 @@ export default function RegisterPage() {
                   {checkPasswordStrength(formData.password)}
                 </span>
               </p>
-            ):null}
+            ) : null}
 
             <div className="absolute right-2 top-2">
               <CustomEyeIcon
@@ -208,7 +212,7 @@ export default function RegisterPage() {
             htmlFor="confirmPassword"
             className={`block mb-2 ${errors.name ? "error" : null}`}
           >
-            Confirm Password*
+            Confirm Password <span className="text-red-500">*</span>
           </label>
           <input
             {...register("confirmPassword")}
@@ -224,7 +228,7 @@ export default function RegisterPage() {
           />
           {errors.confirmPassword ? (
             <p className="text-red-500">{errors.confirmPassword.message}</p>
-          ):null}
+          ) : null}
         </div>
         <button
           type="submit"
@@ -233,13 +237,12 @@ export default function RegisterPage() {
           Register
         </button>
         <p className="mt-4">
-        Already have an account?{" "}
-        <Link href="/login" className="text-blue-500">
-          Log in here
-        </Link>
-      </p>
+          Already have an account?{" "}
+          <Link href="/login" className="text-blue-500">
+            Log in here
+          </Link>
+        </p>
       </form>
     </div>
-    
   );
 }

@@ -62,7 +62,7 @@ export default function LoginPage() {
                   htmlFor="email"
                   className={`text-sm ${errors.email ? "text-red-500" : ""}`}
                 >
-                  Email*
+                  Email <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("email")}
@@ -90,7 +90,7 @@ export default function LoginPage() {
                   htmlFor="password"
                   className={`block mb-2 ${errors.password ? "error" : ""}`}
                 >
-                  Password*
+                  Password <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
                   <input
