@@ -68,7 +68,7 @@ export default function RegisterPage() {
             htmlFor="name"
             className={`text-sm ${errors.name ? "text-red-500" : ""}`}
           >
-            Name*
+            Name<span className="text-red-500">*</span>
           </label>
 
           <input
@@ -90,7 +90,7 @@ export default function RegisterPage() {
             htmlFor="email"
             className={`text-sm ${errors.email ? "text-red-500" : ""}`}
           >
-            Email*
+            Email<span className="text-red-500">*</span>
           </label>
           <input
             {...register("email")}
@@ -114,7 +114,7 @@ export default function RegisterPage() {
             htmlFor="phone"
             className={`text-sm ${errors.phone ? "text-red-500" : ""}`}
           >
-            Phone*
+            Phone<span className="text-red-500">*</span>
           </label>
           <input
             {...register("phone")}
@@ -140,7 +140,7 @@ export default function RegisterPage() {
             htmlFor="zipCode"
             className={`text-sm ${errors.zipCode ? "text-red-500" : ""}`}
           >
-            Zip Code*
+            Zip Code<span className="text-red-500">*</span>
           </label>
           <input
             {...register("zipCode")}
@@ -164,7 +164,7 @@ export default function RegisterPage() {
             htmlFor="password"
             className={`block mb-2 ${errors.name ? "error" : null}`}
           >
-            Password*
+            Password<span className="text-red-500">*</span>
           </label>
           <div className="relative">
             <input
@@ -208,7 +208,7 @@ export default function RegisterPage() {
             htmlFor="confirmPassword"
             className={`block mb-2 ${errors.name ? "error" : null}`}
           >
-            Confirm Password*
+            Confirm Password<span className="text-red-500">*</span>
           </label>
           <input
             {...register("confirmPassword")}
