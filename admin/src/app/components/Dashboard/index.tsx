@@ -1,11 +1,10 @@
-import React from 'react'
 
-export default function DashboardComponent ()  {
+import Navbar from "../Navbar/navbar";
+import UserTable from "../Table/table";
+
+const DashboardComponent = () => {
   return (
-    <div>
-      Hello Dashboard
-    </div>
+    <><Navbar /><UserTable /></>
   )
 }
-
-
+export default DashboardComponent
