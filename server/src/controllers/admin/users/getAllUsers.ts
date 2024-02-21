@@ -2,11 +2,10 @@ import Views from "../../../views";
 import { RESULT_STATUS } from "../../../constant";
 import { Response, Request } from "express";
 
-export default async function getAllUsers(req:Request,res:Response) {
+export default async function getAllUsers(req: Request, res: Response) {
   try {
-    const fetchAllUsers = await Views.UserViews.getAllUserViews()
+    const fetchAllUsers = await Views.UserViews.getAllUserViews();
     return res.status(200).json(fetchAllUsers);
-    
   } catch (error: any) {
     if (error.name === "ValidationError") {
       return {

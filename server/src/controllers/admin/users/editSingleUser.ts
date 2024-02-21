@@ -19,7 +19,8 @@ export default async function editSingleUser(
     );
     const editUser = await Views.UserViews.editUserViews({
       email,
-      name,role,
+      name,
+      role,
       id,
     });
     return res.status(200).json(editUser);
@@ -27,13 +28,14 @@ export default async function editSingleUser(
     if (error === "ValidationError") {
       return res.status(400).json({
         status: RESULT_STATUS.FAILURE,
-        message:  error.details.map((err: any) => err.message),
+        message: error.details.map((err: any) => err.message),
       });
     } else {
       console.error("An error occurred while editing the Admin:", error);
       return res.status(500).json({
         status: RESULT_STATUS.FAILURE,
-        message:  error.details.map((err: any) => err.message)|| "Unknown error",
+        message:
+          error.details.map((err: any) => err.message) || "Unknown error",
       });
     }
   }

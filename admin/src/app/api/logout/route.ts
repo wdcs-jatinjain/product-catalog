@@ -3,14 +3,12 @@ import { cookies } from "next/headers";
 
 export async function GET(req: Request) {
   try {
-    cookies().delete("token")
+    cookies().delete("token");
     return NextResponse.json({
-      status: 'Success',
-      message:'Logout Successful'
-    } )
-     
-    
+      status: "Success",
+      message: "Logout Successful",
+    });
   } catch (error: any) {
-    throw error
+    throw error;
   }
 }

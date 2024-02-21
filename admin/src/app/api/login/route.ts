@@ -1,5 +1,5 @@
 import { UserFormData } from "../../../types";
-import {API_URL}  from '../../../../config'
+import { API_URL } from "../../../../config";
 
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
@@ -11,12 +11,12 @@ export async function POST(req: Request) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "cache":"no-store"
+        cache: "no-store",
       },
       body: JSON.stringify({ email, password }),
     });
-    const UserLoginReturnData:UserFormData = await UserLoginResponse.json();
-    cookies().set('token', UserLoginReturnData.token)
+    const UserLoginReturnData: UserFormData = await UserLoginResponse.json();
+    cookies().set("token", UserLoginReturnData.token);
     return NextResponse.json(UserLoginReturnData);
   } catch (error) {
     console.info("Something Went Wrong", error);

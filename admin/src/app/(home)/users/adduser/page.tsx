@@ -14,7 +14,7 @@ export default function AddUserPage() {
   const [formData, setFormData] = useState({
     email: "",
     name: "",
-    role:'',
+    role: "",
   });
   const {
     register,
@@ -24,7 +24,7 @@ export default function AddUserPage() {
     resolver: yupResolver(AddUserValidationSchema),
   });
   const onAddingUser = async (UserInputFormData: AddUserFormDataTypes) => {
-    console.log("🚀 ~ onAddingUser ~ UserInputFormData:", UserInputFormData)
+    console.log("🚀 ~ onAddingUser ~ UserInputFormData:", UserInputFormData);
     try {
       await AddUserValidationSchema.validate(UserInputFormData, {
         abortEarly: false,

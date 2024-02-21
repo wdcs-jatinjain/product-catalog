@@ -17,7 +17,7 @@ const UserTable = () => {
   const [newUser, setNewUser] = useState<Partial<User>>({
     _id: "",
     name: "",
-    role: '',
+    role: "",
     createdAt: "",
   });
   const fetchAllUsers = async () => {
@@ -29,7 +29,6 @@ const UserTable = () => {
       const data = await response.json();
 
       setUsers(data.GetAllUsersReturnData);
-      
     } catch (error) {
       console.error("Error fetching users:", error);
     }
@@ -44,7 +43,6 @@ const UserTable = () => {
   // };
 
   const handleDelete = async (_id: string) => {
-    
     try {
       const response = await fetch(`/api/deleteuser?id=${_id}`, {
         method: "DELETE",
@@ -52,7 +50,7 @@ const UserTable = () => {
           "Content-Type": "application/json",
         },
       });
-      const userDeleteResponse: DeleteUserFormDataTypes = await response.json();
+      const userDeleteResponse = await response.json();
       if (userDeleteResponse.status === RESULT_STATUS.FAILURE) {
         toast.error(userDeleteResponse.message);
       } else if (userDeleteResponse.status === RESULT_STATUS.SUCCESS) {
@@ -65,7 +63,6 @@ const UserTable = () => {
       toast.error(error.message);
     }
   };
-
 
   return (
     <div className="margin-top:20px ">
@@ -135,7 +132,7 @@ const UserTable = () => {
                 type="text"
                 value={newUser.role}
                 onChange={(e) =>
-                  setNewUser({ ...newUser, role: e.target.value})
+                  setNewUser({ ...newUser, role: e.target.value })
                 }
               />
             </td>

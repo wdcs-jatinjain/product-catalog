@@ -13,5 +13,4 @@ UserController.get("/getAll", getAllUsers);
 UserController.get("/get", () => {});
 UserController.delete("/delete", deleteUser);
 UserController.patch("/edit", editSingleUser);
-
 export default UserController;

@@ -2,15 +2,13 @@ import Views from "../../../views";
 import { RESULT_STATUS } from "../../../constant";
 import { Response, Request } from "express";
 
-export default async function deleteUser(  req:Request,res:Response) {
-
- const id:any = (req.query.id)
+export default async function deleteUser(req: Request, res: Response) {
+  const id: any = req.query.id;
 
   try {
-    const deletedUser = await Views.UserViews.removeUserViews(id)
-    
+    const deletedUser = await Views.UserViews.removeUserViews(id);
+
     return res.status(200).json(deletedUser);
-    
   } catch (error: any) {
     if (error.name === "ValidationError") {
       return {
