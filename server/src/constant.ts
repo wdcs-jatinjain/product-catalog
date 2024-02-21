@@ -8,3 +8,8 @@ export const RESULT_MESSAGES = {
     NOT_FOUND: '',
     SOMETHING_WENT_WRONG: ''
 }
+
+export const ADMIN_ROLES = {
+    MANAGER:'manager',
+    ADMIN:'admin'
+}

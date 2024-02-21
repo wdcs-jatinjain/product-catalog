@@ -3,12 +3,12 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
-  const token =cookies().get('token') || ''
+  const token =cookies().get('token')
 
   const path = request.nextUrl.pathname
   const isPublicPath = path === '/login' 
   if(isPublicPath && token) {
-    return NextResponse.redirect(new URL('/dashboard', request.nextUrl))
+    return NextResponse.redirect(new URL('/users', request.nextUrl))
   }
   if (!isPublicPath && !token) {
     return NextResponse.redirect(new URL('/login', request.nextUrl))
@@ -16,6 +16,6 @@ export function middleware(request: NextRequest) {
 }
 export const config = {
   matcher: [
-    '/login', '/dashboard'
+    '/login', '/users'
   ]
 }

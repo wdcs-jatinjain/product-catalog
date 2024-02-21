@@ -11,3 +11,14 @@ export type registerBody = {
   zipCode: string;
 };
 
+export type addUserBody = {
+  name: string;
+  email: string;
+  role:string
+}
+
+export type editUserBody = {
+  name: string;
+  email: string;
+  role:string
+}

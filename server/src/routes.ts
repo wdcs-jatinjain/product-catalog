@@ -8,7 +8,6 @@ app.use(express.json());
 connectDB();
 
 app.get("/", (req, res) => {
-  console.log("connectDB");
   res.json({
     message: "Hello World from Server Side. Please find the Product List Below:-",
     name: ["Mobile", "TV", "AC", "Tab", "Laptop"],

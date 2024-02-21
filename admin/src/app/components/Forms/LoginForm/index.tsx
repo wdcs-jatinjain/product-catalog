@@ -8,7 +8,7 @@ import CustomEyeIcon from "../../Icons/CustomEyeIcon";
 import { RESULT_STATUS } from "../../../../constant";
 import UserLoginValidationSchema from "./loginValidation";
 import { UserFormData, inputFormDataTypes } from "../../../../types";
-export default function LoginPage() {
+export default function LoginForm() {
   const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",
@@ -39,7 +39,7 @@ export default function LoginPage() {
         toast.error(userLoginResponse.message);
       } else if (userLoginResponse.status === RESULT_STATUS.SUCCESS) {
         toast.success(userLoginResponse.message);
-        router.push("/dashboard");
+        router.push("/users");
       }
     } catch (error: any) {
       console.error("Login failed:", error.message);
