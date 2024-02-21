@@ -1,20 +1,28 @@
 "use client";
-import React from "react";
-import { redirect, usePathname, useRouter } from "next/navigation";
+import {  useRouter } from "next/navigation";
 import NavLink from "./NavLink";
-import Link from "next/link";
 import { toast } from "react-toastify";
 
-import { RESULT_STATUS } from "@/constant";
 import { LogoutUserFormDataTypes } from "@/types";
 const NavItems = () => {
     const router = useRouter();
-  // const pathname = usePathname();
 
   const links = [
     {
+      title: "API Logs",
+      path: "/api-log",
+    },
+    {
       title: "Users",
       path: "/users",
+    },
+    {
+      title: "Roles",
+      path: "/roles",
+    },
+    {
+      title: "Customers",
+      path: "/customer",
     },
     {
       title: "Orders",
@@ -23,6 +31,10 @@ const NavItems = () => {
     {
       title: "Products",
       path: "/products",
+    },
+    {
+      title: "Reports",
+      path: "/reports",
     },
   ];
 

@@ -9,7 +9,7 @@ const NavLink = ({ item }: {item : {title: string, path: string}}) => {
   return (
     <Link
       href={item.path}
-      className={pathName=== item.path ? 'bg-black text-white rounded-2xl p-2 ' : 'p-1'}
+      className={pathName.includes(item.path) ? 'bg-black text-white rounded-2xl p-2 ' : 'p-1'}
     >
       {item.title}
     </Link>

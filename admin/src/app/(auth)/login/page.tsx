@@ -1,9 +1,9 @@
-import LoginForm from '@/app/components/Forms/LoginForm'
+import LoginComponent from '@/app/components/LoginComponent'
 import React from 'react'
 
 const LoginPage = () => {
   return (
-    <div><LoginForm/></div>
+    <div><LoginComponent/></div>
   )
 }
 export default LoginPage

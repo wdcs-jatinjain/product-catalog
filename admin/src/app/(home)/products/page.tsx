@@ -1,8 +1,9 @@
+import ProductsComponent from '@/app/components/ProductsComponent'
 import React from 'react'
 
 const ProductsPage = () => {
   return (
-    <div>Products page</div>
+    <div><ProductsComponent/></div>
   )
 }
 export default ProductsPage

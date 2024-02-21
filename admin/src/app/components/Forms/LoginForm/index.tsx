@@ -8,6 +8,7 @@ import CustomEyeIcon from "../../Icons/CustomEyeIcon";
 import { RESULT_STATUS } from "../../../../constant";
 import UserLoginValidationSchema from "./loginValidation";
 import { UserFormData, inputFormDataTypes } from "../../../../types";
+
 export default function LoginForm() {
   const router = useRouter();
   const [formData, setFormData] = useState({
