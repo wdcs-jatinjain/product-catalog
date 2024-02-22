@@ -1,12 +1,10 @@
 import { NextResponse } from "next/server";
-import { API_URL } from "../../../../config";
+import { API_URL } from "../../../../../../config";
 
-export async function DELETE(req: Request) {
+export async function DELETE(req: Request, {params}: any) {
   try {
-    const { searchParams } = new URL(req.url);
-    const id = searchParams.get("id");
     const DeletededUserResponse = await fetch(
-      `${API_URL}/user/delete?id=${id}`,
+      `${API_URL}/user/delete?id=${params.userId}`,
       {
         method: "DELETE",
         headers: {

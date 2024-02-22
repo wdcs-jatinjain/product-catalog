@@ -3,7 +3,7 @@ import { RESULT_STATUS } from "../../../constant";
 import { Response, Request } from "express";
 
 export default async function deleteUser(req: Request, res: Response) {
-  const id: any = req.query.id;
+  const id: string = req.query.id as string;
 
   try {
     const deletedUser = await Views.UserViews.removeUserViews(id);

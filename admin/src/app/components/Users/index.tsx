@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react'
 import PageHeader from '@/app/components/PageHeader'
 import PageLayout from '@/app/components/pageLayout'
-
 import { UserFields } from './UserFields'
 import { UserData } from './users'
 import { RESULT_STATUS } from '@/constant';
@@ -12,8 +11,9 @@ const UserComponent = () => {
   const [users, setUsers] = useState<UserData[]>([]);
 
   const handleDelete = async (_id: string) => {
+    console.log("🚀 ~ handleDelete ~ _id:", _id)
     try {
-      const response = await fetch(`/api/deleteuser?id=${_id}`, {
+      const response = await fetch(`/api/users/delete-user/${_id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -35,8 +35,9 @@ const UserComponent = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
+
       try {
-        const response = await fetch("/api/getallusers", {
+        const response = await fetch("/api/users/get-all-users", {
           cache: 'no-cache'
         });
         if (!response.ok) {
@@ -59,7 +60,7 @@ const UserComponent = () => {
         <PageHeader pageTitle='Users' showAddButton={true} addRouter={'/users/add-user'} />
         </div>
         <div className='m-5 justify-between'>
-          <Table data={users} fields={UserFields} handleDelete={handleDelete}/>
+          <Table data={users} fields={UserFields} handleDelete={handleDelete} editRoute={'/users/edit-user'} />
         </div>
       </div>
     </PageLayout>

@@ -6,7 +6,7 @@ import { HiPencilAlt, HiTrash } from "react-icons/hi";
 import Link from "next/link";
 
 
-const Table = ({data,fields, handleDelete}:{data:UserData[],fields:TableFields[], handleDelete:(id: string)=> Promise<void>}) => {
+const Table = ({data,fields, handleDelete,editRoute}:{data:UserData[],fields:TableFields[], handleDelete:(id: string)=> Promise<void>,editRoute:string}) => {
   return (
     <div className="margin-top:20px ">
       <table className="min-w-full border border-gray-300">
@@ -37,7 +37,7 @@ const Table = ({data,fields, handleDelete}:{data:UserData[],fields:TableFields[]
               <td className="px-6 py-4 whitespace-nowrap">{columnValue.createdAt}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 flex items-center">
                 <Link
-                href={`/users/edit-user:${columnValue._id}`}
+                href={`${editRoute}/${columnValue._id}`}
                   className="text-indigo-600 hover:text-indigo-900 mr-2"
                 >
                   <HiPencilAlt />

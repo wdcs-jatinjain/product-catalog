@@ -1,62 +1,37 @@
 "use client";
-
+import React, { useState } from "react";
 import AddUserValidationSchema from "@/app/(home)/users/add-user/userValidation";
-import { RESULT_STATUS } from "@/constant";
-import { AddUserFormDataTypes } from "@/types";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useRouter } from "next/router";
-import React from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 
-
-export default function AddUserForm({onAddingUser}: {onAddingUser: ()=> Promise<void>}) {
-  // const router = useRouter();
-  // const [formData, setFormData] = useState({
-  //   email: "",
-  //   name: "",
-  //   role: "",
-  // });
-  const {  
+export default function AddUserForm({
+  onAddingUser,
+}: {
+  onAddingUser: () => Promise<void>;
+}) {
+  const [formData, setFormData] = useState({
+    email: "",
+    name: "",
+    city: "",
+    phone: "",
+    role: "",
+    country: "",
+    streetAddress: "",
+    postalCode: "",
+  });
+  const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(AddUserValidationSchema),
   });
-  // const onAddingUser = async (UserInputFormData: AddUserFormDataTypes) => {
-  //   console.log("🚀 ~ onAddingUser ~ UserInputFormData:", UserInputFormData);
-  //   try {
-  //     await AddUserValidationSchema.validate(UserInputFormData, {
-  //       abortEarly: false,
-  //     });
-  //     const response = await fetch("/api/users/adduser", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(UserInputFormData),
-  //     });
-  //     const AddUserResponse: any = await response.json();
-  //     if (AddUserResponse.status === RESULT_STATUS.FAILURE) {
-  //       toast.error(AddUserResponse.message);
-  //     } else if (AddUserResponse.status === RESULT_STATUS.SUCCESS) {
-  //       toast.success(AddUserResponse.message);
-  //       router.push("/users");
-  //     }
-  //   } catch (error: any) {
-  //     console.error("New User not created:", error.message);
-  //     toast.error(error.message);
-  //   }
-  // };
-  // return (
-  //   <div className="flex flex-col items-center justify-center min-h-screen  py-2">
-  //     <div className="flex-col gap-3 border-[30px] p-6">
-  //       <div className="mb-4 text-center font-extrabold">Add a New User</div>
-  //       <div className=" p-5">
-  //         <form onSubmit={handleSubmit(onAddingUser)}>
-  //           <div>
-  //             <div
+  // return(
+  //   <div style={{margin: '40px', height: '300px'}} className=" bg-slate-400 min-h-52 ">
+  //     <form onSubmit={handleSubmit(onAddingUser)}>
+
+  //       <div >
+  //       <div
   //               className={`flex flex-col gap-2 m-5 ${
   //                 errors.email ? "error" : ""
   //               }`}
@@ -142,42 +117,187 @@ export default function AddUserForm({onAddingUser}: {onAddingUser: ()=> Promise<
   //                 <p className="text-red-500">{errors.role.message}</p>
   //               ) : null}
   //             </div>
-
   //             <div className="flex flex-col gap-2 m-5">
-  //               {/* <Link href={'/users'}
+  //               <button
   //                 type="submit"
   //                 className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg"
   //               >
-  //                Save
-  //               </Link>
-  //               <Link href={'/'}
-  //                 type="submit"
-  //                 className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg"
-  //               >
-  //                Save and Add New User 
-  //               </Link>
-  //               <Link  href={'/users'}
-  //                 type="submit"
-  //                 className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg"
-  //               >
-  //                Cancel
-  //               </Link> */}
-                
+  //                 Add New User
+  //               </button>
   //             </div>
-  //           </div>
-  //         </form>
   //       </div>
-  //     </div>
+  //     </form>
   //   </div>
-  // );
-  return(
-    <div style={{margin: '40px', height: '300px'}} className=" bg-slate-400 min-h-52 ">
-      <form onSubmit={handleSubmit(onAddingUser)}>
+  // )
+  return (
+    <div
+      style={{ margin: "100px", height: "600px" }}
+      className=" bg-slate-400 min-h-52 "
+    >
+      <section className="bg-white dark:bg-gray-900">
+        <div className="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+          <form onSubmit={handleSubmit(onAddingUser)}>
+            <div className={`grid gap-4 sm:grid-cols-2 sm:gap-6 ${
+                errors.email ? "error" : ""
+                 }`}>
+              <div className="sm:col-span-2">
+                <label
+                  htmlFor="name"
+                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${errors.email ? "text-red-500" : ""}`}
+                >
+                  Name <span className="text-red-500">*</span>
+                </label>
+                <input
+                  {...register("name")}
+                  type="text"
+                  name="name"
+                  id="name"
+                  value={formData.name}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Enter User's Name"
+                  required
+                />
+              </div>
+              <div className="sm:col-span-2">
+                <label
+                  htmlFor="email"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Email<span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Enter User's Email ID"
+                  required
+                />
+              </div>
+              <div className="w-full">
+                <label
+                  htmlFor="city"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  city<span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="city"
+                  id="city"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Enter User's city"
+                  required
+                />
+              </div>
+              <div className="w-full">
+                <label
+                  htmlFor="streetAddress"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  streetAddress<span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="streetAddress"
+                  id="streetAddress"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Enter User's streetAddress"
+                  required
+                />
+              </div>
+              <div className="w-full">
+                <label
+                  htmlFor="country"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  country<span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="country"
+                  id="country"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Enter User's country"
+                  required
+                />
+              </div>
+              <div className="w-full">
+                <label
+                  htmlFor="phone"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Phone<span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="number"
+                  name="phone"
+                  id="phone"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Enter Valid Phone Number"
+                  required
+                />
+              </div>
 
-        <div >
+              <div
+                className={`flex flex-col gap-2 m-5 ${
+                  errors.role ? "error" : ""
+                }`}
+              >
+                <label
+                  htmlFor="role"
+                  className={`text-sm ${errors.role ? "text-red-500" : ""}`}
+                >
+                  Select Role<span className="text-red-500">*</span>
+                </label>
+                <select
+                  {...register("role")}
+                  id="role"
+                  value={formData.role}
+                  onChange={(e) =>
+                    setFormData({ ...formData, role: e.target.value })
+                  }
+                  className={`border border-2px w-full px-3 py-1.5 rounded-md text-sm ${
+                    errors.role ? "border-red-500 border-2" : ""
+                  }`}
+                >
+                  <option value="">Select a role</option>
+                  <option value="admin">Admin</option>
+                  <option value="manager">Manager</option>
+                </select>
+                {errors.role ? (
+                  <p className="text-red-500">{errors.role.message}</p>
+                ) : null}
+              </div>
+              <div>
+                <label
+                  htmlFor="postalCode"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Postal Code<span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="number"
+                  name="postalCode"
+                  id="postalCode"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Enter Postal"
+                  required
+                />
+              </div>
 
+              <div className="flex flex-col gap-2 m-5">
+                <button
+                  type="submit"
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg"
+                >
+                  Add New User
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
-      </form>
+      </section>
     </div>
-  )
+  );
 }

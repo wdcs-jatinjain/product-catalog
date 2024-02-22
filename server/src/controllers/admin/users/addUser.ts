@@ -13,7 +13,6 @@ export default async function addUser(
       { email, name, role },
       { abortEarly: false }
     );
-    console.log("🚀 ~ addUser ~  email, name, role:", email, name, role);
 
     const AddedUser = await Views.UserViews.createUserViews({
       email,
