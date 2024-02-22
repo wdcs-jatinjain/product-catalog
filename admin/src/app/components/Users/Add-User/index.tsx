@@ -4,27 +4,27 @@ import AddUserForm from '../../Forms/AddUserForm'
 import PageHeader from '../../PageHeader'
 import PageLayout from '../../pageLayout'
 import Link from 'next/link'
-import AddUserValidationSchema from '@/app/(home)/users/add-user/userValidation'
 import { RESULT_STATUS } from '@/constant'
-import { AddUserFormDataTypes } from '@/types'
-import router from 'next/router'
+import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
 
 const AddUserComponent = () => {
-  const onAddingUser = async () => {
-    console.log("🚀 ~ onAddingUser ~ UserInputFormData:", );
+  const router= useRouter()
+  const onAddingUser = async (a:any) => {
+    console.log(a)
+
     try {
-      await AddUserValidationSchema.validate({
-        abortEarly: false,
-      });
+    
       const response = await fetch("/api/users/add-user", {
         method: "POST",
+        cache:'no-cache',
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(UserInputFormData),
+        body: JSON.stringify(a),
       });
       const AddUserResponse: any = await response.json();
+      console.log("🚀 ~ onAddingUser ~ AddUserResponse:", AddUserResponse)
       if (AddUserResponse.status === RESULT_STATUS.FAILURE) {
         toast.error(AddUserResponse.message);
       } else if (AddUserResponse.status === RESULT_STATUS.SUCCESS) {

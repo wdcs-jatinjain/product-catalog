@@ -4,11 +4,7 @@ import AddUserValidationSchema from "@/app/(home)/users/add-user/userValidation"
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 
-export default function AddUserForm({
-  onAddingUser,
-}: {
-  onAddingUser: () => Promise<void>;
-}) {
+export default function AddUserForm({onAddingUser}: {onAddingUser: (a:any) => Promise<void>;}) {
   const [formData, setFormData] = useState({
     email: "",
     name: "",
@@ -26,109 +22,7 @@ export default function AddUserForm({
   } = useForm({
     resolver: yupResolver(AddUserValidationSchema),
   });
-  // return(
-  //   <div style={{margin: '40px', height: '300px'}} className=" bg-slate-400 min-h-52 ">
-  //     <form onSubmit={handleSubmit(onAddingUser)}>
-
-  //       <div >
-  //       <div
-  //               className={`flex flex-col gap-2 m-5 ${
-  //                 errors.email ? "error" : ""
-  //               }`}
-  //             >
-  //               <label
-  //                 htmlFor="email"
-  //                 className={`text-sm ${errors.email ? "text-red-500" : ""}`}
-  //               >
-  //                 Email<span className="text-red-500">*</span>
-  //               </label>
-  //               <input
-  //                 {...register("email")}
-  //                 type="email"
-  //                 id="email"
-  //                 placeholder="Enter valid Email Id."
-  //                 value={formData.email}
-  //                 onChange={(e) =>
-  //                   setFormData({ ...formData, email: e.target.value })
-  //                 }
-  //                 className={`border border-2px w-full px-3 py-1.5 rounded-md text-sm ${
-  //                   errors.email ? "border-red-500 border-2" : ""
-  //                 }`}
-  //               />
-  //               {errors.email ? (
-  //                 <p className="text-red-500">{errors.email.message}</p>
-  //               ) : null}
-  //             </div>
-  //             <div
-  //               className={`flex flex-col gap-2 m-5 ${
-  //                 errors.name ? "error" : ""
-  //               }`}
-  //             >
-  //               <label
-  //                 htmlFor="name"
-  //                 className={`text-sm ${errors.name ? "text-red-500" : ""}`}
-  //               >
-  //                 Full Name<span className="text-red-500">*</span>
-  //               </label>
-  //               <input
-  //                 {...register("name")}
-  //                 type="text"
-  //                 id="name"
-  //                 placeholder="Enter user full name."
-  //                 value={formData.name}
-  //                 onChange={(e) =>
-  //                   setFormData({ ...formData, name: e.target.value })
-  //                 }
-  //                 className={`border border-2px w-full px-3 py-1.5 rounded-md text-sm ${
-  //                   errors.name ? "border-red-500 border-2" : ""
-  //                 }`}
-  //               />
-  //               {errors.name ? (
-  //                 <p className="text-red-500">{errors.name.message}</p>
-  //               ) : null}
-  //             </div>
-  //             <div
-  //               className={`flex flex-col gap-2 m-5 ${
-  //                 errors.role ? "error" : ""
-  //               }`}
-  //             >
-  //               <label
-  //                 htmlFor="role"
-  //                 className={`text-sm ${errors.role ? "text-red-500" : ""}`}
-  //               >
-  //                 Select Role<span className="text-red-500">*</span>
-  //               </label>
-  //               <select
-  //                 {...register("role")}
-  //                 id="role"
-  //                 value={formData.role}
-  //                 onChange={(e) =>
-  //                   setFormData({ ...formData, role: e.target.value })
-  //                 }
-  //                 className={`border border-2px w-full px-3 py-1.5 rounded-md text-sm ${
-  //                   errors.role ? "border-red-500 border-2" : ""
-  //                 }`}
-  //               >
-  //                 <option value="">Select a role</option>
-  //                 <option value="admin">Admin</option>
-  //                 <option value="manager">Manager</option>
-  //               </select>
-  //               {errors.role ? (
-  //                 <p className="text-red-500">{errors.role.message}</p>
-  //               ) : null}
-  //             </div>
-  //             <div className="flex flex-col gap-2 m-5">
-  //               <button
-  //                 type="submit"
-  //                 className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg"
-  //               >
-  //                 Add New User
-  //               </button>
-  //             </div>
-  //       </div>
-  //     </form>
-  //   </div>
-  // )
+ 
   return (
     <div
       style={{ margin: "100px", height: "600px" }}
@@ -137,106 +31,174 @@ export default function AddUserForm({
       <section className="bg-white dark:bg-gray-900">
         <div className="py-8 px-4 mx-auto max-w-2xl lg:py-16">
           <form onSubmit={handleSubmit(onAddingUser)}>
-            <div className={`grid gap-4 sm:grid-cols-2 sm:gap-6 ${
-                errors.email ? "error" : ""
-                 }`}>
-              <div className="sm:col-span-2">
+            <div
+              className={`grid gap-4 sm:grid-cols-2 sm:gap-6 ${
+                errors.name ? "error" : ""
+              }`}
+            >
+              <div className={`sm:col-span-2 ${errors.name ? "error" : ""}`}>
                 <label
                   htmlFor="name"
-                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${errors.email ? "text-red-500" : ""}`}
+                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${
+                    errors.name ? "text-red-500" : ""
+                  }`}
                 >
                   Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("name")}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
                   type="text"
                   name="name"
                   id="name"
                   value={formData.name}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                  placeholder="Enter User's Name"
-                  required
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${
+                    errors.name ? "border-red-500 border-2" : ""
+                  }`}
                 />
+                {errors.name ? (
+                  <p className="text-red-500">{errors.name.message}</p>
+                ) : null}
               </div>
               <div className="sm:col-span-2">
                 <label
                   htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${
+                    errors.email ? "text-red-500" : ""
+                  }`}
                 >
                   Email<span className="text-red-500">*</span>
                 </label>
                 <input
+                  {...register("email")}
                   type="email"
                   name="email"
                   id="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${
+                    errors.email ? "border-red-500 border-2" : ""
+                  }`}
                   placeholder="Enter User's Email ID"
                   required
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                 />
               </div>
-              <div className="w-full">
+               <div className={`sm:col-span-2 ${errors.city ? "error" : ""}`}>
                 <label
                   htmlFor="city"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${
+                    errors.city ? "text-red-500" : ""
+                  }`}
                 >
-                  city<span className="text-red-500">*</span>
+                  City <span className="text-red-500">*</span>
                 </label>
                 <input
+                  {...register("city")}
+                  onChange={(e) =>
+                    setFormData({ ...formData, city: e.target.value })
+                  }
                   type="text"
                   name="city"
                   id="city"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                  placeholder="Enter User's city"
-                  required
+                  value={formData.city}
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${
+                    errors.city ? "border-red-500 border-2" : ""
+                  }`}
                 />
+                {errors.city ? (
+                  <p className="text-red-500">{errors.city.message}</p>
+                ) : null}
               </div>
-              <div className="w-full">
+              <div className={`w-full ${errors.city ? "error" : ""}`}>
                 <label
                   htmlFor="streetAddress"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white  ${
+                    errors.streetAddress ? "text-red-500" : ""
+                  }`}
                 >
-                  streetAddress<span className="text-red-500">*</span>
+                  Street Address<span className="text-red-500">*</span>
                 </label>
                 <input
+                  {...register("streetAddress")}
+                  onChange={(e) =>
+                    setFormData({ ...formData, streetAddress: e.target.value })
+                  }
                   type="text"
                   name="streetAddress"
                   id="streetAddress"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                  placeholder="Enter User's streetAddress"
+                  value={formData.streetAddress}
+
+                  className= {`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Enter User's streetAddress  ${
+                    errors.name ? "border-red-500 border-2" : ""
+                  }`}
                   required
                 />
+                  {errors.streetAddress ? (
+                  <p className="text-red-500">{errors.streetAddress.message}</p>
+                ) : null}
               </div>
-              <div className="w-full">
+              <div className={`w-full ${errors.name ? "error" : ""}`}>
                 <label
                   htmlFor="country"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${
+                    errors.name ? "text-red-500" : ""
+                  }`}
                 >
-                  country<span className="text-red-500">*</span>
+                  Country<span className="text-red-500">*</span>
                 </label>
                 <input
+                    {...register("country")}
+                    onChange={(e) =>
+                      setFormData({ ...formData, country: e.target.value })
+                    }
                   type="text"
                   name="country"
                   id="country"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  value={formData.country}
+
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${
+                    errors.country ? "border-red-500 border-2" : ""
+                  }`}
                   placeholder="Enter User's country"
                   required
                 />
+                  {errors.country ? (
+                  <p className="text-red-500">{errors.country.message}</p>
+                ) : null}
               </div>
-              <div className="w-full">
+              <div className={`w-full ${errors.phone ? "error" : ""}`}>
                 <label
                   htmlFor="phone"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${
+                    errors.phone ? "text-red-500" : ""
+                  }`}
                 >
                   Phone<span className="text-red-500">*</span>
                 </label>
                 <input
+                 {...register("phone")}
+                 onChange={(e) =>
+                   setFormData({ ...formData, phone: e.target.value })
+                 }
                   type="number"
                   name="phone"
                   id="phone"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  value={formData.phone}
+
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${
+                    errors.phone ? "border-red-500 border-2" : ""
+                  }`}
                   placeholder="Enter Valid Phone Number"
                   required
                 />
+                    {errors.phone ? (
+                  <p className="text-red-500">{errors.phone.message}</p>
+                ) : null}
               </div>
 
               <div
@@ -269,21 +231,34 @@ export default function AddUserForm({
                   <p className="text-red-500">{errors.role.message}</p>
                 ) : null}
               </div>
-              <div>
+              <div className={`sm:col-span-2 ${errors.postalCode ? "error" : ""}`}>
                 <label
                   htmlFor="postalCode"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white  ${
+                    errors.name ? "text-red-500" : ""
+                  }`}
                 >
                   Postal Code<span className="text-red-500">*</span>
                 </label>
                 <input
+                 {...register("postalCode")}
+                 onChange={(e) =>
+                   setFormData({ ...formData, postalCode: e.target.value })
+                 }
                   type="number"
                   name="postalCode"
                   id="postalCode"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  value={formData.postalCode}
+
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${
+                    errors.name ? "border-red-500 border-2" : ""
+                  }`}
                   placeholder="Enter Postal"
                   required
                 />
+                   {errors.postalCode ? (
+                  <p className="text-red-500">{errors.postalCode.message}</p>
+                ) : null}
               </div>
 
               <div className="flex flex-col gap-2 m-5">

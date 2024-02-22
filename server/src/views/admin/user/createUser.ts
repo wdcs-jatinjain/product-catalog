@@ -12,6 +12,7 @@ export default async function createUser({ name, email, role }: addUserBody) {
         message: "User already exists.",
       };
     }
+    // Check Role Existance?
     const newUser = await User.create({
       name,
       email,

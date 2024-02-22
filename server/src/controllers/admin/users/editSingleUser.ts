@@ -17,6 +17,7 @@ export default async function editSingleUser(
       { email, name, role },
       { abortEarly: false }
     );
+    console.log({ email, name, role })
     const editUser = await Views.UserViews.editUserViews({
       email,
       name,

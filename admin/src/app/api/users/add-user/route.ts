@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { API_URL } from "../../../../../config";
 
 export async function POST(req: Request) {
-  try {
+    try {
     const { name, email, role } = await req.json();
     console.log(name, email, role, API_URL);
     const AddedUserResponse = await fetch(`${API_URL}/user/create`, {

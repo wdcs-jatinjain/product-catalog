@@ -9,20 +9,33 @@ import { UserData } from '../users'
 import PageLayout from '../../pageLayout'
 import PageHeader from '../../PageHeader'
 import EditUserForm from '../../Forms/EditUserForm'
+import { useRouter } from 'next/navigation'
 
 const EditUserComponent = ({userId}:{userId:string}) => {
   const[userDetails,setUserDetails] = useState<UserData>()
-
-const onEditingUser = async (_id: string) => {
-
+const router = useRouter()
+const onEditingUser = async (a:any) => {
+console.log(a)
 try {
    
-    const response = await fetch("/api/users/edit-user"   );
+    const response = await fetch(`/api/users/edit-user/${userId}`,
+    {
+      method: "PATCH",
+      cache:'no-cache',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(a),
+    }
+    );
     const EditUserResponse: any = await response.json();
     if (EditUserResponse.status === RESULT_STATUS.FAILURE) {
       toast.error(EditUserResponse.message);
     } else if (EditUserResponse.status === RESULT_STATUS.SUCCESS) {
+
       toast.success(EditUserResponse.message);
+      router.push('/users')
+
     }
   } catch (error: any) {
     console.error("New User not created:", error.message);
@@ -60,7 +73,7 @@ useEffect(() => {
       </div>
     
       <div className='m-5 justify-between'>
-       <EditUserForm userDetails={userDetails}  setUserDetails={setUserDetails} />
+     { userDetails &&  <EditUserForm userDetails={userDetails}  setUserDetails={setUserDetails} onEditingUser={onEditingUser} />}
       </div>
     </div>
   </PageLayout>

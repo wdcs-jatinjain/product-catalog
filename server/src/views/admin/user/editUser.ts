@@ -28,13 +28,13 @@ export default async function editUser({
       { new: true }
     );
 
-    const validRoles = await User.findOne({ role });
-    if (validRoles) {
-      return {
-        status: RESULT_STATUS.FAILURE,
-        message: "Not a valid User role.",
-      };
-    }
+    // const validRoles = await User.findOne({ role });
+    // if (validRoles) {
+    //   return {
+    //     status: RESULT_STATUS.FAILURE,
+    //     message: "Not a valid User role.",
+    //   };
+    // }
     if (!updateduser) {
       return {
         status: RESULT_STATUS.FAILURE,

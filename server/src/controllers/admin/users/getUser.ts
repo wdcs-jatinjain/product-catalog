@@ -4,8 +4,7 @@ import { Response, Request } from "express";
 
 export default async function getUser(req:Request,res: Response) {
   const { email, name, role } = req.body
-console.log(req.params)
-console.log(req.query)
+
   const id = req.query.id as string
 
   try {

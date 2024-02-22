@@ -1,17 +1,18 @@
 import { NextResponse } from "next/server";
 import { API_URL } from "../../../../../../config";
 
-export async function PATCH(req: Request) {
+export async function PATCH(req: Request,  {params}: any) {
+  const { name, email, role } = await req.json();
   try {
-    const { searchParams } = new URL(req.url);
-    const id = searchParams.get("id");
+  
     const EditededUserResponse = await fetch(
-      `${API_URL}/user/edit?id=${id}`,
+      `${API_URL}/user/edit?id=${params.userId}`,
       {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({ name, email, role }),
       }
     );
 
