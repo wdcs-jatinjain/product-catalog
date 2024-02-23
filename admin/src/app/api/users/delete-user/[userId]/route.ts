@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { API_URL } from "../../../../../../config";
 
 export async function DELETE(req: Request, {params}: any) {
+  console.log(req)
   try {
     const DeletededUserResponse = await fetch(
       `${API_URL}/user/delete?id=${params.userId}`,

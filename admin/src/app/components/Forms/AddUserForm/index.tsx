@@ -26,18 +26,11 @@ export default function AddUserForm({onAddingUser}: {onAddingUser: (a:any) => Pr
   });
  
   return (
-    <div
-      style={{ margin: "100px", height: "600px" }}
-      className=" bg-slate-400 min-h-52 "
-    >
+   
       <section className="bg-white dark:bg-gray-900">
         <div className="py-8 px-4 mx-auto max-w-2xl lg:py-16">
           <form onSubmit={handleSubmit(onAddingUser)}>
-            <div
-              className={`grid gap-4 sm:grid-cols-2 sm:gap-6 ${
-                errors.name ? "error" : ""
-              }`}
-            >
+          
               <div className={`sm:col-span-2 ${errors.name ? "error" : ""}`}>
                 <label
                   htmlFor="name"
@@ -55,6 +48,7 @@ export default function AddUserForm({onAddingUser}: {onAddingUser: (a:any) => Pr
                   type="text"
                   name="name"
                   id="name"
+                  placeholder="Enter User Name."
                   value={formData.name}
                   className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${
                     errors.name ? "border-red-500 border-2" : ""
@@ -64,7 +58,8 @@ export default function AddUserForm({onAddingUser}: {onAddingUser: (a:any) => Pr
                   <p className="text-red-500">{errors.name.message}</p>
                 ) : null}
               </div>
-              <div className="sm:col-span-2">
+
+              <div className={`sm:col-span-2 ${errors.email ? "error" : ""}`}>
                 <label
                   htmlFor="email"
                   className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${
@@ -82,12 +77,14 @@ export default function AddUserForm({onAddingUser}: {onAddingUser: (a:any) => Pr
                     errors.email ? "border-red-500 border-2" : ""
                   }`}
                   placeholder="Enter User's Email ID"
-                  required
                   value={formData.email}
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
                   }
                 />
+                  {errors.email ? (
+                  <p className="text-red-500">{errors.email.message}</p>
+                ) : null}
               </div>
                <div className={`sm:col-span-2 ${errors.city ? "error" : ""}`}>
                 <label
@@ -115,7 +112,7 @@ export default function AddUserForm({onAddingUser}: {onAddingUser: (a:any) => Pr
                   <p className="text-red-500">{errors.city.message}</p>
                 ) : null}
               </div>
-              <div className={`w-full ${errors.city ? "error" : ""}`}>
+              <div className={`w-full ${errors.streetAddress ? "error" : ""}`}>
                 <label
                   htmlFor="streetAddress"
                   className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white  ${
@@ -136,19 +133,19 @@ export default function AddUserForm({onAddingUser}: {onAddingUser: (a:any) => Pr
 
                   className= {`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Enter User's streetAddress  ${
-                    errors.name ? "border-red-500 border-2" : ""
+                    errors.streetAddress ? "border-red-500 border-2" : ""
                   }`}
-                  required
+                  
                 />
                   {errors.streetAddress ? (
                   <p className="text-red-500">{errors.streetAddress.message}</p>
                 ) : null}
               </div>
-              <div className={`w-full ${errors.name ? "error" : ""}`}>
+              <div className={`w-full ${errors.country ? "error" : ""}`}>
                 <label
                   htmlFor="country"
                   className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${
-                    errors.name ? "text-red-500" : ""
+                    errors.country ? "text-red-500" : ""
                   }`}
                 >
                   Country<span className="text-red-500">*</span>
@@ -167,7 +164,7 @@ export default function AddUserForm({onAddingUser}: {onAddingUser: (a:any) => Pr
                     errors.country ? "border-red-500 border-2" : ""
                   }`}
                   placeholder="Enter User's country"
-                  required
+                  
                 />
                   {errors.country ? (
                   <p className="text-red-500">{errors.country.message}</p>
@@ -187,7 +184,7 @@ export default function AddUserForm({onAddingUser}: {onAddingUser: (a:any) => Pr
                  onChange={(e) =>
                    setFormData({ ...formData, phone: e.target.value })
                  }
-                  type="number"
+                  type="text"
                   name="phone"
                   id="phone"
                   value={formData.phone}
@@ -196,7 +193,7 @@ export default function AddUserForm({onAddingUser}: {onAddingUser: (a:any) => Pr
                     errors.phone ? "border-red-500 border-2" : ""
                   }`}
                   placeholder="Enter Valid Phone Number"
-                  required
+                  
                 />
                     {errors.phone ? (
                   <p className="text-red-500">{errors.phone.message}</p>
@@ -237,7 +234,7 @@ export default function AddUserForm({onAddingUser}: {onAddingUser: (a:any) => Pr
                 <label
                   htmlFor="postalCode"
                   className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white  ${
-                    errors.name ? "text-red-500" : ""
+                    errors.postalCode ? "text-red-500" : ""
                   }`}
                 >
                   Postal Code<span className="text-red-500">*</span>
@@ -247,16 +244,16 @@ export default function AddUserForm({onAddingUser}: {onAddingUser: (a:any) => Pr
                  onChange={(e) =>
                    setFormData({ ...formData, postalCode: e.target.value })
                  }
-                  type="number"
+                  type="text"
                   name="postalCode"
                   id="postalCode"
                   value={formData.postalCode}
 
                   className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${
-                    errors.name ? "border-red-500 border-2" : ""
+                    errors.postalCode ? "border-red-500 border-2" : ""
                   }`}
-                  placeholder="Enter Postal"
-                  required
+                  placeholder="Enter Postal Code"
+                  
                 />
                    {errors.postalCode ? (
                   <p className="text-red-500">{errors.postalCode.message}</p>
@@ -285,7 +282,7 @@ export default function AddUserForm({onAddingUser}: {onAddingUser: (a:any) => Pr
                     errors.password ? "border-red-500 border-2" : ""
                   }`}
                   placeholder="Enter password"
-                  required
+                  
                 />
                    {errors.password ? (
                   <p className="text-red-500">{errors.password.message}</p>
@@ -300,10 +297,9 @@ export default function AddUserForm({onAddingUser}: {onAddingUser: (a:any) => Pr
                  Save
                 </button>
               </div>
-            </div>
+
           </form>
         </div>
       </section>
-    </div>
   );
 }

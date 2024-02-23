@@ -4,7 +4,6 @@ import { Response, Request } from "express";
 
 export default async function deleteUser(req: Request, res: Response) {
   const id: string = req.query.id as string;
-
   try {
     const deletedUser = await Views.UserViews.removeUserViews(id);
     return res.status(200).json(deletedUser);
