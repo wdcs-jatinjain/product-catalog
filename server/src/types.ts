@@ -15,10 +15,17 @@ export type addUserBody = {
   name: string;
   email: string;
   role:string
+  streetAddress:string
+  postalCode:string
+  city:string
+  country:string
+  phone:string
+  password:string
 }
 
 export type editUserBody = {
   name: string;
   email: string;
   role:string
+  id:string
 }

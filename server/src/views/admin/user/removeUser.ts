@@ -5,6 +5,14 @@ import mongoose from "mongoose";
 export default async function removeUser(id: any) {
   const userId = new mongoose.Types.ObjectId(id);
   try {
+    const deleteNotAllowed = await User.findById({ _id: userId })
+    if(deleteNotAllowed){
+      return {
+        status: RESULT_STATUS.FAILURE,
+        message: "Not Allowed to Delete",
+      };
+    }
+
     const removedaUser = await User.findByIdAndDelete({ _id: userId });
     if (!removedaUser) {
       return {

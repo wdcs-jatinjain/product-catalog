@@ -1,17 +1,16 @@
-'use client';
-import React, { useEffect, useState } from 'react'
-import PageHeader from '@/app/components/PageHeader'
-import PageLayout from '@/app/components/pageLayout'
-import { UserFields } from './UserFields'
-import { UserData } from './users'
-import { RESULT_STATUS } from '@/constant';
-import { toast } from 'react-toastify';
-import Table from '../Table';
+"use client";
+import React, { useEffect, useState } from "react";
+import PageHeader from "@/app/components/PageHeader";
+import PageLayout from "@/app/components/pageLayout";
+import { UserFields } from "./UserFields";
+import { UserData } from "./users";
+import { RESULT_STATUS } from "@/constant";
+import { toast } from "react-toastify";
+import Table from "../Table";
 const UserComponent = () => {
   const [users, setUsers] = useState<UserData[]>([]);
 
   const handleDelete = async (_id: string) => {
-    console.log("🚀 ~ handleDelete ~ _id:", _id)
     try {
       const response = await fetch(`/api/users/delete-user/${_id}`, {
         method: "DELETE",
@@ -35,10 +34,9 @@ const UserComponent = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-
       try {
         const response = await fetch("/api/users/get-all-users", {
-          cache: 'no-cache'
+          cache: "no-cache",
         });
         if (!response.ok) {
           throw new Error("Failed to fetch users");
@@ -49,22 +47,31 @@ const UserComponent = () => {
       } catch (error) {
         console.error("Error fetching users:", error);
       }
-    }
-    fetchUser()
-  }, [])
+    };
+    fetchUser();
+  }, []);
 
   return (
     <PageLayout>
-      <div className='flex-col '>
-        <div className='m-5'>
-        <PageHeader pageTitle='Users' showAddButton={true} addRouter={'/users/add-user'} />
+      <div className="flex-col ">
+        <div className="m-5">
+          <PageHeader
+            pageTitle="Users"
+            showAddButton={true}
+            addRouter={"/users/add-user"}
+          />
         </div>
-        <div className='m-5 justify-between'>
-          <Table data={users} fields={UserFields} handleDelete={handleDelete} editRoute={'/users/edit-user'} />
+        <div className="m-5 justify-between">
+          <Table
+            data={users}
+            fields={UserFields}
+            handleDelete={handleDelete}
+            editRoute={"/users/edit-user"}
+          />
         </div>
       </div>
     </PageLayout>
-  )
-}
+  );
+};
 
-export default UserComponent
+export default UserComponent;

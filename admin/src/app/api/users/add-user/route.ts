@@ -3,14 +3,14 @@ import { API_URL } from "../../../../../config";
 
 export async function POST(req: Request) {
     try {
-    const { name, email, role } = await req.json();
-    console.log(name, email, role, API_URL);
+    const { name, email, role, phone,postalCode,streetAddress,city,country,password } = await req.json();
+    console.log(name, email, role, phone,postalCode,streetAddress,city,country, API_URL);
     const AddedUserResponse = await fetch(`${API_URL}/user/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, email, role }),
+      body: JSON.stringify({ name, email, role, phone,postalCode,streetAddress,city,country,password }),
     });
     const UserAddedReturnData = await AddedUserResponse.json();
     return NextResponse.json(UserAddedReturnData);

@@ -8,5 +8,6 @@ const AddUserValidationSchema = Yup.object().shape({
   country: Yup.string().required("User name is required"),
   streetAddress: Yup.string().required("User name is required"),
   postalCode: Yup.string().required("User name is required"),
+  password: Yup.string().required("User Password is required")
 });
 export default AddUserValidationSchema;

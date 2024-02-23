@@ -7,7 +7,6 @@ export default async function deleteUser(req: Request, res: Response) {
 
   try {
     const deletedUser = await Views.UserViews.removeUserViews(id);
-
     return res.status(200).json(deletedUser);
   } catch (error: any) {
     if (error.name === "ValidationError") {

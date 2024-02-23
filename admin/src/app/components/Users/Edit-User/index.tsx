@@ -32,10 +32,8 @@ try {
     if (EditUserResponse.status === RESULT_STATUS.FAILURE) {
       toast.error(EditUserResponse.message);
     } else if (EditUserResponse.status === RESULT_STATUS.SUCCESS) {
-
       toast.success(EditUserResponse.message);
       router.push('/users')
-
     }
   } catch (error: any) {
     console.error("New User not created:", error.message);

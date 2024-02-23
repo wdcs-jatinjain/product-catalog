@@ -12,9 +12,15 @@ export type UserFormData = {
 };
 
 export type AddUserFormDataTypes = {
-  email: string;
-  role: string;
   name: string;
+  email: string;
+  role:string
+  streetAddress:string
+  postalCode:number
+  city:string
+  country:string
+  phone:number
+  
 };
 export type LogoutUserFormDataTypes = {
   status: string;

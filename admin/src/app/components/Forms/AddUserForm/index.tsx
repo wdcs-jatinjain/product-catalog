@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import AddUserValidationSchema from "@/app/(home)/users/add-user/userValidation";
+import AddUserValidationSchema from './userValidation'
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 
@@ -14,6 +14,8 @@ export default function AddUserForm({onAddingUser}: {onAddingUser: (a:any) => Pr
     country: "",
     streetAddress: "",
     postalCode: "",
+    password:""
+    
   });
   const {
     register,
@@ -260,13 +262,42 @@ export default function AddUserForm({onAddingUser}: {onAddingUser: (a:any) => Pr
                   <p className="text-red-500">{errors.postalCode.message}</p>
                 ) : null}
               </div>
+              <div className={`sm:col-span-2 ${errors.password ? "error" : ""}`}>
+                <label
+                  htmlFor="password"
+                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white  ${
+                    errors.password ? "text-red-500" : ""
+                  }`}
+                >
+                 Enter Password<span className="text-red-500">*</span>
+                </label>
+                <input
+                 {...register("password")}
+                 onChange={(e) =>
+                   setFormData({ ...formData, password: e.target.value })
+                 }
+                  type="password"
+                  name="password"
+                  id="password"
+                  value={formData.password}
+
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${
+                    errors.password ? "border-red-500 border-2" : ""
+                  }`}
+                  placeholder="Enter password"
+                  required
+                />
+                   {errors.password ? (
+                  <p className="text-red-500">{errors.password.message}</p>
+                ) : null}
+              </div>
 
               <div className="flex flex-col gap-2 m-5">
                 <button
                   type="submit"
                   className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg"
                 >
-                  Add New User
+                 Save
                 </button>
               </div>
             </div>

@@ -2,24 +2,22 @@ import Views from "../../../views";
 import { validateAddedUser } from "./addUserValidations";
 import { addUserBody } from "../../../types";
 import { RESULT_STATUS } from "../../../constant";
-import { Response } from "express";
+import  {Response}  from "express";
 
 export default async function addUser(
-  { body: { email, name, role } }: { body: addUserBody },
-  res: Response
-) {
+  { body: { email, name, role, streetAddress,postalCode,city, country, phone,password } }: { body: addUserBody },
+  res: Response)
+{
   try {
     await validateAddedUser.validateAsync(
-      { email, name, role },
+      { email, name, role, streetAddress,postalCode,city, country, phone,password},
       { abortEarly: false }
     );
+    const AddedUser = await Views.UserViews.createUserViews( { email, name, role, streetAddress,postalCode,city, country, phone,password})
+    console.log(AddedUser)
 
-    const AddedUser = await Views.UserViews.createUserViews({
-      email,
-      name,
-      role,
-    });
     return res.status(200).json(AddedUser);
+
   } catch (error: any) {
     if (error.name === "ValidationError") {
       return {

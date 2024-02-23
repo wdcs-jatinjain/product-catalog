@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import AddUserValidationSchema from "@/app/(home)/users/add-user/userValidation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { UserData } from "../../Users/users";
@@ -15,7 +14,7 @@ export default function EditUserForm({ onEditingUser, userDetails }: { userDetai
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(AddUserValidationSchema),
+  
   });
   
   return (
@@ -46,16 +45,16 @@ export default function EditUserForm({ onEditingUser, userDetails }: { userDetai
                     setFormData({ ...formData, name: e.target.value })
                   }
                   type="text"
-                  // name="name"
+                   name="name"
                   id="name"
                   value={formData.name}
                   className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${
                     errors.name ? "border-red-500 border-2" : ""
                   }`}
                 />
-                {errors.name ? (
+                {/* {errors.name ? (
                   <p className="text-red-500">{errors.name.message}</p>
-                ) : null}
+                ) : null} */}
               </div>
               <div className="sm:col-span-2">
                 <label
@@ -173,9 +172,9 @@ export default function EditUserForm({ onEditingUser, userDetails }: { userDetai
                   <option value="admin">Admin</option>
                   <option value="manager">Manager</option>
                 </select>
-                {errors.role ? (
+                {/* {errors.role ? (
                   <p className="text-red-500">{errors.role.message}</p>
-                ) : null}
+                ) : null} */}
               </div>
               {/* <div>
                 <label

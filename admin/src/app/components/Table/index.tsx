@@ -31,6 +31,8 @@ const Table = ({data,fields, handleDelete,editRoute}:{data:UserData[],fields:Tab
         <tbody className="bg-white divide-y divide-gray-300">
           {data.map((columnValue: UserData, index: number) => (
             <tr key={columnValue._id}>
+              <td className="px-6 py-4 whitespace-nowrap">{columnValue._id}</td>
+
               <td className="px-6 py-4 whitespace-nowrap">{columnValue.name}</td>
               <td className="px-6 py-4 whitespace-nowrap">{columnValue.email}</td>
               <td className="px-6 py-4 whitespace-nowrap">{columnValue.role}</td>

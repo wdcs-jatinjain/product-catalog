@@ -2,7 +2,7 @@ import User from "../../../models/user";
 import { addUserBody } from "../../../types";
 import { RESULT_STATUS } from "../../../constant";
 
-export default async function createUser({ name, email, role }: addUserBody) {
+export default async function createUser({  email, name, role, streetAddress,postalCode,city, country, phone,password }: addUserBody) {
   console.log("🚀 ~ createUser ~ createUser:", createUser);
   try {
     const existingUser = await User.findOne({ email });
@@ -14,9 +14,7 @@ export default async function createUser({ name, email, role }: addUserBody) {
     }
     // Check Role Existance?
     const newUser = await User.create({
-      name,
-      email,
-      role,
+      email, name, role, streetAddress,postalCode,city, country, phone,password
     });
     return {
       status: RESULT_STATUS.SUCCESS,

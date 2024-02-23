@@ -1,18 +1,22 @@
 export const UserFields = [
-    {
-      id:1,
+  {
+    id:1,
+    name: "User ID "
+  },
+  {
+      id:2,
       name: "Name"
     },
     {
-        id:2,
+        id:3,
         name: "Email"
       },
       {
-        id:3,
+        id:4,
         name: "Role"
       },
       {
-        id:4,
+        id:5,
         name: "Created At"
       }
 
