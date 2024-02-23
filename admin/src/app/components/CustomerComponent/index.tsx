@@ -7,7 +7,7 @@ const CustomerComponent = () => {
     <PageLayout>
       <PageHeader
         pageTitle="Customers"
-        showAddButton={false}
+        showAddButton={true}
         addRouter={"/users/customer"}
       />
       <div className="m-3 justify-between"></div>

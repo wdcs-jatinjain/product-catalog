@@ -2,13 +2,11 @@ import User from "../../../models/user";
 import { RESULT_STATUS } from "../../../constant";
 import mongoose from "mongoose";
 
-export default async function removeUser( 
-  id: any) {
+export default async function deletedUser( 
+  id: string) {
   const userId = new mongoose.Types.ObjectId(id);
-  console.log(userId)
   try {
     const user = await User.findById({ _id: userId });
-    console.log("🚀 ~ user:", user ,typeof(user.role[0]))
     if (user && user.role[0]=='superAdmin'){
 return {
         status: RESULT_STATUS.FAILURE,

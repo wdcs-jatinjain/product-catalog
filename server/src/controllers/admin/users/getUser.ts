@@ -11,7 +11,6 @@ export default async function getUser(req:Request,res: Response) {
     const userDetails = await Views.UserViews.getSingleUserViews(
       { email, name, role,id}
     );
-    console.log("🚀 ~ userDetails:", userDetails)
     return res.status(200).json(userDetails);
   } catch (error: any) {
     if (error.name === "ValidationError") {

@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { API_URL } from "../../../../../../config";
+import { ParamsType, UserDeleteReturnData } from "@/types";
 
-export async function DELETE(req: Request, {params}: any) {
-  console.log(req)
+export async function DELETE(req: Request, { params }:any) { //getting Error
   try {
     const DeletededUserResponse = await fetch(
       `${API_URL}/user/delete?id=${params.userId}`,
@@ -14,7 +14,9 @@ export async function DELETE(req: Request, {params}: any) {
       }
     );
 
-    const UserDeletedReturnData = await DeletededUserResponse.json();
+    const UserDeletedReturnData: UserDeleteReturnData =
+      await DeletededUserResponse.json();
+
     return NextResponse.json(UserDeletedReturnData);
   } catch (error) {
     console.error("Error while Deleting User:", error);

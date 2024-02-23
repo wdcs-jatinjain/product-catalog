@@ -10,14 +10,13 @@ export default async function editSingleUser(
   }: { body: { name: string; email: string; role: string }; query: any },
   res: Response
 ) {
-  const id: any = query.id;
+  const id: string = query.id;
 
   try {
     await validateEditUser.validateAsync(
       { email, name, role },
       { abortEarly: false }
     );
-    console.log({ email, name, role })
     const editUser = await Views.UserViews.editUserViews({
       email,
       name,

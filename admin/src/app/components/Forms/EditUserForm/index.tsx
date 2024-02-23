@@ -52,9 +52,7 @@ export default function EditUserForm({ onEditingUser, userDetails }: { userDetai
                     errors.name ? "border-red-500 border-2" : ""
                   }`}
                 />
-                {/* {errors.name ? (
-                  <p className="text-red-500">{errors.name.message}</p>
-                ) : null} */}
+            
               </div>
               <div className="sm:col-span-2">
                 <label
@@ -81,7 +79,7 @@ export default function EditUserForm({ onEditingUser, userDetails }: { userDetai
                   }
                 />
               </div>
-              {/* <div className="w-full">
+              <div className="w-full">
                 <label
                   htmlFor="city"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -89,9 +87,14 @@ export default function EditUserForm({ onEditingUser, userDetails }: { userDetai
                   city<span className="text-red-500">*</span>
                 </label>
                 <input
+                {...register("city")}
+                onChange={(e) =>
+                  setFormData({ ...formData, city: e.target.value })
+                }
                   type="text"
                   name="city"
                   id="city"
+                  value={formData.city}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Enter User's city"
                   required
@@ -105,9 +108,14 @@ export default function EditUserForm({ onEditingUser, userDetails }: { userDetai
                   streetAddress<span className="text-red-500">*</span>
                 </label>
                 <input
+               {...register("streetAddress")}
+               onChange={(e) =>
+                 setFormData({ ...formData, streetAddress: e.target.value })
+               }
                   type="text"
                   name="streetAddress"
                   id="streetAddress"
+                  value={formData.streetAddress}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Enter User's streetAddress"
                   required
@@ -121,9 +129,14 @@ export default function EditUserForm({ onEditingUser, userDetails }: { userDetai
                   country<span className="text-red-500">*</span>
                 </label>
                 <input
-                  type="text"
+                {...register("country")}
+                onChange={(e) =>
+                  setFormData({ ...formData, country: e.target.value })
+                }                 
+                 type="text"
                   name="country"
                   id="country"
+                 value={formData.country}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Enter User's country"
                   required
@@ -137,14 +150,19 @@ export default function EditUserForm({ onEditingUser, userDetails }: { userDetai
                   Phone<span className="text-red-500">*</span>
                 </label>
                 <input
-                  type="number"
+                  {...register("phone")}
+                  onChange={(e) =>
+                    setFormData({ ...formData, phone: e.target.value })
+                  }
+                  type="string"
                   name="phone"
                   id="phone"
+                  value={formData.phone}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Enter Valid Phone Number"
                   required
                 />
-              </div> */}
+              </div>
 
               <div
                 className={`flex flex-col gap-2 m-5 ${
@@ -172,11 +190,9 @@ export default function EditUserForm({ onEditingUser, userDetails }: { userDetai
                   <option value="admin">Admin</option>
                   <option value="manager">Manager</option>
                 </select>
-                {/* {errors.role ? (
-                  <p className="text-red-500">{errors.role.message}</p>
-                ) : null} */}
+             
               </div>
-              {/* <div>
+              <div>
                 <label
                   htmlFor="postalCode"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -184,14 +200,19 @@ export default function EditUserForm({ onEditingUser, userDetails }: { userDetai
                   Postal Code<span className="text-red-500">*</span>
                 </label>
                 <input
-                  type="number"
+                {...register("postalCode")}
+                onChange={(e)=> setFormData({
+                  ...formData, postalCode:e.target.value
+                })}
+                value={formData.postalCode}
+                  type="string"
                   name="postalCode"
                   id="postalCode"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Enter Postal"
                   required
                 />
-              </div> */}
+              </div>
 
               <div className="flex flex-col gap-2 m-5">
                 <button

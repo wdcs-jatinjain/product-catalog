@@ -3,7 +3,6 @@ import { addUserBody } from "../../../types";
 import { RESULT_STATUS } from "../../../constant";
 
 export default async function createUser({  email, name, role, streetAddress,postalCode,city, country, phone,password }: addUserBody) {
-  console.log("🚀 ~ createUser ~ createUser:", createUser);
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {

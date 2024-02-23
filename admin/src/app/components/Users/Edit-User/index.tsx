@@ -15,7 +15,6 @@ const EditUserComponent = ({userId}:{userId:string}) => {
   const[userDetails,setUserDetails] = useState<UserData>()
 const router = useRouter()
 const onEditingUser = async (a:any) => {
-console.log(a)
 try {
    
     const response = await fetch(`/api/users/edit-user/${userId}`,
@@ -48,7 +47,6 @@ useEffect(() => {
         cache: 'no-cache'
       });
       const {GetSingleUsersReturnData} = await response.json();
-      console.log("🚀 ~ fetchUserDetails ~ GetAllUsersReturnData:", GetSingleUsersReturnData)
       if(GetSingleUsersReturnData.status === 'Success')
       {setUserDetails(GetSingleUsersReturnData.data);}
       else{

@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 
 export default function AddUserForm({onAddingUser}: {onAddingUser: (a:any) => Promise<void>;}) {
+
   const [formData, setFormData] = useState({
     email: "",
     name: "",
@@ -24,7 +25,6 @@ export default function AddUserForm({onAddingUser}: {onAddingUser: (a:any) => Pr
   } = useForm({
     resolver: yupResolver(AddUserValidationSchema),
   });
- 
   return (
    
       <section className="bg-white dark:bg-gray-900">

@@ -13,12 +13,10 @@ export default async function getSingleUser({
   role: string;
   id: string;
 }) {
-  console.log("🚀 ~ id:", id)
   const userId = new mongoose.Types.ObjectId(id);
 
   try {
     const singleUser = await User.findById({_id:userId} );
-    console.log("🚀 ~ singleUser:", singleUser)
     if (singleUser) {
       return {
         status: RESULT_STATUS.SUCCESS,

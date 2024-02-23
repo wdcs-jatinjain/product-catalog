@@ -13,10 +13,8 @@ export default async function addUser(
       { email, name, role, streetAddress,postalCode,city, country, phone,password},
       { abortEarly: false }
     );
-    const AddedUser = await Views.UserViews.createUserViews( { email, name, role, streetAddress,postalCode,city, country, phone,password})
-    console.log(AddedUser)
-
-    return res.status(200).json(AddedUser);
+    const addUserViewsRes = await Views.UserViews.createUserViews( { email, name, role, streetAddress,postalCode,city, country, phone,password})
+    return res.status(200).json(addUserViewsRes);
 
   } catch (error: any) {
     if (error.name === "ValidationError") {

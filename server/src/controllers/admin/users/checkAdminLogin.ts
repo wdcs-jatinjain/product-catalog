@@ -12,11 +12,11 @@ export default async function checkAdminLogin(
       { email, password },
       { abortEarly: false }
     );
-    const isLoggedUser = await Views.UserViews.checkAdminLoginViews({
+    const checkAdminLoginViewsRes = await Views.UserViews.checkAdminLoginViews({
       email,
       password,
     });
-    return res.status(200).json(isLoggedUser);
+    return res.status(200).json(checkAdminLoginViewsRes);
   } catch (error: any) {
     if (error.name === "ValidationError") {
       return {

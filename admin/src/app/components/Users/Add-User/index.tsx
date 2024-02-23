@@ -11,7 +11,7 @@ import { toast } from 'react-toastify'
 const AddUserComponent = () => {
   const router= useRouter()
   const onAddingUser = async (a:any) => {
-    console.log(a)
+  console.log("🚀 ~ onAddingUser ~ a:", a)
 
     try {
     
@@ -22,7 +22,10 @@ const AddUserComponent = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(a),
+
       });
+ console.log(a)
+
       const AddUserResponse: any = await response.json();
       console.log("🚀 ~ onAddingUser ~ AddUserResponse:", AddUserResponse)
       if (AddUserResponse.status === RESULT_STATUS.FAILURE) {

@@ -3,6 +3,12 @@ export type loginBody = {
   password: string;
 };
 
+export type loginReturnBody = {
+  status: string,
+  message: string,
+  token: string,
+}
+
 export type registerBody = {
   name: string;
   email: string;
