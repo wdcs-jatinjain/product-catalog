@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link';
-import { FaceFrownIcon } from '@heroicons/react/24/outline';
+import { FaceFrownIcon } from '@heroicons/react/24/outline'
  
 export default function NotFound() {
   return (

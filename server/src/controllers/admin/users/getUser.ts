@@ -3,13 +3,13 @@ import { RESULT_STATUS } from "../../../constant";
 import { Response, Request } from "express";
 
 export default async function getUser(req:Request,res: Response) {
-  const { email, name, role } = req.body
+  const { email, name, role,password, phone, city, country, streetAddress, postalCode } = req.body
 
   const id = req.query.id as string
 
   try {
     const userDetails = await Views.UserViews.getSingleUserViews(
-      { email, name, role,id}
+      { email, name, role,password, phone, city, country, streetAddress, postalCode, id}
     );
     return res.status(200).json(userDetails);
   } catch (error: any) {

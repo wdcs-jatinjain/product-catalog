@@ -62,7 +62,7 @@ const Table = ({
                 <th
                   key={field.id}
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-left text-gray-500 uppercase tracking-wider text-lg"
                 >
                   {field.name}
                 </th>
@@ -70,7 +70,7 @@ const Table = ({
             })}
             <th
               key={"action"}
-              className=" text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              className=" text-left  text-lg text-gray-500 uppercase tracking-wider "
             >
               Actions
             </th>

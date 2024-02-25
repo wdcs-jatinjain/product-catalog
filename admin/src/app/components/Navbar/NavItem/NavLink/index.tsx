@@ -11,8 +11,8 @@ const NavLink = ({ item }: { item: { title: string; path: string } }) => {
       href={item.path}
       className={
         pathName.includes(item.path)
-          ? "bg-black text-white rounded-2xl p-2   "
-          : " hover:text-blue-500"
+          ? "bg-black text-white rounded-2xl p-2 font-bold text-2xl   "
+          : "  hover:text-white text-2xl  "
       }
     >
       {item.title}

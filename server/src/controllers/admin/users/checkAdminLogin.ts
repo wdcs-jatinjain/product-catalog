@@ -1,14 +1,14 @@
-import { checkAdminValidator } from "./user-type";
 import Views from "../../../views";
 import { RESULT_STATUS } from "../../../constant";
 import { Response } from "express";
+import { validateAdminUser } from "./checkAdminLoginValidation";
 
 export default async function checkAdminLogin(
   { body: { email, password } }: { body: { email: string; password: string } },
   res: Response
 ) {
   try {
-    await checkAdminValidator.validateAsync(
+    await validateAdminUser.validateAsync(
       { email, password },
       { abortEarly: false }
     );

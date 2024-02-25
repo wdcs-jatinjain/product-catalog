@@ -6,9 +6,9 @@ const NavbarComponent = () => {
   return (
     <div className="flex justify-between border-[10px] p-5 ">
       <Link href={"/"}>
-        <Image src="/logo.svg" alt="" width={40} height={40} />
+        <Image src="/logo.svg" alt="" width={70} height={50} />
       </Link>
-      <div className="bg-orange-900 rounded-xl p-1 gap-2 hover:white">
+      <div className="bg-yellow-600 rounded-xl p-4 gap-3 ">
         <NavItems />
       </div>
     </div>

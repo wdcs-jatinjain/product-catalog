@@ -3,15 +3,12 @@ import { RESULT_STATUS } from "../../../constant";
 import mongoose from "mongoose";
 
 export default async function editUser({
-  email,
-  name,
-  role,
+  email, name, role, streetAddress, postalCode, city, country, phone, password,
   id,
 }: {
-  name: string;
-  email: string;
-  role: string;
+
   id: string;
+  email: string, name: string, role: string, streetAddress: string, postalCode: string, city: string, country: string, phone: string, password: string
 }) {
   const userId = new mongoose.Types.ObjectId(id);
   try {
@@ -19,22 +16,23 @@ export default async function editUser({
     if (!existingUser) {
       return {
         status: RESULT_STATUS.FAILURE,
+        message: "Cannot Edit Email Id"
       };
     }
 
     const updateduser = await User.findByIdAndUpdate(
       { _id: userId },
-      { name, email, role },
+      { email, name, role, streetAddress, postalCode, city, country, phone, password },
       { new: true }
     );
 
-    // const validRoles = await User.findOne({ role });
-    // if (validRoles) {
-    //   return {
-    //     status: RESULT_STATUS.FAILURE,
-    //     message: "Not a valid User role.",
-    //   };
-    // }
+    const validRoles = await User.findOne({ role });
+    if (validRoles) {
+      return {
+        status: RESULT_STATUS.FAILURE,
+        message: "Not a valid User role.",
+      };
+    }
     if (!updateduser) {
       return {
         status: RESULT_STATUS.FAILURE,

@@ -1,6 +1,6 @@
 import User from "../../../models/user";
 import { RESULT_STATUS } from "../../../constant";
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
 export default async function deletedUser( 
   id: string) {

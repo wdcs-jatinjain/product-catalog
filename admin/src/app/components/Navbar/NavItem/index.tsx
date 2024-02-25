@@ -51,12 +51,11 @@ const NavItems = () => {
 
   return (
     <div className="flex gap-4 justify-end  ">
-        {/* <p className="hover:text-blue-500">Element 1</p>
-  <p className="hover:text-blue-500">Element 2</p> */}
+     
       {links.map((link: { title: string; path: string }, index: number) => {
         return <NavLink key={index} item={link} />;
       })}
-      <button className="m-2 cursor-pointer hover:text-blue-500  text-black" onClick={handleLogout}>
+      <button className="m-2 cursor-pointer bg-red-600 rounded-2xl p-2 font-bold text-2xl  hover:text-white  text-black" onClick={handleLogout}>
         Logout
       </button>
     </div>

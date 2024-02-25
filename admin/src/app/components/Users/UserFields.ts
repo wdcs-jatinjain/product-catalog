@@ -1,7 +1,7 @@
 export const UserFields = [
   {
     id:1,
-    name: "User ID "
+    name: "ID "
   },
   {
       id:2,

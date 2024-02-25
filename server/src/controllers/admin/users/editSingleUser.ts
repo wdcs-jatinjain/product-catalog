@@ -5,22 +5,20 @@ import { validateEditUser } from "./editUserValidation";
 
 export default async function editSingleUser(
   {
-    body: { name, email, role },
+    body: { email, name, role, streetAddress, postalCode, city, country, phone, password },
     query,
-  }: { body: { name: string; email: string; role: string }; query: any },
+  }: { body: { name: string; email: string; role: string, streetAddress: string, postalCode: string, city: string, country: string, phone: string, password: string }; query: any },
   res: Response
 ) {
   const id: string = query.id;
 
   try {
     await validateEditUser.validateAsync(
-      { email, name, role },
+      { email, name, role, streetAddress, postalCode, city, country, phone, password },
       { abortEarly: false }
     );
     const editUser = await Views.UserViews.editUserViews({
-      email,
-      name,
-      role,
+      email, name, role, streetAddress, postalCode, city, country, phone, password ,
       id,
     });
     return res.status(200).json(editUser);

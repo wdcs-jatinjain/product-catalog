@@ -11,12 +11,12 @@ const AddUserValidationSchema = Yup.object().shape({
     .matches(/^[0-9]+$/, "Phone number should only contain numeric characters.")
     .length(10, "Phone number should be exactly 10 digits.")
     .required("Phone number is required."),
-  country: Yup.string().required("User name is required"),
-  streetAddress: Yup.string().required("User name is required"),
+  country: Yup.string().required("User Country name is required"),
+  streetAddress: Yup.string().required("User streetAddress is required"),
   postalCode: Yup.string()
-    .matches(/^[0-9]+$/, "Zip code should only contain numeric characters")
-    .length(6, "Zip code should be exactly 6 digits.")
-    .required("Zip code is required."),
+    .matches(/^[0-9]+$/, "postalCode should only contain numeric characters")
+    .length(6, "postalCode should be exactly 6 digits.")
+    .required("postalCode is required."),
   password: Yup.string()
     .trim()
     .required("Please enter password.")
