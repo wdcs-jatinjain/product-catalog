@@ -3,12 +3,10 @@ export type inputFormDataTypes = {
   password: string;
 };
 export type UserFormData = {
-  cookies: any;
   status: string;
   message: string;
   token: string;
-  email: string;
-  password: string;
+  
 };
 
 export type AddUserFormDataTypes = {
@@ -59,7 +57,7 @@ export type ParamsType = {
  userId:string
 };
 
-export type GetSingleUsersReturnData=
+export type GetUserReturnData=
 {
  
   status: string

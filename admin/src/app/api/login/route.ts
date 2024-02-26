@@ -1,6 +1,7 @@
 import { API_URL } from "../../../../config";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import { UserFormData } from "@/types";
 
 export async function POST(req: Request) {
   try {
@@ -13,7 +14,7 @@ export async function POST(req: Request) {
       },
       body: JSON.stringify({ email, password }),
     });
-    const UserLoginReturnData = await UserLoginResponse.json();
+    const UserLoginReturnData:UserFormData = await UserLoginResponse.json();
     cookies().set("token", UserLoginReturnData.token);
     return NextResponse.json(UserLoginReturnData);
   } catch (error) {

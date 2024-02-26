@@ -6,7 +6,7 @@ const ApiLogsComponent = () => {
   return (
     
         <PageLayout>
-        <PageHeader pageTitle='APILogsPage' showAddButton={true} addRouter={'/users/api-log'} />
+        <PageHeader pageTitle='APILogsPage' showAddButton={false} addRouter={'/users/api-log'} />
         <div className='m-3 justify-between'>
     
         </div>

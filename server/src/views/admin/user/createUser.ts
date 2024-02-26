@@ -11,7 +11,6 @@ export default async function createUser({  email, name, role, streetAddress,pos
         message: "User already exists.",
       };
     }
-    // Check Role Existance?
     const newUser = await User.create({
       email, name, role, streetAddress,postalCode,city, country, phone,password
     });
