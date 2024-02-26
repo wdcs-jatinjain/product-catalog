@@ -7,11 +7,10 @@ export default async function editSingleUser(
   {
     body: { email, name, role, streetAddress, postalCode, city, country, phone, password },
     query,
-  }: { body: { name: string; email: string; role: string, streetAddress: string, postalCode: string, city: string, country: string, phone: string, password: string }; query: any },
+  }: { body: { name: string; email: string; role: string, streetAddress: string, postalCode: string, city: string, country: string, phone: string, password: string }; query: {id:string} },
   res: Response
 ) {
   const id: string = query.id;
-
   try {
     await validateEditUser.validateAsync(
       { email, name, role, streetAddress, postalCode, city, country, phone, password },

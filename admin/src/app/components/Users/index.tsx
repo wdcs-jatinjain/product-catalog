@@ -7,6 +7,7 @@ import { UserData } from "./users";
 import { RESULT_STATUS } from "@/constant";
 import { toast } from "react-toastify";
 import Table from "../Table";
+import { UserDeleteReturnData } from "@/types";
 const UserComponent = () => {
   const [users, setUsers] = useState<UserData[]>([]);
 
@@ -18,12 +19,11 @@ const UserComponent = () => {
           "Content-Type": "application/json",
         },
       });
-      const userDeleteResponse = await response.json();
+      const userDeleteResponse:UserDeleteReturnData = await response.json();
       if (userDeleteResponse.status === RESULT_STATUS.FAILURE) {
         toast.error(userDeleteResponse.message);
       } else if (userDeleteResponse.status === RESULT_STATUS.SUCCESS) {
         setUsers(users.filter((users) => users._id !== _id));
-
         toast.success(userDeleteResponse.message);
       }
     } catch (error: any) {
@@ -50,6 +50,7 @@ const UserComponent = () => {
     };
     fetchUser();
   }, []);
+  
 
   return (
     <PageLayout>

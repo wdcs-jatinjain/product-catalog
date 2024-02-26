@@ -16,10 +16,25 @@ export type AddUserFormDataTypes = {
   email: string;
   role: string;
   streetAddress: string;
-  postalCode: number;
+  postalCode: string;
   city: string;
   country: string;
-  phone: number;
+  phone: string;
+  password:string
+  
+};
+export type EditUserFormDataTypes = {
+  _id:string
+  name: string;
+  email: string;
+  role: string;
+  streetAddress: string;
+  postalCode: string;
+  city: string;
+  country: string;
+  phone: string;
+  password:string
+  
 };
 export type UserAddReturnData = {
   status: string;
@@ -27,7 +42,7 @@ export type UserAddReturnData = {
   data: { id: string };
 };
 
-export type UserEditReturnData = {
+export type UserEditResponseData = {
   status: string;
   message: string;
   data: { updateUser: string };
@@ -44,19 +59,45 @@ export type ParamsType = {
  userId:string
 };
 
+export type GetSingleUsersReturnData=
+{
+ 
+  status: string
+  message: string
+  data: {
+    _id: string
+    name: string
+    email: string
+    password: string
+    streetAddress:string
+    role:string
+    postalCode: string
+    city: string
+    country:string
+    phone: string
+    isAdmin: boolean
+    createdAt: string
+    updatedAt: string
+    __v: number
+
+}
+}
 export type GetAllUsersReturnData=
 {
-  isAdmin: boolean,
-  _id: string,
-  email: string,
-  password: string,
-  role: [  ]
+  _id: string
+  name: string
+  email:string
+  password: string
+  streetAddress: string
+  role: string
+  postalCode: string,
+  city: string
+  country: string
+  phone: string
+  isAdmin: boolean
+  createdAt:string
+  updatedAt: string
+  __v: number
 }
-export type GetSingleUserReturnData=
-{
-  isAdmin: boolean,
-  _id: string,
-  email: string,
-  password: string,
-  role: [  ]
-}
+
+

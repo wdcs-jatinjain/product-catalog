@@ -33,5 +33,25 @@ export type editUserBody = {
   name: string;
   email: string;
   role:string
+  streetAddress:string
+  postalCode:string
+  city:string
+  country:string
+  phone:string
+  password:string
   id:string
+}
+
+export type deleteUserRes ={
+  status:string
+  message:string
+}
+
+export type addUserRes = {
+  
+    status:string
+    message: string
+    data?: {
+      id: string
+    }
 }

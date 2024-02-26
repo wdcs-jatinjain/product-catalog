@@ -1,33 +1,28 @@
-'use client'
-import React from 'react'
-import AddUserForm from '../../Forms/AddUserForm'
-import PageHeader from '../../PageHeader'
-import PageLayout from '../../pageLayout'
-import Link from 'next/link'
-import { RESULT_STATUS } from '@/constant'
-import { useRouter } from 'next/navigation'
-import { toast } from 'react-toastify'
+"use client";
+import React from "react";
+import AddUserForm from "../../Forms/AddUserForm";
+import PageHeader from "../../PageHeader";
+import PageLayout from "../../pageLayout";
+import Link from "next/link";
+import { RESULT_STATUS } from "@/constant";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import { AddUserFormDataTypes, UserAddReturnData } from "@/types";
 
 const AddUserComponent = () => {
-  const router= useRouter()
-  const onAddingUser = async (a:any) => {
-  console.log("🚀 ~ onAddingUser ~ a:", a)
-
+  const router = useRouter();
+  const onAddingUser = async (AddUserData: AddUserFormDataTypes) => {
     try {
-    
       const response = await fetch("/api/users/add-user", {
         method: "POST",
-        cache:'no-cache',
+        cache: "no-cache",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(a),
-
+        body: JSON.stringify(AddUserData),
       });
- console.log(a)
 
-      const AddUserResponse: any = await response.json();
-      console.log("🚀 ~ onAddingUser ~ AddUserResponse:", AddUserResponse)
+      const AddUserResponse: UserAddReturnData = await response.json();
       if (AddUserResponse.status === RESULT_STATUS.FAILURE) {
         toast.error(AddUserResponse.message);
       } else if (AddUserResponse.status === RESULT_STATUS.SUCCESS) {
@@ -41,18 +36,17 @@ const AddUserComponent = () => {
   };
   return (
     <PageLayout>
-    <div className='flex-col '>
-      <div className='flex gap-5 m-5'>
-      <Link href={'/users'}>{'<'}</Link>
-      <PageHeader pageTitle='Add User' showAddButton={false}  />
+      <div className="flex-col ">
+        <div className="flex gap-5 m-5">
+          <Link href={"/users"}>{"<"}</Link>
+          <PageHeader pageTitle="Add User" showAddButton={false} />
+        </div>
+        <div className="m-5 justify-between">
+          <AddUserForm onAddingUser={onAddingUser} />
+        </div>
       </div>
-    
-      <div className='m-5 justify-between'>
-        <AddUserForm onAddingUser={onAddingUser}/>
-      </div>
-    </div>
-  </PageLayout>
-  )
-}
+    </PageLayout>
+  );
+};
 
-export default AddUserComponent
+export default AddUserComponent;

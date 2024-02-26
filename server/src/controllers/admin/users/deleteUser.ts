@@ -1,18 +1,18 @@
 import Views from "../../../views";
 import { RESULT_STATUS } from "../../../constant";
 import { Response, Request } from "express";
+import { deleteUserRes } from "../../../types";
 
-export default async function deleteUser(req: Request, res: Response) {
-  const id: string = req.query.id as string;
+export default async function deleteUser({query:{id}}:{query:{id:string}}, res: Response) {
   try {
-    const deletedUser = await Views.UserViews.deletedUserViews(id); //Array is only return over here
-    return res.status(200).json(deletedUser);
+    const removeUserViewsRes:deleteUserRes = await Views.UserViews.deletedUserViews(id); 
+    return res.status(200).json(removeUserViewsRes);
   } catch (error: any) {
     if (error.name === "ValidationError") {
       return {
         status: RESULT_STATUS.FAILURE,
         message: "Validation error occurred while deleting the users.",
-        error: error.details.map((err: any) => err.message),
+        error: error.details.map((err: any) => err.message)
       };
     } else {
       console.error("An error occurred while deleting the user33:", error);

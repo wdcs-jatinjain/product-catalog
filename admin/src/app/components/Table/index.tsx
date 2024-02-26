@@ -52,6 +52,9 @@ const Table = ({
   handleDelete: (id: string) => Promise<void>;
   editRoute: string;
 }) => {
+  if (!Array.isArray(data)) {
+    return <h1>No data available</h1>;
+  }
   return (
     <div className="margin-top:20px ">
       <table className="min-w-full border border-gray-300">
@@ -90,7 +93,7 @@ const Table = ({
                 {columnValue && columnValue.email ? columnValue.email : "-"}
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
-                {columnValue && columnValue.role ? columnValue.email : "-"}
+                {columnValue && columnValue.role ? columnValue.role : "-"}
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
                 {columnValue && columnValue.createdAt

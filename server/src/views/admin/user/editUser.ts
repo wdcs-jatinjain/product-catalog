@@ -27,7 +27,7 @@ export default async function editUser({
     );
 
     const validRoles = await User.findOne({ role });
-    if (validRoles) {
+    if (!validRoles) {
       return {
         status: RESULT_STATUS.FAILURE,
         message: "Not a valid User role.",

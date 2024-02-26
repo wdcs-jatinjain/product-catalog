@@ -3,32 +3,34 @@ import React, { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { UserData } from "../../Users/users";
+import EditUserValidationSchema from "./EditUserValidation";
+import { EditUserFormDataTypes } from "@/types";
 
-
-export default function EditUserForm({ onEditingUser, userDetails }: { userDetails: UserData, setUserDetails: React.Dispatch<React.SetStateAction<UserData | undefined>>, onEditingUser: (a:any) => Promise<void> }) {
-  const [formData, setFormData] = useState(
-    userDetails
-  );
+export default function EditUserForm({
+  onEditingUser,
+  userDetails,
+}: {
+  userDetails: UserData;
+  setUserDetails: React.Dispatch<React.SetStateAction<UserData | undefined>>;
+  onEditingUser: (EditUserData: EditUserFormDataTypes) => Promise<void>;
+}) {
+  const [formData, setFormData] = useState(userDetails);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-  
+    resolver: yupResolver(EditUserValidationSchema),
   });
-  
+
   return (
-    <div
-      style={{ margin: "100px", height: "600px" }}
-      className=" bg-slate-400 min-h-52 "
-    >
-      <section className="bg-white dark:bg-gray-900">
-        <div className="py-8 px-4 mx-auto max-w-2xl lg:py-16">
-          <form onSubmit={handleSubmit(onEditingUser)}>
-            <div
-              className={`grid gap-4 sm:grid-cols-2 sm:gap-6 ${
-                errors.name ? "error" : ""
-              }`}
+    <div className="flex border-[10px]  p-10">
+      <section className="bg-slate-500 py-5 px-4 mx-auto min-h-52 ">
+        <div className="bg-slate-200 dark:bg-gray-500 shadow sm:rounded-lg ">
+          <div className=" border-gray-200 dark:border-gray-800">
+            <form
+              onSubmit={handleSubmit(onEditingUser)}
+              className="px-4 py-5 sm:p-6"
             >
               <div className={`sm:col-span-2 ${errors.name ? "error" : ""}`}>
                 <label
@@ -45,16 +47,21 @@ export default function EditUserForm({ onEditingUser, userDetails }: { userDetai
                     setFormData({ ...formData, name: e.target.value })
                   }
                   type="text"
-                   name="name"
+                  name="name"
                   id="name"
+                  placeholder="Enter User Name."
                   value={formData.name}
                   className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${
                     errors.name ? "border-red-500 border-2" : ""
                   }`}
                 />
-            
+
+                {errors.name ? (
+                  <p className="text-red-500">{errors.name.message}</p>
+                ) : null}
               </div>
-              <div className="sm:col-span-2">
+
+              <div className={`sm:col-span-2 ${errors.email ? "error" : ""}`}>
                 <label
                   htmlFor="email"
                   className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${
@@ -72,80 +79,102 @@ export default function EditUserForm({ onEditingUser, userDetails }: { userDetai
                     errors.email ? "border-red-500 border-2" : ""
                   }`}
                   placeholder="Enter User's Email ID"
-                  required
                   value={formData.email}
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
                   }
                 />
+
+                {errors.email ? (
+                  <p className="text-red-500">{errors.email.message}</p>
+                ) : null}
               </div>
-              <div className="w-full">
+              <div className={`sm:col-span-2 ${errors.city ? "error" : ""}`}>
                 <label
                   htmlFor="city"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${
+                    errors.city ? "text-red-500" : ""
+                  }`}
                 >
-                  city<span className="text-red-500">*</span>
+                  City <span className="text-red-500">*</span>
                 </label>
                 <input
-                {...register("city")}
-                onChange={(e) =>
-                  setFormData({ ...formData, city: e.target.value })
-                }
+                  {...register("city")}
+                  onChange={(e) =>
+                    setFormData({ ...formData, city: e.target.value })
+                  }
                   type="text"
                   name="city"
                   id="city"
                   value={formData.city}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                  placeholder="Enter User's city"
-                  required
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${
+                    errors.city ? "border-red-500 border-2" : ""
+                  }`}
                 />
+                {errors.city ? (
+                  <p className="text-red-500">{errors.city.message}</p>
+                ) : null}
               </div>
-              <div className="w-full">
+              <div className={`w-full ${errors.streetAddress ? "error" : ""}`}>
                 <label
                   htmlFor="streetAddress"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white  ${
+                    errors.streetAddress ? "text-red-500" : ""
+                  }`}
                 >
-                  streetAddress<span className="text-red-500">*</span>
+                  Street Address<span className="text-red-500">*</span>
                 </label>
                 <input
-               {...register("streetAddress")}
-               onChange={(e) =>
-                 setFormData({ ...formData, streetAddress: e.target.value })
-               }
+                  {...register("streetAddress")}
+                  onChange={(e) =>
+                    setFormData({ ...formData, streetAddress: e.target.value })
+                  }
                   type="text"
                   name="streetAddress"
                   id="streetAddress"
                   value={formData.streetAddress}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                  placeholder="Enter User's streetAddress"
-                  required
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Enter User's streetAddress  ${
+                    errors.streetAddress ? "border-red-500 border-2" : ""
+                  }`}
                 />
+                {errors.streetAddress ? (
+                  <p className="text-red-500">{errors.streetAddress.message}</p>
+                ) : null}
               </div>
-              <div className="w-full">
+              <div className={`w-full ${errors.country ? "error" : ""}`}>
                 <label
                   htmlFor="country"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${
+                    errors.country ? "text-red-500" : ""
+                  }`}
                 >
-                  country<span className="text-red-500">*</span>
+                  Country<span className="text-red-500">*</span>
                 </label>
                 <input
-                {...register("country")}
-                onChange={(e) =>
-                  setFormData({ ...formData, country: e.target.value })
-                }                 
-                 type="text"
+                  {...register("country")}
+                  onChange={(e) =>
+                    setFormData({ ...formData, country: e.target.value })
+                  }
+                  type="text"
                   name="country"
                   id="country"
-                 value={formData.country}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  value={formData.country}
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${
+                    errors.country ? "border-red-500 border-2" : ""
+                  }`}
                   placeholder="Enter User's country"
-                  required
                 />
+                {errors.country ? (
+                  <p className="text-red-500">{errors.country.message}</p>
+                ) : null}
               </div>
-              <div className="w-full">
+              <div className={`w-full ${errors.phone ? "error" : ""}`}>
                 <label
                   htmlFor="phone"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${
+                    errors.phone ? "text-red-500" : ""
+                  }`}
                 >
                   Phone<span className="text-red-500">*</span>
                 </label>
@@ -154,14 +183,18 @@ export default function EditUserForm({ onEditingUser, userDetails }: { userDetai
                   onChange={(e) =>
                     setFormData({ ...formData, phone: e.target.value })
                   }
-                  type="string"
+                  type="text"
                   name="phone"
                   id="phone"
                   value={formData.phone}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${
+                    errors.phone ? "border-red-500 border-2" : ""
+                  }`}
                   placeholder="Enter Valid Phone Number"
-                  required
                 />
+                {errors.phone ? (
+                  <p className="text-red-500">{errors.phone.message}</p>
+                ) : null}
               </div>
 
               <div
@@ -171,7 +204,9 @@ export default function EditUserForm({ onEditingUser, userDetails }: { userDetai
               >
                 <label
                   htmlFor="role"
-                  className={`text-sm ${errors.role ? "text-red-500" : ""}`}
+                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${
+                    errors.phone ? "text-red-500" : ""
+                  }`}
                 >
                   Select Role<span className="text-red-500">*</span>
                 </label>
@@ -190,28 +225,67 @@ export default function EditUserForm({ onEditingUser, userDetails }: { userDetai
                   <option value="admin">Admin</option>
                   <option value="manager">Manager</option>
                 </select>
-             
+                {errors.role ? (
+                  <p className="text-red-500">{errors.role.message}</p>
+                ) : null}
               </div>
-              <div>
+              <div
+                className={`sm:col-span-2 ${errors.postalCode ? "error" : ""}`}
+              >
                 <label
                   htmlFor="postalCode"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white  ${
+                    errors.postalCode ? "text-red-500" : ""
+                  }`}
                 >
                   Postal Code<span className="text-red-500">*</span>
                 </label>
                 <input
-                {...register("postalCode")}
-                onChange={(e)=> setFormData({
-                  ...formData, postalCode:e.target.value
-                })}
-                value={formData.postalCode}
-                  type="string"
+                  {...register("postalCode")}
+                  onChange={(e) =>
+                    setFormData({ ...formData, postalCode: e.target.value })
+                  }
+                  type="text"
                   name="postalCode"
                   id="postalCode"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                  placeholder="Enter Postal"
-                  required
+                  value={formData.postalCode}
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${
+                    errors.postalCode ? "border-red-500 border-2" : ""
+                  }`}
+                  placeholder="Enter Postal Code"
                 />
+                {errors.postalCode ? (
+                  <p className="text-red-500">{errors.postalCode.message}</p>
+                ) : null}
+              </div>
+              <div
+                className={`sm:col-span-2 ${errors.password ? "error" : ""}`}
+              >
+                <label
+                  htmlFor="password"
+                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white  ${
+                    errors.password ? "text-red-500" : ""
+                  }`}
+                >
+                  Enter Password<span className="text-red-500">*</span>
+                </label>
+                <input
+                  {...register("password")}
+                  onChange={(e) =>
+                    setFormData({ ...formData, password: e.target.value })
+                  }
+                  type="password"
+                  name="password"
+                  id="password"
+                  value={formData.password}
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${
+                    errors.password ? "border-red-500 border-2" : ""
+                  }`}
+                  placeholder="Enter password"
+                />
+                {errors.password ? (
+                  <p className="text-red-500">{errors.password.message}</p>
+                ) : null}
               </div>
 
               <div className="flex flex-col gap-2 m-5">
@@ -219,15 +293,13 @@ export default function EditUserForm({ onEditingUser, userDetails }: { userDetai
                   type="submit"
                   className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg"
                 >
-                Save
+                  Save
                 </button>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </section>
     </div>
   );
 }
-
-

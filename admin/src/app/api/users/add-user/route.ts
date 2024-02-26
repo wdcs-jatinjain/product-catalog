@@ -32,8 +32,7 @@ export async function POST(req: Request) {
         password,
       }),
     });
-    const UserAddedReturnData =
-      await AddedUserResponse.json();
+    const UserAddedReturnData :UserAddReturnData= await AddedUserResponse.json();
 
     return NextResponse.json(UserAddedReturnData);
   } catch (error) {

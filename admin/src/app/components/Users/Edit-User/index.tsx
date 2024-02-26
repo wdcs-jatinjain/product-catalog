@@ -10,11 +10,12 @@ import PageLayout from '../../pageLayout'
 import PageHeader from '../../PageHeader'
 import EditUserForm from '../../Forms/EditUserForm'
 import { useRouter } from 'next/navigation'
+import { EditUserFormDataTypes, UserEditResponseData } from '@/types'
 
 const EditUserComponent = ({userId}:{userId:string}) => {
   const[userDetails,setUserDetails] = useState<UserData>()
 const router = useRouter()
-const onEditingUser = async (a:any) => {
+const onEditingUser = async (EditUserData:EditUserFormDataTypes) => {
 try {
    
     const response = await fetch(`/api/users/edit-user/${userId}`,
@@ -24,10 +25,11 @@ try {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(a),
+      body: JSON.stringify(EditUserData),
     }
     );
-    const EditUserResponse: any = await response.json();
+
+    const EditUserResponse:UserEditResponseData = await response.json();
     if (EditUserResponse.status === RESULT_STATUS.FAILURE) {
       toast.error(EditUserResponse.message);
     } else if (EditUserResponse.status === RESULT_STATUS.SUCCESS) {

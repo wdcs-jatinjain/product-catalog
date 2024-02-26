@@ -3,14 +3,11 @@ import React, { useState } from "react";
 import AddUserValidationSchema from './userValidation'
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { BiUser } from "react-icons/bi";
-import { MdEmail, MdPhoneIphone } from "react-icons/md";
-import {FaCity, FaUserLock} from 'react-icons/fa'
-import { FaAddressCard } from "react-icons/fa";
-import { RiLockPasswordFill } from "react-icons/ri";
+
+import { AddUserFormDataTypes } from "@/types";
 
 
-export default function AddUserForm({ onAddingUser }: { onAddingUser: (a: any) => Promise<void>; }) {
+export default function AddUserForm({ onAddingUser }: { onAddingUser: (AddUserData: AddUserFormDataTypes) => Promise<void>; }) {
 
   const [formData, setFormData] = useState({
     email: "",
@@ -31,16 +28,11 @@ export default function AddUserForm({ onAddingUser }: { onAddingUser: (a: any) =
   } = useForm({
     resolver: yupResolver(AddUserValidationSchema),
   });
-
-
-
-
-
   return (
+<div className="flex border-[10px]  p-10">
 
-    <div className="bg-slate-200">
-      <section className="bg-slate-400 py-10 px-6 mx-auto max-w-2xl ">
-        <div className="bg-slate-200 dark:bg-gray-800 shadow sm:rounded-lg ">
+<section className="bg-slate-500 py-5 px-4 mx-auto min-h-52 ">
+        <div className="bg-slate-200 dark:bg-gray-500 shadow sm:rounded-lg ">
 
           <div className=" border-gray-200 dark:border-gray-800">
             <form onSubmit={handleSubmit(onAddingUser)} className="px-4 py-5 sm:p-6">
@@ -66,7 +58,6 @@ export default function AddUserForm({ onAddingUser }: { onAddingUser: (a: any) =
                   className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${errors.name ? "border-red-500 border-2" : ""
                     }`}
                 />
-                  <BiUser/>
 
                 {errors.name ? (
                   <p className="text-red-500">{errors.name.message}</p>
@@ -94,7 +85,6 @@ export default function AddUserForm({ onAddingUser }: { onAddingUser: (a: any) =
                     setFormData({ ...formData, email: e.target.value })
                   }
                 />
-                <MdEmail />
 
                 {errors.email ? (
                   <p className="text-red-500">{errors.email.message}</p>
@@ -120,7 +110,6 @@ export default function AddUserForm({ onAddingUser }: { onAddingUser: (a: any) =
                   className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${errors.city ? "border-red-500 border-2" : ""
                     }`}
                 />
-                <FaCity/>
                 {errors.city ? (
                   <p className="text-red-500">{errors.city.message}</p>
                 ) : null}
@@ -148,7 +137,6 @@ export default function AddUserForm({ onAddingUser }: { onAddingUser: (a: any) =
                     }`}
 
                 />
-                <FaAddressCard/>
                 {errors.streetAddress ? (
                   <p className="text-red-500">{errors.streetAddress.message}</p>
                 ) : null}
@@ -203,7 +191,6 @@ export default function AddUserForm({ onAddingUser }: { onAddingUser: (a: any) =
                   placeholder="Enter Valid Phone Number"
 
                 />
-                <MdPhoneIphone/>
                 {errors.phone ? (
                   <p className="text-red-500">{errors.phone.message}</p>
                 ) : null}
@@ -234,7 +221,6 @@ export default function AddUserForm({ onAddingUser }: { onAddingUser: (a: any) =
                   <option value="admin">Admin</option>
                   <option value="manager">Manager</option>
                 </select>
-                <FaUserLock/>
                 {errors.role ? (
                   <p className="text-red-500">{errors.role.message}</p>
                 ) : null}
@@ -289,7 +275,6 @@ export default function AddUserForm({ onAddingUser }: { onAddingUser: (a: any) =
                   placeholder="Enter password"
 
                 />
-                <RiLockPasswordFill/>
                 {errors.password ? (
                   <p className="text-red-500">{errors.password.message}</p>
                 ) : null}
@@ -330,7 +315,7 @@ export default function AddUserForm({ onAddingUser }: { onAddingUser: (a: any) =
           </div>
         </div>
       </section>
-    </div>
+</div>
 
   );
 }

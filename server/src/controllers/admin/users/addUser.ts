@@ -1,6 +1,6 @@
 import Views from "../../../views";
 import { validateAddedUser } from "./addUserValidations";
-import { addUserBody } from "../../../types";
+import { addUserBody, addUserRes } from "../../../types";
 import { RESULT_STATUS } from "../../../constant";
 import  {Response}  from "express";
 
@@ -13,8 +13,8 @@ export default async function addUser(
       { email, name, role, streetAddress,postalCode,city, country, phone,password},
       { abortEarly: false }
     );
-    const addUserViewsRes = await Views.UserViews.createUserViews( { email, name, role, streetAddress,postalCode,city, country, phone,password})
-    return res.status(200).json(addUserViewsRes);
+    const createUserViewsRes:addUserRes = await Views.UserViews.createUserViews( { email, name, role, streetAddress,postalCode,city, country, phone,password})
+    return res.status(200).json(createUserViewsRes);
 
   } catch (error: any) {
     if (error.name === "ValidationError") {

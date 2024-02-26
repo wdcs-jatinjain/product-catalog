@@ -19,7 +19,7 @@ export default async function createUser({  email, name, role, streetAddress,pos
       status: RESULT_STATUS.SUCCESS,
       message: "User Created Successfully",
       data: {
-        id: newUser._id,
+        id: newUser._id.toString(),
       },
     };
   } catch (error: any) {
