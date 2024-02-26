@@ -5,7 +5,6 @@ import { Response, Request } from "express";
 export default async function getAllUsers(req: Request, res: Response) {
   try {
     const fetchAllUsers = await Views.UserViews.getAllUserViews();
-    console.log("🚀 ~ getAllUsers ~ fetchAllUsers:", fetchAllUsers)
     return res.status(200).json(fetchAllUsers);
   } catch (error: any) {
     if (error.name === "ValidationError") {

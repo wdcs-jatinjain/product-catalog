@@ -5,13 +5,10 @@ import User from "../../../models/user";
 export default async function getSingleUser({
 
   id,
-  email, name, role, password, phone, city, country, streetAddress, postalCode
+ 
 }: {
-  name: string;
-  email: string;
-  role: string;
+ 
   id: string;
-  password: string, phone: string, city: string, country: string, streetAddress: string, postalCode: string
 }) {
   const userId = new mongoose.Types.ObjectId(id)
   try {
