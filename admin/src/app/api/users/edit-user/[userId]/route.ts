@@ -7,6 +7,7 @@ export async function PATCH(
   { params }: { params: { userId: string } }
 ) {
   const {
+    _id,
     name,
     email,
     role,
@@ -26,6 +27,7 @@ export async function PATCH(
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          _id,
           name,
           email,
           role,
@@ -40,7 +42,6 @@ export async function PATCH(
     );
 
     const UserEditedReturnData: UserEditResponseData =await EditededUserResponse.json();
-    console.log("🚀 ~ UserEditedReturnData:", UserEditedReturnData)
     return NextResponse.json(UserEditedReturnData);
   } catch (error) {
     console.error("Error while editing the user:", error);

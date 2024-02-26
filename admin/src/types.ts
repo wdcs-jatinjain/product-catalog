@@ -22,7 +22,7 @@ export type AddUserFormDataTypes = {
   
 };
 export type EditUserFormDataTypes = {
-  _id:string
+  _id:string;
   name: string;
   email: string;
   role: string;

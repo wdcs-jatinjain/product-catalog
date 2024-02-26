@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { AddUserFormDataTypes } from "@/types";
 
 
-export default function AddUserForm({ onAddingUser }: { onAddingUser: (AddUserData: AddUserFormDataTypes) => Promise<void>; }) {
+export default function AddUserForm({ onAddingUser }: { onAddingUser: (AddUserData: AddUserFormDataTypes) => Promise<void>; }) { 
 
   const [formData, setFormData] = useState({
     email: "",
@@ -29,192 +29,132 @@ export default function AddUserForm({ onAddingUser }: { onAddingUser: (AddUserDa
     resolver: yupResolver(AddUserValidationSchema),
   });
   return (
-<div className="flex border-[10px]  p-10">
-
-<section className="bg-slate-500 py-5 px-4 mx-auto min-h-52 ">
-        <div className="bg-slate-200 dark:bg-gray-500 shadow sm:rounded-lg ">
-
-          <div className=" border-gray-200 dark:border-gray-800">
-            <form onSubmit={handleSubmit(onAddingUser)} className="px-4 py-5 sm:p-6">
-
+<div className="min-h-screen bg-gray-200 flex items-center justify-center ">
+      <section className="  py-10 px-6 container mx-auto max-w-2xl">
+        <div className="max-w-lg mx-auto bg-white shadow-md rounded-lg  ">
+          <div className="dark:bg-gray-800 shadow sm:rounded px-6 py-8">
+            <form onSubmit={handleSubmit(onAddingUser)} className="px-4 py-5 ">
               <div className={`sm:col-span-2 ${errors.name ? "error" : ""}`}>
-                <label
-                  htmlFor="name"
-                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${errors.name ? "text-red-500" : ""
-                    }`}
-                >
+                <label htmlFor="name" className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${errors.name ? "text-red-500" : ""
+                    }`}>
                   Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("name")}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
                   type="text"
-                  name="name"
                   id="name"
-                  placeholder="Enter User Name."
                   value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${errors.name ? "border-red-500 border-2" : ""
-                    }`}
+                }`}
                 />
-
-                {errors.name ? (
+             {errors.name ? (
                   <p className="text-red-500">{errors.name.message}</p>
                 ) : null}
               </div>
-
               <div className={`sm:col-span-2 ${errors.email ? "error" : ""}`}>
-                <label
-                  htmlFor="email"
-                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${errors.email ? "text-red-500" : ""
-                    }`}
-                >
-                  Email<span className="text-red-500">*</span>
+                <label htmlFor="email" className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${errors.email ? "text-red-500" : ""
+                    }`}>
+                  Email <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("email")}
                   type="email"
-                  name="email"
                   id="email"
-                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${errors.email ? "border-red-500 border-2" : ""
-                    }`}
-                  placeholder="Enter User's Email ID"
                   value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${errors.email ? "border-red-500 border-2" : ""
+                }`}
                 />
-
                 {errors.email ? (
                   <p className="text-red-500">{errors.email.message}</p>
                 ) : null}
               </div>
-              <div className={`sm:col-span-2 ${errors.city ? "error" : ""}`}>
-                <label
-                  htmlFor="city"
-                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${errors.city ? "text-red-500" : ""
-                    }`}
-                >
+              <div  className={`sm:col-span-2 ${errors.city ? "error" : ""}`}>
+                <label htmlFor="city" className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${errors.city ? "text-red-500" : ""
+                    }`}>
                   City <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("city")}
-                  onChange={(e) =>
-                    setFormData({ ...formData, city: e.target.value })
-                  }
                   type="text"
-                  name="city"
                   id="city"
                   value={formData.city}
+                  onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                   className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${errors.city ? "border-red-500 border-2" : ""
-                    }`}
+                }`}
                 />
-                {errors.city ? (
+               {errors.city ? (
                   <p className="text-red-500">{errors.city.message}</p>
                 ) : null}
               </div>
-              <div className={`w-full ${errors.streetAddress ? "error" : ""}`}>
-                <label
-                  htmlFor="streetAddress"
-                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white  ${errors.streetAddress ? "text-red-500" : ""
-                    }`}
-                >
-                  Street Address<span className="text-red-500">*</span>
+              <div  className={`w-full ${errors.streetAddress ? "error" : ""}`}>
+                <label htmlFor="streetAddress" className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white  ${errors.streetAddress ? "text-red-500" : ""
+                    }`}>
+                  Street Address <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("streetAddress")}
-                  onChange={(e) =>
-                    setFormData({ ...formData, streetAddress: e.target.value })
-                  }
                   type="text"
-                  name="streetAddress"
                   id="streetAddress"
                   value={formData.streetAddress}
-
+                  onChange={(e) => setFormData({ ...formData, streetAddress: e.target.value })}
                   className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Enter User's streetAddress  ${errors.streetAddress ? "border-red-500 border-2" : ""
                     }`}
-
                 />
-                {errors.streetAddress ? (
+           {errors.streetAddress ? (
                   <p className="text-red-500">{errors.streetAddress.message}</p>
                 ) : null}
               </div>
               <div className={`w-full ${errors.country ? "error" : ""}`}>
-                <label
-                  htmlFor="country"
-                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${errors.country ? "text-red-500" : ""
-                    }`}
-                >
-                  Country<span className="text-red-500">*</span>
+                <label htmlFor="country" className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${errors.country ? "text-red-500" : ""
+                    }`}>
+                  Country <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("country")}
-                  onChange={(e) =>
-                    setFormData({ ...formData, country: e.target.value })
-                  }
                   type="text"
-                  name="country"
                   id="country"
                   value={formData.country}
-
+                  onChange={(e) => setFormData({ ...formData, country: e.target.value })}
                   className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${errors.country ? "border-red-500 border-2" : ""
-                    }`}
-                  placeholder="Enter User's country"
-
+                }`}
                 />
-                {errors.country ? (
+               {errors.country ? (
                   <p className="text-red-500">{errors.country.message}</p>
                 ) : null}
               </div>
-              <div className={`w-full ${errors.phone ? "error" : ""}`}>
-                <label
-                  htmlFor="phone"
-                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${errors.phone ? "text-red-500" : ""
-                    }`}
-                >
-                  Phone<span className="text-red-500">*</span>
+              <div className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${errors.phone ? "text-red-500" : ""
+                    }`}>
+                <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                  Phone <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("phone")}
-                  onChange={(e) =>
-                    setFormData({ ...formData, phone: e.target.value })
-                  }
                   type="text"
-                  name="phone"
                   id="phone"
                   value={formData.phone}
-
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${errors.phone ? "border-red-500 border-2" : ""
-                    }`}
-                  placeholder="Enter Valid Phone Number"
-
+                }`}
                 />
-                {errors.phone ? (
+                 {errors.phone ? (
                   <p className="text-red-500">{errors.phone.message}</p>
                 ) : null}
               </div>
-
-              <div
-                className={`flex flex-col gap-2 m-5 ${errors.role ? "error" : ""
-                  }`}
-              >
-                <label
-                  htmlFor="role"
-                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${errors.phone ? "text-red-500" : ""
-                    }`}
-                >
-                  Select Role<span className="text-red-500">*</span>
+              <div className={`flex flex-col gap-2 m-5 ${errors.role ? "error" : ""
+                  }`}>
+                <label htmlFor="role" className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${errors.phone ? "text-red-500" : ""
+                    }`}>
+                  Select Role <span className="text-red-500">*</span>
                 </label>
                 <select
                   {...register("role")}
                   id="role"
                   value={formData.role}
-                  onChange={(e) =>
-                    setFormData({ ...formData, role: e.target.value })
-                  }
-                  className={`border border-2px w-full px-3 py-1.5 rounded-md text-sm ${errors.role ? "border-red-500 border-2" : ""
+                  onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                  className={`mt-1 focus:ring-primary-500 focus:border-primary-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md ${errors.role ? "border-red-500" : ""
                     }`}
                 >
                   <option value="">Select a role</option>
@@ -226,60 +166,41 @@ export default function AddUserForm({ onAddingUser }: { onAddingUser: (AddUserDa
                 ) : null}
               </div>
               <div className={`sm:col-span-2 ${errors.postalCode ? "error" : ""}`}>
-                <label
-                  htmlFor="postalCode"
-                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white  ${errors.postalCode ? "text-red-500" : ""
-                    }`}
-                >
-                  Postal Code<span className="text-red-500">*</span>
+                <label htmlFor="postalCode" className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white  ${errors.postalCode ? "text-red-500" : ""
+                    }`}>
+                  Postal Code <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("postalCode")}
-                  onChange={(e) =>
-                    setFormData({ ...formData, postalCode: e.target.value })
-                  }
                   type="text"
-                  name="postalCode"
                   id="postalCode"
                   value={formData.postalCode}
-
+                  onChange={(e) => setFormData({ ...formData, postalCode: e.target.value })}
                   className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${errors.postalCode ? "border-red-500 border-2" : ""
-                    }`}
-                  placeholder="Enter Postal Code"
-
+                }`}
                 />
                 {errors.postalCode ? (
                   <p className="text-red-500">{errors.postalCode.message}</p>
                 ) : null}
               </div>
               <div className={`sm:col-span-2 ${errors.password ? "error" : ""}`}>
-                <label
-                  htmlFor="password"
-                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white  ${errors.password ? "text-red-500" : ""
-                    }`}
-                >
-                  Enter Password<span className="text-red-500">*</span>
+                <label htmlFor="password" className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white  ${errors.password ? "text-red-500" : ""
+                    }`}>
+                  Enter Password <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("password")}
-                  onChange={(e) =>
-                    setFormData({ ...formData, password: e.target.value })
-                  }
                   type="password"
-                  name="password"
                   id="password"
                   value={formData.password}
-
+                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${errors.password ? "border-red-500 border-2" : ""
-                    }`}
-                  placeholder="Enter password"
-
+                }`}
                 />
-                {errors.password ? (
+              {errors.password ? (
                   <p className="text-red-500">{errors.password.message}</p>
                 ) : null}
               </div>
-
               <div className="flex flex-col gap-2 m-5">
                 <button
                   type="submit"
@@ -287,35 +208,12 @@ export default function AddUserForm({ onAddingUser }: { onAddingUser: (AddUserDa
                 >
                   Save
                 </button>
-
-
               </div>
-
-              <div className="flex flex-col gap-2 m-5">
-                <button
-                  // onClick={handleSaveAndContinue}
-                  type="button"
-                  className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg"
-
-                >
-                  Save and Continue
-                </button>
-              </div>
-              <div className="flex flex-col gap-2 m-5">
-                <button
-                  type="submit"
-                  className="bg-red-500 hover:bg-red-800 text-white font-bold py-2 px-4 rounded-lg"
-
-                >
-                  Cancel
-                </button>
-              </div>
-
             </form>
           </div>
         </div>
       </section>
-</div>
+    </div>
 
   );
 }
