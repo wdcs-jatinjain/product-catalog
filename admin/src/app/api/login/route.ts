@@ -15,8 +15,14 @@ export async function POST(req: Request) {
       body: JSON.stringify({ email, password }),
     });
     const UserLoginReturnData:UserFormData = await UserLoginResponse.json();
-    cookies().set("token", UserLoginReturnData.token);
+    console.log("🚀 ~ POST ~ UserLoginReturnData:", UserLoginReturnData)
+    if (UserLoginReturnData.status === 'Success'){
+      cookies().set("token", UserLoginReturnData.token);
     return NextResponse.json(UserLoginReturnData);
+    }
+    if(UserLoginReturnData.status === 'Failure'){
+      return NextResponse.json({status:"Failure", message:"Login Failed"})
+    }
   } catch (error) {
     console.info("Something went wrong", error);
   }

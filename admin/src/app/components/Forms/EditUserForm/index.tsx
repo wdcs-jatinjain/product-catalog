@@ -32,6 +32,31 @@ export default function EditUserForm({
               onSubmit={handleSubmit(onEditingUser)}
               className="px-4 py-5 sm:p-6"
             >
+              <div >
+
+
+              <label
+                  htmlFor="_id"
+                  className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${
+                    errors.name ? "text-red-500" : ""
+                  }`}
+                >
+                  ID <span className="text-red-500">*</span>
+                </label>
+                <input
+                  {...register("_id")}
+                  onChange={(e) =>
+                    setFormData({ ...formData, _id: e.target.value })
+                  }
+                  id="_id"
+               
+                 readOnly
+                  value={formData._id}
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${
+                    errors.name ? "border-red-500 border-2" : ""
+                  }`}
+                />
+              </div>
               <div className={`sm:col-span-2 ${errors.name ? "error" : ""}`}>
                 <label
                   htmlFor="name"

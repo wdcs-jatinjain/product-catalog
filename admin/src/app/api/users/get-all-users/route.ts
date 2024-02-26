@@ -4,7 +4,9 @@ import { GetAllUsersReturnData } from "@/types";
 
 export async function GET(req: Request) {
   try {
-    const GetAllUserResponse  = await fetch(`${API_URL}/user/getAll`);
+    const GetAllUserResponse  = await fetch(`${API_URL}/user/getAll`,{
+      cache:"no-cache"
+    });
     const GetAllUsersReturnData:GetAllUsersReturnData = await GetAllUserResponse.json();
     return NextResponse.json({GetAllUsersReturnData} );
   } catch (error) {

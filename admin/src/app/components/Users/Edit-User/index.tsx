@@ -17,7 +17,6 @@ const EditUserComponent = ({userId}:{userId:string}) => {
 const router = useRouter()
 const onEditingUser = async (EditUserData:EditUserFormDataTypes) => {
 try {
-   
     const response = await fetch(`/api/users/edit-user/${userId}`,
     {
       method: "PATCH",
@@ -28,15 +27,16 @@ try {
       body: JSON.stringify(EditUserData),
     }
     );
-    const EditUserResponse:UserEditResponseData = await response.json();
-    if (EditUserResponse.status === RESULT_STATUS.FAILURE) {
-      toast.error(EditUserResponse.message);
-    } else if (EditUserResponse.status === RESULT_STATUS.SUCCESS) {
-      toast.success(EditUserResponse.message);
+    const UserEditedReturnData:UserEditResponseData = await response.json();
+    console.log("🚀 ~ onEditingUser ~ UserEditedReturnData:", UserEditedReturnData)
+    if (UserEditedReturnData.status === RESULT_STATUS.FAILURE) {
+      toast.error(UserEditedReturnData.message);
+    } else if (UserEditedReturnData.status === RESULT_STATUS.SUCCESS) {
+      toast.success(UserEditedReturnData.message);
       router.push('/users')
     }
   } catch (error: any) {
-    console.error("New user not created:", error.message);
+    console.error("New Uuser not created:", error.message);
     toast.error(error.message);
   }
 };
@@ -47,11 +47,11 @@ useEffect(() => {
       const response = await fetch(`/api/users/get-user/${userId}`, {
         cache: 'no-cache'
       });
-      const {GetSingleUsersReturnData} = await response.json();
-      if(GetSingleUsersReturnData.status === 'Success')
-      {setUserDetails(GetSingleUsersReturnData.data);}
+      const {GetUserReturnData} = await response.json();
+      if(GetUserReturnData.status === 'Success')
+      {setUserDetails(GetUserReturnData.data);}
       else{
-        toast.error(GetSingleUsersReturnData.message)
+        toast.error(GetUserReturnData.message)
       }
     } catch (error) {
       console.error("Error fetching users:", error);
