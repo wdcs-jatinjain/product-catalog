@@ -23,14 +23,14 @@ export default async function LoginCustomer(req: any, res: any) {
     if (error.name === "ValidationError") {
       return {
         status: RESULT_STATUS.FAILURE,
-        message: "Validation error occurred while Logging the user.",
+        message: "Validation error occurred while logging the user.",
         error: error.details.map((err: any) => err.message),
       };
     } else {
-      console.error("An error occurred while Logging the Customer:", error);
+      console.error("An error occurred while logging the customer:", error);
       return {
         status: RESULT_STATUS.FAILURE,
-        message: "An error occurred while Logging in the Customer.",
+        message: "An error occurred while Logging in the customer.",
         error: error.message || "Unknown error",
       };
     }

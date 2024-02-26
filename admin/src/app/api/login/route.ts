@@ -18,6 +18,6 @@ export async function POST(req: Request) {
     cookies().set("token", UserLoginReturnData.token);
     return NextResponse.json(UserLoginReturnData);
   } catch (error) {
-    console.info("Something Went Wrong", error);
+    console.info("Something went wrong", error);
   }
 }

@@ -28,7 +28,6 @@ try {
       body: JSON.stringify(EditUserData),
     }
     );
-
     const EditUserResponse:UserEditResponseData = await response.json();
     if (EditUserResponse.status === RESULT_STATUS.FAILURE) {
       toast.error(EditUserResponse.message);
@@ -37,7 +36,7 @@ try {
       router.push('/users')
     }
   } catch (error: any) {
-    console.error("New User not created:", error.message);
+    console.error("New user not created:", error.message);
     toast.error(error.message);
   }
 };

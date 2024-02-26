@@ -10,7 +10,7 @@ export default async function deletedUser(
     if (user && user.role[0]=='superAdmin'){
 return {
         status: RESULT_STATUS.FAILURE,
-        message: "User Not Allowed to Delete",
+        message: "User not allowed to delete",
         data: {
           id: user._id,
         },
@@ -20,20 +20,20 @@ return {
     if (!removedaUser) {
       return {
         status: RESULT_STATUS.FAILURE,
-        message: "User does not Exists in Database",
+        message: "User does not exists in database",
       };
     }
     else {
       return {
         status: RESULT_STATUS.SUCCESS,
-        message: "User deleted Successfully from Database",
+        message: "User deleted successfully from database",
       };
     }
 
 
   }
   } catch (error: any) {
-    console.error("An error occurred while Deleting the User :", error);
+    console.error("An error occurred while deleting the user :", error);
     throw new error();
   }
 }

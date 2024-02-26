@@ -30,7 +30,7 @@ const AddUserComponent = () => {
         router.push("/users");
       }
     } catch (error: any) {
-      console.error("New User not created:", error.message);
+      console.error("New user not created:", error.message);
       toast.error(error.message);
     }
   };

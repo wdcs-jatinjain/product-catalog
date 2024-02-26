@@ -21,14 +21,14 @@ export default async function checkAdminLogin(
     if (error.name === "ValidationError") {
       return {
         status: RESULT_STATUS.FAILURE,
-        message: "Validation error occurred while Logging the Admin.",
+        message: "Validation error occurred while logging the admin.",
         error: error.details.map((err: any) => err.message),
       };
     } else {
-      console.error("An error occurred while Logging the Admin:", error);
+      console.error("An error occurred while logging the admin:", error);
       return {
         status: RESULT_STATUS.FAILURE,
-        message: "An error occurred while Logging in the Admin.",
+        message: "An error occurred while logging in the admin.",
         error: error.message || "Unknown error",
       };
     }

@@ -8,7 +8,7 @@ export async function GET(req: Request,{params}:{params:{userId:string}} ) {
     const GetUserReturnData:GetUserReturnData = await GetUserResponse.json();
     return NextResponse.json({ GetUserReturnData });
   } catch (error) {
-    console.error("Error while getting single the User:", error);
+    console.error("Error while getting single the user:", error);
     throw error;
   }
 }

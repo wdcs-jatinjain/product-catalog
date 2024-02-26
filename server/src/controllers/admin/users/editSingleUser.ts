@@ -28,7 +28,7 @@ export default async function editSingleUser(
         message: error.details.map((err: any) => err.message),
       });
     } else {
-      console.error("An error occurred while editing the Admin:", error);
+      console.error("An error occurred while editing the admin:", error);
       return res.status(500).json({
         status: RESULT_STATUS.FAILURE,
         message:

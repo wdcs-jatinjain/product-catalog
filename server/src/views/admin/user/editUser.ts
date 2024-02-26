@@ -16,7 +16,7 @@ export default async function editUser({
     if (!existingUser) {
       return {
         status: RESULT_STATUS.FAILURE,
-        message: "Cannot Edit Email Id"
+        message: "Cannot edit email id"
       };
     }
 
@@ -30,13 +30,13 @@ export default async function editUser({
     if (!validRoles) {
       return {
         status: RESULT_STATUS.FAILURE,
-        message: "Not a valid User role.",
+        message: "Not a valid user role.",
       };
     }
     if (!updateduser) {
       return {
         status: RESULT_STATUS.FAILURE,
-        message: "Something Went Wrong",
+        message: "Something went wrong",
       };
     }
 

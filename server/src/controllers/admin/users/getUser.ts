@@ -17,10 +17,10 @@ export default async function getUser(req:Request,res: Response) {
         error: error.details.map((err: any) => err.message),
       };
     } else {
-      console.error("An error occurred while fetching Single user33:", error);
+      console.error("An error occurred while fetching Single user:", error);
       return {
         status: RESULT_STATUS.FAILURE,
-        message: "An error occurred while fetching Single user222.",
+        message: "An error occurred while fetching single user.",
         error: error.message || "Unknown error",
       };
     }

@@ -15,10 +15,10 @@ export default async function deleteUser({query:{id}}:{query:{id:string}}, res: 
         error: error.details.map((err: any) => err.message)
       };
     } else {
-      console.error("An error occurred while deleting the user33:", error);
+      console.error("An error occurred while deleting the user:", error);
       return {
         status: RESULT_STATUS.FAILURE,
-        message: "An error occurred while deleting the user222.",
+        message: "An error occurred while deleting the user.",
         error: error.message || "Unknown error",
       };
     }

@@ -16,13 +16,13 @@ export default async function createUser({  email, name, role, streetAddress,pos
     });
     return {
       status: RESULT_STATUS.SUCCESS,
-      message: "User Created Successfully",
+      message: "User created successfully",
       data: {
         id: newUser._id.toString(),
       },
     };
   } catch (error: any) {
-    console.error("An error occurred while creating the User:", error);
+    console.error("An error occurred while creating the user:", error);
     throw new error();
   }
 }

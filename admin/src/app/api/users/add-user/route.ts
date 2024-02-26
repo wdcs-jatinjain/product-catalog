@@ -36,7 +36,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json(UserAddedReturnData);
   } catch (error) {
-    console.error("Error while Adding New User:", error);
+    console.error("Error while adding new user:", error);
     throw error;
   }
 }
