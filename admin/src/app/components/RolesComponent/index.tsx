@@ -2,9 +2,12 @@
 import React, { useEffect, useState } from 'react'
 import PageLayout from '../pageLayout';
 import PageHeader from '../PageHeader';
+import PCGrid from '../CommanComponents/PCGrid';
 
 const RolesComponent = () => {
   const [roles, setRoles] = useState([]);
+
+
 
   useEffect(() => {
     const fetchRoles = async () => {
@@ -16,7 +19,7 @@ const RolesComponent = () => {
           throw new Error("Failed to fetch roles");
         }
         const data = await response.json();
-        setRoles(data.GetAllUsersReturnData);
+        setRoles(data.GetAllRolesReturnData);
       } catch (error) {
         console.error("Error fetching roles:", error);
       }
@@ -34,10 +37,8 @@ const RolesComponent = () => {
             className={"bg-black text-white flex hover:bg-white hover:text-black font-bold py-2 px-4 rounded-lg"}
           />
         </div>
-        <div className="m-5 justify-between">
-No Rows to show   
-
-          </div>
+       
+          <PCGrid/>
 
 
       </div>

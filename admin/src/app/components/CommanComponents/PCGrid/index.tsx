@@ -5,29 +5,25 @@ import { ColDef } from 'ag-grid-community';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 
-interface Car {
-  make: string;
-  model: string;
-  price: number;
-  electric: boolean;
+interface Roles {
+id:string,
+name:string,
+role:string
 }
 
 const PCGrid: React.FC = () => {
-  const [rowData, setRowData] = useState<Car[]>([
-    { make: 'Tesla', model: 'Model Y', price: 64950, electric: true },
-    { make: 'Ford', model: 'F-Series', price: 33850, electric: false },
-    { make: 'Toyota', model: 'Corolla', price: 29600, electric: false },
+  const [rowData, setRowData] = useState<Roles[]>([
+    { id: '123254', name: ' Deadpool',  role: 'Admin' },
+    { id: 'Ford546524456124456', name: 'Spiderman',  role: 'Manager' },
+    { id: '15364564', name: 'Superman',role: 'Manager' },
   ]);
-
-  const colDefs: ColDef[] = [
-    { field: 'make', headerName: 'Make' },
-    { field: 'model', headerName: 'Model' },
-    { field: 'price', headerName: 'Price' },
-    { field: 'electric', headerName: 'Electric' },
-  ];
-
+const colDefs:ColDef[]=[
+  {field:'id', headerName:'ID'},
+  {field:'name', headerName:'Name'},
+  {field:'role', headerName:'Role'}
+]
   return (
-    <div className="ag-theme-quartz" style={{ height: '400px', width: '600px' }}>
+    <div className="ag-theme-quartz" style={{ width: '1000px' }}>
       <AgGridReact
         rowData={rowData}
         columnDefs={colDefs}
