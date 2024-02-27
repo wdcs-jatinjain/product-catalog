@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import AddUserForm from "../../Forms/AddUserForm";
 import PageHeader from "../../PageHeader";
 import PageLayout from "../../pageLayout";
@@ -27,7 +27,7 @@ const AddUserComponent = () => {
         toast.error(AddUserResponse.message);
       } else if (AddUserResponse.status === RESULT_STATUS.SUCCESS) {
         toast.success(AddUserResponse.message);
-        router.push("/users");
+          router.push("/users");
       }
     } catch (error: any) {
       console.error("New user not created:", error.message);

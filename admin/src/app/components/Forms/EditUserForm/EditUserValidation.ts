@@ -1,5 +1,6 @@
 import * as Yup from "yup";
 const EditUserValidationSchema = Yup.object().shape({
+  _id: Yup.string().required(),
   email: Yup.string().email("Invalid email").required("Email is required."),
   role: Yup.string().required("Role is Required"),
   name: Yup.string()
