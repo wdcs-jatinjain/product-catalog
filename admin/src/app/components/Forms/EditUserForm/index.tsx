@@ -33,6 +33,7 @@ export default function EditUserForm({
             ID
           </label>
           <input
+            {...register("_id")}
             id="_id"
             value={formData._id}
             readOnly

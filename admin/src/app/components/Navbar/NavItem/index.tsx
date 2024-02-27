@@ -1,9 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
 import NavLink from "./NavLink";
-import { toast } from "react-toastify";
-
-import { LogoutUserFormDataTypes } from "@/types";
 const NavItems = () => {
   const router = useRouter();
 
@@ -40,12 +37,15 @@ const NavItems = () => {
   return (
     <div className="flex gap-1 justify-end  ">
      
-      {links.map((link: { title: string; path: string }, index: number) => {
-        return <>
-        <NavLink key={index} item={link} />
-        </>
-      })}
-      <NavLink />
+      {links.map((link: { title: string; path: string }, index: number) => (
+         <div key={index}>
+        <NavLink item={link} />
+        </div>
+      ))}
+         <div  key={'logout'}>
+         <NavLink/>
+
+         </div>
     </div>
   );
 };
