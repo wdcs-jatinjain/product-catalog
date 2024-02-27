@@ -99,3 +99,6 @@ export type GetAllUsersReturnData=
 }
 
 
+export type GetAllRolesReturnData={
+  
+}
