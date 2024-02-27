@@ -1,8 +1,9 @@
 import React from 'react'
+import PCGrid from '../CommanComponents/PCGrid'
 
 const RolesComponent = () => {
   return (
-    <div>RolesComponent</div>
+    <PCGrid />
   )
 }
 
