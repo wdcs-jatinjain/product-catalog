@@ -11,7 +11,7 @@ import { RESULT_STATUS } from "../../../constant";
 import CustomerLoginValidationSchema from "./loginValidation";
 import { CustomerLoginType, LoginReturnType } from "@/types";
 
-export default function LoginPage() {
+const LoginPage= ()=> {
   const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",
@@ -27,6 +27,7 @@ export default function LoginPage() {
     resolver: yupResolver(CustomerLoginValidationSchema),
   });
 
+
   const onLogin = async (customerData: CustomerLoginType) => {
     try {
       await CustomerLoginValidationSchema.validate(customerData, {
@@ -35,6 +36,7 @@ export default function LoginPage() {
 
       const response = await fetch("/api/login", {
         method: "POST",
+        cache: "no-cache",
         headers: {
           "Content-Type": "application/json",
         },
@@ -76,9 +78,8 @@ export default function LoginPage() {
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
-                className={`w-full px-3 py-1.5 rounded-md  border border-2px-solid text-sm ${
-                  errors.email ? "border-red-500 border-2" : null
-                }`}
+                className={`w-full px-3 py-1.5 rounded-md  border border-2px-solid text-sm ${errors.email ? "border-red-500 border-2" : null
+                  }`}
               />
               {errors.email ? (
                 <p className="text-red-500">{errors.email.message}</p>
@@ -104,9 +105,8 @@ export default function LoginPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, password: e.target.value })
                     }
-                    className={`w-full px-3 py-1.5 rounded-md text-sm border border-2px-solid ${
-                      errors.password ? "border-red-500 border-2" : null
-                    }`}
+                    className={`w-full px-3 py-1.5 rounded-md text-sm border border-2px-solid ${errors.password ? "border-red-500 border-2" : null
+                      }`}
                   />
                   {errors.password ? (
                     <p className="text-red-500">{errors.password.message}</p>
@@ -132,15 +132,18 @@ export default function LoginPage() {
             </div>
           </form>
           <div className="flex flex-col gap-2 m-5">
-          <p className="mt-4">
-        Don<span>'</span>t have an account?{" "}
-        <Link href="/register" className="text-blue-500">
-          Register here
-        </Link>
-      </p>
+            <p className="mt-4">
+              Don<span>'</span>t have an account?{" "}
+              <Link href="/register" className="text-blue-500">
+                Register here
+              </Link>
+            </p>
           </div>
         </div>
       </div>
     </div>
   );
 }
+
+
+export default LoginPage;
