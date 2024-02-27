@@ -6,6 +6,7 @@ export type UserFormData = {
   status: string;
   message: string;
   token: string;
+  permissions:string[]
   
 };
 

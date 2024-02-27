@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { API_URL } from "../../../../../config";
 import { UserAddReturnData } from "@/types";
+import { PERMISSIONS } from "@/permission";
 
 export async function POST(req: Request) {
   try {
@@ -19,6 +20,7 @@ export async function POST(req: Request) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "permission": PERMISSIONS.USER_CAN_ADD,
       },
       body: JSON.stringify({
         name,

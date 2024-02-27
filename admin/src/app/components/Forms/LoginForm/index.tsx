@@ -40,6 +40,7 @@ export default function LoginForm() {
         toast.error(userLoginResponse.message);
       } else if (userLoginResponse.status === RESULT_STATUS.SUCCESS) {
         toast.success(userLoginResponse.message);
+        localStorage.setItem('permissions', JSON.stringify(userLoginResponse.permissions))
         router.push("/users");
       }
     } catch (error: any) {

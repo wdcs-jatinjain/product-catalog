@@ -3,10 +3,11 @@ import Role from "../../../models/role";
 
 export default async function getAllRoles() {
   try {
-    const allRoles= await Role.find();
+    const allRoles= await Role.find().select({_id:1, name:1});
     return {
       status: RESULT_STATUS.SUCCESS,
-      message: "Roles Fetched."
+      message: "Roles Fetched.",
+      data: allRoles
     }
     
   } catch (error: any) {

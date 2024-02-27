@@ -1,5 +1,4 @@
 import mongoose, { Schema } from "mongoose";
-import user from "../user";
 
 const RoleSchema = new mongoose.Schema({
     _id: Schema.ObjectId,
@@ -10,6 +9,6 @@ const RoleSchema = new mongoose.Schema({
   
   }, { timestamps: true });
 
-const Role = mongoose.models.Role || mongoose.model('role', RoleSchema);
+const Roles = mongoose.models.Role || mongoose.model('role', RoleSchema);
 
-export default Role
+export default Roles

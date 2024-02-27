@@ -2,6 +2,7 @@ import { ADMIN_SECRET_KEY } from "../../../config";
 import User from "../../../models/user";
 import jwt from "jsonwebtoken";
 import { RESULT_STATUS } from "../../../constant";
+import Roles from "../../../models/role";
 
 export default async function checkAdminLogin({
   email,
@@ -11,25 +12,27 @@ export default async function checkAdminLogin({
   password: string;
 }) {
   try {
-    const admin = await User.findOne({ email });
-    if (!admin) {
+    const userDetails = await User.findOne({ email });
+    if (!userDetails) {
       return {
         status: RESULT_STATUS.FAILURE,
         message: "User not found in the database.",
       };
     }
-    if (password !== admin.password) {
+    if (password !== userDetails.password) {
       return { status: RESULT_STATUS.FAILURE, message: "Invalid Password" };
     }
+    const assignedRolePermission = await Roles.findOne({_id: userDetails.role}).select({rolePermissions:1});
     const newToken = jwt.sign(
-      { adminID: admin._id },
+      { adminID: userDetails._id },
       ADMIN_SECRET_KEY as string,
       { expiresIn: "2d" }
     );
     return {
       status: RESULT_STATUS.SUCCESS,
-      message: "Login Successfull. Welcome to Admin Panel",
+      message: "Login Successful. Welcome to Admin Panel",
       token: newToken,
+      permissions: assignedRolePermission.rolePermissions
     };
   } catch (error: any) {
     console.error("An error occurred while logging in the Admin:", error);

@@ -15,7 +15,6 @@ export async function POST(req: Request) {
       body: JSON.stringify({ email, password }),
     });
     const UserLoginReturnData:UserFormData = await UserLoginResponse.json();
-    console.log("🚀 ~ POST ~ UserLoginReturnData:", UserLoginReturnData)
     if (UserLoginReturnData.status === 'Success'){
       cookies().set("token", UserLoginReturnData.token);
     return NextResponse.json(UserLoginReturnData);

@@ -1,7 +1,6 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useMemo }  from 'react';
 import { AgGridReact } from 'ag-grid-react';
-import { ColDef } from 'ag-grid-community';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 
@@ -11,22 +10,42 @@ name:string,
 role:string
 }
 
-const PCGrid: React.FC = () => {
-  const [rowData, setRowData] = useState<Roles[]>([
-    { id: '123254', name: ' Deadpool',  role: 'Admin' },
-    { id: 'Ford546524456124456', name: 'Spiderman',  role: 'Manager' },
-    { id: '15364564', name: 'Superman',role: 'Manager' },
-  ]);
-const colDefs:ColDef[]=[
-  {field:'id', headerName:'ID'},
-  {field:'name', headerName:'Name'},
-  {field:'role', headerName:'Role'}
-]
+
+interface ColDef {
+  field: string
+  headerName: string
+  width?: number
+  suppressSizeToFit: boolean
+  cellRenderer?:(params: any) => JSX.Element
+}
+
+const PCGrid= ({colDef, rowData, actionArray}: {actionArray?:string[], colDef: ColDef[], rowData: any}) => {
+  const actionCellRenderer = (params: any) => {
+    const actions = actionArray || [];
+    colDef.forEach(col => {
+      if (col.field === 'action') {
+        col['cellRenderer'] = actionCellRenderer;
+      }
+    });
+    console.log(colDef);
+    
+    return (
+      <div>
+        {actions.map(action => (
+          <span key={action} className="action-icon">
+            {action === 'edit' && <i className="fa fa-pencil"></i>}
+            {action === 'delete' && <i className="fa fa-trash"></i>}
+          </span>
+        ))}
+      </div>
+    );
+  };
+
   return (
-    <div className="ag-theme-quartz" style={{ width: '1000px' }}>
+    <div className="ag-theme-quartz m-10">
       <AgGridReact
         rowData={rowData}
-        columnDefs={colDefs}
+        columnDefs={colDef}
         domLayout="autoHeight"
       />
     </div>

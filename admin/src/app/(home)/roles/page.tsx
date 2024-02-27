@@ -1,10 +1,10 @@
 import React from 'react'
 import RolesComponent from '@/app/components/RolesComponent'
 
-const Rolespage = () => {
+const RolesPage = () => {
   return (
-    <div><RolesComponent /></div>
+    <div className="border-[10px] h-full"><RolesComponent /></div>
   )
 }
- 
-export default Rolespage
+
+export default RolesPage
