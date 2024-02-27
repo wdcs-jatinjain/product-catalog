@@ -100,7 +100,9 @@ const Table = ({
                   ? dateFormat(columnValue.createdAt)
                   : "-"}
               </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 flex items-center">
+              <td 
+              title="Edit user"
+              className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 flex items-center">
                 <Link
                   href={`${editRoute}/${columnValue._id}`}
                   className="text-indigo-600 hover:text-indigo-900 mr-2"
@@ -108,6 +110,7 @@ const Table = ({
                   <HiPencilAlt />
                 </Link>
                 <button
+                title="Delete user"
                   onClick={() => handleDelete(columnValue._id)}
                   className="text-red-600 hover:text-red-900"
                 >

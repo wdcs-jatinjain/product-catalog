@@ -196,8 +196,8 @@ const initialState = {
               }`}
           >
             <option value="">Select a role</option>
-            <option value="admin">Admin</option>
-            <option value="manager">Manager</option>
+            <option value="Admin">Admin</option>
+            <option value="Manager">Manager</option>
           </select>
           {errors.role ? (
             <p className="text-red-500">{errors.role.message}</p>
