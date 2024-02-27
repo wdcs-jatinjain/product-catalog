@@ -2,13 +2,14 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { toast } from "react-toastify";
+import {yupResolver} from '@hookform/resolvers/yup'
+import { toast } from 'react-toastify';
 import CustomEyeIcon from "../../Icons/CustomEyeIcon";
 import { RESULT_STATUS } from "../../../../constant";
 import UserLoginValidationSchema from "./loginValidation";
 import { UserFormData, inputFormDataTypes } from "../../../../types";
-export default function LoginPage() {
+
+export default function LoginForm() {
   const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",
@@ -39,7 +40,7 @@ export default function LoginPage() {
         toast.error(userLoginResponse.message);
       } else if (userLoginResponse.status === RESULT_STATUS.SUCCESS) {
         toast.success(userLoginResponse.message);
-        router.push("/dashboard");
+        router.push("/users");
       }
     } catch (error: any) {
       console.error("Login failed:", error.message);
@@ -47,89 +48,67 @@ export default function LoginPage() {
     }
   };
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen  py-2">
-      <div className="flex-col gap-3 border-[30px] p-6">
-        <div className="mb-4 text-center font-extrabold">Login</div>
-        <div className=" p-5">
-          <form onSubmit={handleSubmit(onLogin)}>
-            <div>
-              <div
-                className={`flex flex-col gap-2 m-5 ${
-                  errors.email ? "error" : ""
-                }`}
-              >
-                <label
-                  htmlFor="email"
-                  className={`text-sm ${errors.email ? "text-red-500" : ""}`}
-                >
-                  Email<span className="text-red-500">*</span>
-                </label>
-                <input
-                  {...register("email")}
-                  type="email"
-                  id="email"
-                  placeholder="Enter valid Email Id."
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                  className={`border border-2px w-full px-3 py-1.5 rounded-md text-sm ${
-                    errors.email ? "border-red-500 border-2" : ""
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-500 to-blue-500">
+      <div className="flex flex-col p-7 gap-3 border-[30px] bg-white rounded-lg shadow-md">
+        <div className="mb-8 text-center font-extrabold text-3xl text-gray-800 underline">Login</div>
+        <div className="p-7">
+          <form onSubmit={handleSubmit(onLogin)} className="space-y-10" >
+            <div className={`flex flex-col gap-2 m-5 ${errors.email ? "error" : ""
+              }`}>
+              <label htmlFor="email" className={`text-lg font-bold text-gray-700 ${errors.email ? "text-red-500" : ""}`}>
+                Email<span className="text-red-500">*</span>
+              </label>
+              <input
+                {...register("email")}
+                type="email"
+                id="email"
+                placeholder="Enter valid Email Id."
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className={`border border-gray-300 focus:outline-none focus:border-blue-500 rounded-lg px-4 py-3 text-lg  ${errors.email ? "border-red-500 border-2" : ""
                   }`}
+              />
+              {errors.email ? (
+                <p className="text-red-500">{errors.email.message}</p>
+              ) : null}
+            </div>
+            <div className={`flex flex-col gap-2 m-5  ${errors.password ? "text-red-500" : ""
+              }`}>
+              <label htmlFor="password" className={`text-lg text-gray-700 font-bold  ${errors.password ? "error" : ""}`}>
+                Password<span className="text-red-500">*</span>
+              </label>
+              <div className="relative">
+                <input
+                  {...register("password")}
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  value={formData.password}
+                  placeholder="Enter your Password."
+                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  className={`border border-gray-300 focus:outline-none focus:border-blue-500 rounded-lg px-4 py-3 text-lg ${ errors.password ? "border-red-500 border-2" : ""}`}
                 />
-                {errors.email ? (
-                  <p className="text-red-500">{errors.email.message}</p>
-                ) : null}
-              </div>
-              <div
-                className={`flex flex-col gap-2 m-5  ${
-                  errors.password ? "text-red-500" : ""
-                }`}
-              >
-                <label
-                  htmlFor="password"
-                  className={`block mb-2 ${errors.password ? "error" : ""}`}
-                >
-                  Password<span className="text-red-500">*</span>
-                </label>
-                <div className="relative">
-                  <input
-                    {...register("password")}
-                    type={showPassword ? "text" : "password"}
-                    id="password"
-                    value={formData.password}
-                    placeholder="Enter your Password."
-                    onChange={(e) =>
-                      setFormData({ ...formData, password: e.target.value })
-                    }
-                    className={`border border-2px-solid w-full px-3 py-1.5 rounded-md text-sm   ${
-                      errors.password ? "border-red-500 border-2" : ""
-                    }`}
-                  />
-                  {errors.password ? (
+                                  {errors.password ? (
                     <p className="text-red-500">{errors.password.message}</p>
                   ) : null}
-                  <div className="absolute right-2 top-2">
-                    <CustomEyeIcon
-                      onClick={() => setShowPassword(!showPassword)}
-                      visible={showPassword}
-                      className="absolute top-0 right-0 mt-8 mr-4 cursor-pointer text-gray-500 hover:text-gray-700"
-                    />
-                  </div>
-                </div>
+             <CustomEyeIcon
+                  onClick={() => setShowPassword(!showPassword)}
+                  visible={showPassword}
+                  className="absolute top-0 right-0 mt-3 mr-3 cursor-pointer text-gray-400 hover:text-gray-600"
+                />
               </div>
-              <div className="flex flex-col gap-2 m-5">
-                <button
-                  type="submit"
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg"
-                >
-                  Login
-                </button>
-              </div>
+            </div>
+            <div className="flex justify-center">
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105"
+              >
+                Login
+              </button>
             </div>
           </form>
         </div>
       </div>
     </div>
   );
+
 }

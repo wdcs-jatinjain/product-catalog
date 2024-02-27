@@ -17,7 +17,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={` flex flex-col h-screen ${inter.className}`}>
+  
         <ToastProvider>
         {children}
         </ToastProvider>

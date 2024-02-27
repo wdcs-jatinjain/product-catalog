@@ -3,6 +3,12 @@ export type loginBody = {
   password: string;
 };
 
+export type loginReturnBody = {
+  status: string,
+  message: string,
+  token: string,
+}
+
 export type registerBody = {
   name: string;
   email: string;
@@ -11,3 +17,41 @@ export type registerBody = {
   zipCode: string;
 };
 
+export type addUserBody = {
+  name: string;
+  email: string;
+  role:string
+  streetAddress:string
+  postalCode:string
+  city:string
+  country:string
+  phone:string
+  password:string
+}
+
+export type editUserBody = {
+  name: string;
+  email: string;
+  role:string
+  streetAddress:string
+  postalCode:string
+  city:string
+  country:string
+  phone:string
+  password:string
+  id:string
+}
+
+export type deleteUserRes ={
+  status:string
+  message:string
+}
+
+export type addUserRes = {
+  
+    status:string
+    message: string
+    data?: {
+      id: string
+    }
+}

@@ -63,7 +63,7 @@ const loginCustomer = async ({ email, password, token }: any) => {
 
       return {
         status: RESULT_STATUS.SUCCESS,
-        message: "Customer authenticated successfully and New Token Generated.",
+        message: "Customer authenticated successfully and new token generated.",
         token: newToken,
       };
     }

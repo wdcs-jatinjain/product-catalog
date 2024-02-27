@@ -28,7 +28,7 @@ export default async function checkAdminLogin({
     );
     return {
       status: RESULT_STATUS.SUCCESS,
-      message: "User found in the database. New token generated.",
+      message: "Login Successfull. Welcome to Admin Panel",
       token: newToken,
     };
   } catch (error: any) {

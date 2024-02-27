@@ -4,10 +4,10 @@ import user from "../user";
 const RoleSchema = new mongoose.Schema({
     _id: Schema.ObjectId,
   name: { type: String },
-  roles: {
+  role: {
     type: [String],
     required: true,
-    enum: ["user", "superAdmin"],
+    enum: ["user", "superAdmin","manage"],
     default: [user],
   },
   token:{type:String},
@@ -15,6 +15,6 @@ const RoleSchema = new mongoose.Schema({
 
   }, { timestamps: true });
 
-const Role = mongoose.models.Role || mongoose.model('roles', RoleSchema);
+const Role = mongoose.models.Role || mongoose.model('role', RoleSchema);
 
 export default Role

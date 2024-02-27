@@ -1,8 +1,7 @@
-import { UserFormData } from "../../../types";
-import {API_URL}  from '../../../../config'
-
+import { API_URL } from "../../../../config";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import { UserFormData } from "@/types";
 
 export async function POST(req: Request) {
   try {
@@ -11,14 +10,20 @@ export async function POST(req: Request) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "cache":"no-store"
+        cache: "no-store",
       },
       body: JSON.stringify({ email, password }),
     });
     const UserLoginReturnData:UserFormData = await UserLoginResponse.json();
-    cookies().set('token', UserLoginReturnData.token)
+    console.log("🚀 ~ POST ~ UserLoginReturnData:", UserLoginReturnData)
+    if (UserLoginReturnData.status === 'Success'){
+      cookies().set("token", UserLoginReturnData.token);
     return NextResponse.json(UserLoginReturnData);
+    }
+    if(UserLoginReturnData.status === 'Failure'){
+      return NextResponse.json({status:"Failure", message:"Login Failed"})
+    }
   } catch (error) {
-    console.info("Something Went Wrong", error);
+    console.info("Something went wrong", error);
   }
 }
