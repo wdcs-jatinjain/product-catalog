@@ -59,6 +59,7 @@ const UserComponent = () => {
             pageTitle="Users"
             showAddButton={true}
             addRouter={"/users/add-user"}
+            className={"bg-black text-white flex hover:bg-white hover:text-black font-bold py-2 px-4 rounded-lg"}
           />
         </div>
         <div className="m-5 justify-between">

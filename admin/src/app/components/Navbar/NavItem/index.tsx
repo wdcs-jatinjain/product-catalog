@@ -37,27 +37,15 @@ const NavItems = () => {
       path: "/reports",
     },
   ];
-
-  const handleLogout = async () => {
-    try {
-      const response = await fetch("/api/logout");
-      const userLogoutResponse: LogoutUserFormDataTypes = await response.json();
-      router.push("/login");
-    } catch (error: any) {
-      console.error("Logout failed:", error.message);
-      toast.error(error.message);
-    }
-  };
-
   return (
-    <div className="flex gap-4 justify-end  ">
+    <div className="flex gap-1 justify-end  ">
      
       {links.map((link: { title: string; path: string }, index: number) => {
-        return <NavLink key={index} item={link} />;
+        return <>
+        <NavLink key={index} item={link} />
+        </>
       })}
-      <button className="m-2 cursor-pointer bg-red-600 rounded-2xl p-2 font-bold text-2xl  hover:text-white  text-black" onClick={handleLogout}>
-        Logout
-      </button>
+      <NavLink />
     </div>
   );
 };
