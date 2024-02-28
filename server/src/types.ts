@@ -56,3 +56,16 @@ export type addUserRes = {
       id: string
     }
 }
+
+export type addRoleBody = {
+  name:string
+  _id?:string
+}
+// export type addRoleRes = {
+//   status:string
+//   message: string
+//     data?:{
+//       newRole:string
+//     }
+  
+// }

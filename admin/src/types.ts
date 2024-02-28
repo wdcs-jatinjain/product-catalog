@@ -22,6 +22,9 @@ export type AddUserFormDataTypes = {
   password:string
   
 };
+export type AddRoleFormDataTypes={
+
+}
 export type EditUserFormDataTypes = {
   _id:string;
   name: string;
@@ -40,13 +43,25 @@ export type UserAddReturnData = {
   message: string;
   data: { id: string };
 };
+export type RoleAddReturnData = {
+
+};
 
 export type UserEditResponseData = {
   status: string;
   message: string;
   data: { updateUser: string };
 };
+export type RoleEditResponseData = {
+  status: string;
+  message: string;
+  data: { updateRole: string };
+};
 export type UserDeleteReturnData = {
+  status: string;
+  message: string;
+};
+export type RoleDeleteReturnData = {
   status: string;
   message: string;
 };
@@ -80,6 +95,11 @@ export type GetUserReturnData=
     __v: number
 
 }
+}
+export type GetRoleReturnData=
+{
+ 
+ 
 }
 export type GetAllUsersReturnData=
 {
