@@ -2,12 +2,37 @@
 import React, { useEffect, useState } from 'react'
 import PageLayout from '../pageLayout';
 import PageHeader from '../PageHeader';
-import PCGrid from '../CommanComponents/PCGrid';
 import { PERMISSIONS } from '@/permission';
+import PCGrid from '../CommanComponents/PCGrid';
+import { toast } from 'react-toastify';
+import { RoleDeleteReturnData } from '@/types';
+import { RESULT_STATUS } from '@/constant';import { RoleData } from './roles';
+
 
 const RolesComponent = () => {
-  const [roles, setRoles] = useState([]);
+  const [roles, setRoles] = useState<RoleData[] >([]);
   const userPermissions = localStorage.getItem('permissions');
+  
+  const handleDelete = async (_id: string) => {
+    try {
+      const response = await fetch(`/api/roles/delete-role/${_id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const roleDeleteResponse:RoleDeleteReturnData = await response.json();
+      if (roleDeleteResponse.status === RESULT_STATUS.FAILURE) {
+        toast.error(roleDeleteResponse.message);
+      } else if (roleDeleteResponse.status === RESULT_STATUS.SUCCESS) {
+        setRoles(roles.filter((roles) => roles._id !== _id));
+        toast.success(roleDeleteResponse.message);
+      }
+    } catch (error: any) {
+      console.error("Delete failed:", error.message);
+      toast.error(error.message);
+    }
+  };
   useEffect(() => {
     const fetchRoles = async () => {
       try {

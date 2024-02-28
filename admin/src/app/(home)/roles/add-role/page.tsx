@@ -1,4 +1,4 @@
-import AddUserComponent from "@/app/components/Users/Add-User";
+import AddRoleComponent from "@/app/components/Roles/Add-Role";
 import React from "react";
 
 const AddRolePage = () => {

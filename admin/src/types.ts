@@ -44,6 +44,9 @@ export type UserAddReturnData = {
   data: { id: string };
 };
 export type RoleAddReturnData = {
+  status: string;
+  message: string;
+  data: { id: string };
 
 };
 
@@ -61,6 +64,7 @@ export type UserDeleteReturnData = {
   status: string;
   message: string;
 };
+
 export type RoleDeleteReturnData = {
   status: string;
   message: string;
