@@ -4,6 +4,7 @@ import React from "react";
 import { UserData } from "../Users/users";
 import { HiPencilAlt, HiTrash } from "react-icons/hi";
 import Link from "next/link";
+import { Span } from "next/dist/trace";
 
 export function dateFormat(timestamp: any) {
   const plus0 = (num: any) => `0${num.toString()}`.slice(-2);
@@ -93,12 +94,15 @@ const Table = ({
                 {columnValue && columnValue.email ? columnValue.email : "-"}
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
-                {columnValue && columnValue.role ? columnValue.role : "-"}
+                {columnValue && columnValue.roleName ? columnValue.roleName : "-"}
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
                 {columnValue && columnValue.createdAt
                   ? dateFormat(columnValue.createdAt)
                   : "-"}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                {columnValue && columnValue.isActive ? (<span className="text-green-500">Active</span>) : <span className="text-red-600">In Active</span>}
               </td>
               <td 
               title="Edit user"

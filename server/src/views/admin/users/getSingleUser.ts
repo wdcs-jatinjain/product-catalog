@@ -3,9 +3,8 @@ import { RESULT_STATUS } from "../../../constant";
 import User from "../../../models/user";
 
 export default async function getSingleUser({ id }: { id: string }) {
-  const userId = new mongoose.Types.ObjectId(id);
   try {
-    const singleUser = await User.findById({ _id: userId });
+    const singleUser = await User.findById({ _id: new mongoose.Types.ObjectId(id), isDeleted: false });
     if (singleUser) {
       return {
         status: RESULT_STATUS.SUCCESS,

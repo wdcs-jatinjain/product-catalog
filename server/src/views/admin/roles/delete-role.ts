@@ -1,13 +1,14 @@
+import mongoose from "mongoose";
 import { RESULT_STATUS } from "../../../constant";
 import Role from "../../../models/role";
 
-export default async function getAllRoles() {
+export default async function deleteRole({id}: {id: string}) {
   try {
-    const allRoles= await Role.find({isDeleted: false}).select({_id:1, name:1});
+    const roleDetails= await Role.findOneAndUpdate({_id: new mongoose.Types.ObjectId(id)}, {isDeleted: true});
     return {
       status: RESULT_STATUS.SUCCESS,
-      message: "Roles Fetched.",
-      data: allRoles
+      message: "Role Details Fetched.",
+      data: roleDetails
     }
     
   } catch (error: any) {

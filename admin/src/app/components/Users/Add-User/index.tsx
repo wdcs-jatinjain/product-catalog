@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddUserForm from "../../Forms/AddUserForm";
 import PageHeader from "../../PageHeader";
 import PageLayout from "../../pageLayout";
@@ -10,8 +10,11 @@ import { toast } from "react-toastify";
 import { AddUserFormDataTypes, UserAddReturnData } from "@/types";
 
 const AddUserComponent = () => {
+  const [roles, setRoles] = useState<[{_id: string, name: string}]>([{_id:"",name:""}]);
   const router = useRouter();
   const onAddingUser = async (AddUserData: AddUserFormDataTypes) => {
+    console.log(AddUserData);
+    
     try {
       const response = await fetch("/api/users/add-user", {
         method: "POST",
@@ -34,6 +37,23 @@ const AddUserComponent = () => {
       toast.error(error.message);
     }
   };
+  useEffect(()=>{
+    const fetchRoles=async()=>{
+      try {
+        const response = await fetch("/api/roles/get-all-roles", {
+          cache: "no-cache",
+        });
+        if (!response.ok) {
+          throw new Error("Failed to fetch roles");
+        }
+        const data = await response.json();
+        setRoles(data.GetAllRolesReturnData.data);
+      } catch (error) {
+        console.error("Error fetching roles:", error);
+      }
+    }
+    fetchRoles();
+  })
   return (
     <PageLayout>
       <div className="flex-col ">
@@ -42,7 +62,7 @@ const AddUserComponent = () => {
           <PageHeader pageTitle="Add User" showAddButton={false} />
         </div>
         <div className="m-5 justify-between">
-          <AddUserForm onAddingUser={onAddingUser} />
+          <AddUserForm roles={roles} onAddingUser={onAddingUser} />
         </div>
       </div>
     </PageLayout>

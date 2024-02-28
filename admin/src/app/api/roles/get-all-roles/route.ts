@@ -8,6 +8,8 @@ export async function GET(req: Request) {
       cache:"no-cache"
     });
     const GetAllRolesReturnData:GetAllRolesReturnData = await GetAllRoleResponse.json();
+    console.log("🚀 ~ GET ~ GetAllRolesReturnData:", GetAllRolesReturnData)
+    
     return NextResponse.json({GetAllRolesReturnData} );
   } catch (error) {
     console.error("Error fetching roles", error);

@@ -6,7 +6,7 @@ export default async function deletedUser(
   id: string) {
   const userId = new mongoose.Types.ObjectId(id);
   try {
-    const user = await User.findById({ _id: userId });
+    const user = await User.findById({ _id: userId, isDeleted: false });
     if (user && user.role[0]=='superAdmin'){
 return {
         status: RESULT_STATUS.FAILURE,
@@ -16,7 +16,7 @@ return {
         },
     }
   }else{
-    const removedaUser = await User.findByIdAndDelete({ _id: userId })
+    const removedaUser = await User.findByIdAndUpdate({ _id: userId }, {isDeleted: true})
     if (!removedaUser) {
       return {
         status: RESULT_STATUS.FAILURE,

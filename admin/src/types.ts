@@ -101,5 +101,6 @@ export type GetAllUsersReturnData=
 
 
 export type GetAllRolesReturnData={
-  
+  _id: string,
+  name: string
 }

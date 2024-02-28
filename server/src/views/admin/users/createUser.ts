@@ -5,6 +5,7 @@ import { RESULT_STATUS } from "../../../constant";
 export default async function createUser({  email, name, role, streetAddress,postalCode,city, country, phone,password }: addUserBody) {
   try {
     const existingUser = await User.findOne({ email });
+    console.log("🚀 ~ createUser ~ existingUser:", existingUser)
     if (existingUser) {
       return {
         status: RESULT_STATUS.FAILURE,

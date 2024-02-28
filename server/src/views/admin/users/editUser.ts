@@ -12,11 +12,11 @@ export default async function editUser({
 }) {
   const userId = new mongoose.Types.ObjectId(id);
   try {
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ _id: new mongoose.Types.ObjectId(id), isDeleted: false });
     if (!existingUser) {
       return {
         status: RESULT_STATUS.FAILURE,
-        message: "Cannot edit email id"
+        message: "User Not Found"
       };
     }
 

@@ -12,8 +12,7 @@ export default async function doLogin({
   password: string;
 }) {
   try {
-    const userDetails = await User.findOne({ email });
-    console.log("🚀 ~ userDetails:", userDetails)
+    const userDetails = await User.findOne({ email, isActive: true, isDeleted: false });
     if (!userDetails) {
       return {
         status: RESULT_STATUS.FAILURE,
