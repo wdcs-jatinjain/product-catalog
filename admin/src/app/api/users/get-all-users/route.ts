@@ -8,6 +8,7 @@ export async function GET(req: Request) {
       cache:"no-cache"
     });
     const GetAllUsersReturnData:GetAllUsersReturnData = await GetAllUserResponse.json();
+    console.log("🚀 ~ GET ~ GetAllUsersReturnData:", GetAllUsersReturnData)
     return NextResponse.json({GetAllUsersReturnData} );
   } catch (error) {
     console.error("Error while getting all the user:", error);

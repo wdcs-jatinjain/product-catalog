@@ -1,4 +1,4 @@
-import { API_URL } from "../../../../config";
+import { API_URL } from "../../../../../config";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { UserFormData } from "@/types";
@@ -6,7 +6,7 @@ import { UserFormData } from "@/types";
 export async function POST(req: Request) {
   try {
     const { email, password } = await req.json();
-    const UserLoginResponse = await fetch(`${API_URL}/user/login`, {
+    const UserLoginResponse = await fetch(`${API_URL}/user/do-login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -7,6 +7,7 @@ export type loginReturnBody = {
   status: string,
   message: string,
   token: string,
+  permissions:string
 }
 
 export type registerBody = {
