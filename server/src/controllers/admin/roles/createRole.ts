@@ -1,4 +1,4 @@
-import { addRoleBody } from "../../../types";
+import { addRoleBody, addRoleRes } from "../../../types";
 import { RESULT_STATUS } from "../../../constant";
 import  {Response}  from "express";
 import { validateAddedRole } from "./addRoleValidations";
@@ -10,8 +10,7 @@ export default async function addRole(
 {
   try {
     await validateAddedRole.validateAsync({ name},{ abortEarly: false });
-    const createRoleViewsRes = await RoleViews.createRoleViews({name})
-    console.log("🚀 ~ createRoleViewsRes:", createRoleViewsRes)
+    const createRoleViewsRes:addRoleRes = await RoleViews.createRoleViews({name})
     return res.status(200).json(createRoleViewsRes);
   } catch (error: any) {
     if (error.name === "ValidationError") {

@@ -1,11 +1,14 @@
 import { NextResponse } from "next/server";
 import { API_URL } from "../../../../../../config";
-import {  RoleDeleteReturnData } from "@/types";
+import { RoleDeleteReturnData } from "@/types";
 
-export async function DELETE(req: Request,{params}:{params:{userId:string}}) { 
+export async function DELETE(
+  req: Request,
+  { params }: { params: { roleId: string } }
+) {
   try {
     const DeletedRoleResponse = await fetch(
-      `${API_URL}/roles/deleteRole?id=${params.userId}`,
+      `${API_URL}/roles/deleteRole?id=${params.roleId}`,
       {
         method: "DELETE",
         headers: {

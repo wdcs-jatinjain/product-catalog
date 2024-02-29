@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import { RESULT_STATUS } from "../../../constant";
 import Role from "../../../models/role";
 

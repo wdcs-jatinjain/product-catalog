@@ -4,16 +4,12 @@ import { RoleEditResponseData } from "@/types";
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { userId: string } }
+  { params }: { params: { roleId: string } }
 ) {
-  const {
-    _id,
-    name,
-    
-  } = await req.json();
+  const { _id, name } = await req.json();
   try {
     const EditedRoleResponse = await fetch(
-      `${API_URL}/roles/editRole?id=${params.userId}`,
+      `${API_URL}/roles/editRole?id=${params.roleId}`,
       {
         method: "PATCH",
         headers: {
@@ -21,16 +17,15 @@ export async function PATCH(
         },
         body: JSON.stringify({
           _id,
-          name
-          
+          name,
         }),
       }
     );
-
-    const RoleEditedReturnData: RoleEditResponseData =await EditedRoleResponse.json();
+    const RoleEditedReturnData:RoleEditResponseData = await EditedRoleResponse.json();
+    console.log(RoleEditedReturnData);
     return NextResponse.json(RoleEditedReturnData);
   } catch (error) {
-    console.error("Error while editing the user:", error);
+    console.error("Error while editing the role:", error);
     throw error;
   }
 }

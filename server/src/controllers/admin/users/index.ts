@@ -1,5 +1,4 @@
 import express from "express";
-
 import addUser from "./addUser";
 import getAllUsers from "./getAllUsers";
 import deleteUser from "./deleteUser";
@@ -17,6 +16,7 @@ UserController.get("/get", getUser);
 UserController.get("/getAll", getAllUsers);
 UserController.delete("/delete", deleteUser);
 UserController.patch("/edit", editSingleUser);
+
 export default UserController;
 
 

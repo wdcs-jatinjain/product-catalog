@@ -1,6 +1,7 @@
 import { RESULT_STATUS } from "../../../constant";
 import { Response, Request } from "express";
 import RoleViews from "../../../views/admin/roles";
+import { getRoleType } from "../../../types";
 
 export default async function getRole(req:Request,res: Response) {
 console.log(req.query)

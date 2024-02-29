@@ -1,9 +1,8 @@
 "use client";
 import React from "react";
-import { UserData } from "../Users/users";
 import { HiPencilAlt, HiTrash } from "react-icons/hi";
 import Link from "next/link";
-
+import { RoleData } from "../roles";
 export function dateFormat(timestamp: any) {
   const plus0 = (num: any) => `0${num.toString()}`.slice(-2);
   const d = new Date(timestamp);
@@ -40,14 +39,14 @@ export function dateFormat(timestamp: any) {
   return date;
 }
 
-const Table = ({
+const RoleTable = ({
   data,
   fields,
   handleDelete,
   editRoute,
 }: {
-  data: UserData[] 
-  fields: TableFields[];
+  data: RoleData[] 
+  fields: RoleTableFields[];
   handleDelete: (id: string) => Promise<void>;
   editRoute: string;
 }) => {
@@ -59,7 +58,7 @@ const Table = ({
       <table className="min-w-full border border-gray-300">
         <thead className="bg-gray-50 border-b border-gray-300">
           <tr>
-            {fields.map((field: TableFields) => {
+            {fields.map((field: RoleTableFields) => {
               return (
                 <th
                   key={field.id}
@@ -79,31 +78,20 @@ const Table = ({
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-300">
-          {data.map((columnValue: UserData, index: number) => (
+          {data.map((columnValue: RoleData, index: number) => (
             <tr key={columnValue._id}>
               <td className="px-6 py-4 whitespace-nowrap">
                 {columnValue && columnValue._id ? columnValue._id : "-"}
               </td>
-
               <td className="px-6 py-4 whitespace-nowrap">
                 {columnValue && columnValue.name ? columnValue.name : "-"}
               </td>
+             
               <td className="px-6 py-4 whitespace-nowrap">
-                {columnValue && columnValue.email ? columnValue.email : "-"}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                {columnValue && columnValue.roleName ? columnValue.roleName : "-"}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                {columnValue && columnValue.createdAt
-                  ? dateFormat(columnValue.createdAt)
-                  : "-"}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                {columnValue && columnValue.isActive ? (<span className="text-green-500">Active</span>) : <span className="text-red-600">In Active</span>}
-              </td>
+                {columnValue && columnValue.isActive == true? (<span className="text-green-500">Active</span>) : <span className="text-red-600">In Active</span>}
+              </td> 
               <td 
-              title="Edit user"
+              title="Edit role"
               className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 flex items-center">
                 <Link
                   href={`${editRoute}/${columnValue._id}`}
@@ -112,7 +100,7 @@ const Table = ({
                   <HiPencilAlt />
                 </Link>
                 <button
-                title="Delete user"
+                title="Delete role"
                   onClick={() => handleDelete(columnValue._id)}
                   className="text-red-600 hover:text-red-900"
                 >
@@ -127,4 +115,4 @@ const Table = ({
   );
 };
 
-export default Table;
+export default RoleTable;

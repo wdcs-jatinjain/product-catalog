@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { API_URL } from "../../../../../config";
-import { GetRoleReturnData } from "@/types";
+import { API_URL } from "../../../../../../config";
+import {  GetRoleReturnData } from "@/types";
 
 export async function GET(req: Request,{params}:{params:{roleId:string}} ) {
   try {
-    const GetRoleResponse = await fetch(`${API_URL}/roles/getRole?id=${params.roleId}`,{
+    const GetRoleResponse = await fetch(`${API_URL}/roles/getsingleRole?id=${params.roleId}`,{
       cache:'no-cache'
     });
     const GetRoleReturnData:GetRoleReturnData = await GetRoleResponse.json();

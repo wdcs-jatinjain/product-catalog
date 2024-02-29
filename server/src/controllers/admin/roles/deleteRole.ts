@@ -1,11 +1,11 @@
 import { RESULT_STATUS } from "../../../constant";
 import { Response, Request } from "express";
 import RoleViews from "../../../views/admin/roles";
+import { deleteRoleRes } from "../../../types";
 
 export default async function deleteRole({query:{id}}:{query:{id:string}}, res: Response) {
   try {
-    const removeRoleViewsRes = await RoleViews.deleteRoleViews(id)
-    console.log("🚀 ~ deleteRole ~ id:", id)
+    const removeRoleViewsRes:deleteRoleRes = await RoleViews.deleteRoleViews(id)
     return res.status(200).json(removeRoleViewsRes);
   } catch (error: any) {
     if (error.name === "ValidationError") {

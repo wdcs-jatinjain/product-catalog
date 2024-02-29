@@ -13,7 +13,6 @@ const AddUserComponent = () => {
   const [roles, setRoles] = useState<[{_id: string, name: string}]>([{_id:"",name:""}]);
   const router = useRouter();
   const onAddingUser = async (AddUserData: AddUserFormDataTypes) => {
-    console.log(AddUserData);
     
     try {
       const response = await fetch("/api/users/add-user", {

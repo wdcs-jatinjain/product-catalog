@@ -2,6 +2,7 @@ import { RESULT_STATUS } from "../../../constant";
 import { Response } from "express";
 import { validateEditRole } from "./editRoleValidation";
 import RoleViews from "../../../views/admin/roles";
+import { editRoleRes } from "../../../types";
 
 export default async function editRole(
   { body: { name }, query }: { body: { name: string }; query: { id: string } },
@@ -10,7 +11,7 @@ export default async function editRole(
   const id: string = query.id;
   try {
     await validateEditRole.validateAsync({ name }, { abortEarly: false });
-    const editRole = await RoleViews.editRoleViews({
+    const editRole:editRoleRes = await RoleViews.editRoleViews({
       name,
       id,
     });

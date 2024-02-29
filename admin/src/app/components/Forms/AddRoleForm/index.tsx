@@ -1,75 +1,72 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import AddRoleForm from "../../Forms/AddRoleForm";
-import PageHeader from "../../PageHeader";
-import PageLayout from "../../pageLayout";
+import React, { useState } from "react";
+import AddRoleValidationSchema from "./roleValidation"; 
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { AddRoleFormDataTypes } from "@/types";
 import Link from "next/link";
-import { RESULT_STATUS } from "@/constant";
-import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
-import { AddRoleFormDataTypes, RoleAddReturnData } from "@/types";
 
-const AddRoleComponent = () => {
-  const [roles, setRoles] = useState([]);
-  const router = useRouter();
 
-  useEffect(() => {
-    const fetchRoles = async () => {
-      try {
-        const response = await fetch("/api/roles/get-all-roles", {
-          cache: "no-cache",
-        });
-        if (!response.ok) {
-          throw new Error("Failed to fetch roles");
-        }
-        const data = await response.json();
-        setRoles(data.GetAllRolesReturnData.data);
-      } catch (error) {
-        console.error("Error fetching roles:", error);
-        toast.error("Error fetching roles");
-      }
-    };
-    fetchRoles();
-  }, []);
-
-  const onAddingRole = async (AddRoleData: AddRoleFormDataTypes) => {
-    try {
-      const response = await fetch("/api/roles/add-role", {
-        method: "POST",
-        cache: "no-cache",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(AddRoleData),
-      });
-
-      const AddRoleResponse: RoleAddReturnData = await response.json();
-      if (AddRoleResponse.status === RESULT_STATUS.FAILURE) {
-        toast.error(AddRoleResponse.message);
-      } else if (AddRoleResponse.status === RESULT_STATUS.SUCCESS) {
-        toast.success(AddRoleResponse.message);
-        router.push("/roles");
-      }
-    } catch (error: any) {
-      console.error("New role not created:", error.message);
-      toast.error(error.message);
-    }
-  };
-
+export default function AddRoleForm({ onAddingRole, roles }: { roles:[{_id: string, name: string}], onAddingRole: (AddRoleData: AddRoleFormDataTypes) => Promise<void> }) {
+const initialState = {name: ""}
+  const [formData, setFormData] = useState(initialState);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(AddRoleValidationSchema),
+  });
   return (
-    <PageLayout>
-      <div className="flex-col">
-        <div className="flex gap-5 m-5">
-          <Link href={"/users"}>{"<"}</Link>
-          <PageHeader pageTitle="Add User" showAddButton={false} />
-        </div>
-        <div className="m-5 justify-between">
-          <AddRoleForm roles={roles} onAddingRole={onAddingRole} />
+    <>
+    <form onSubmit={handleSubmit(onAddingRole)}>
+    <div className="grid grid-cols-3 grid-rows-3 gap-4  px-20 py-10 bg-slate-100">
+      {/* First row */}
+      <div className="">
+        <div className={`sm:col-span-2 ${errors.name ? "error" : ""}`}>
+          <label htmlFor="name" className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${errors.name ? "text-red-500" : ""
+            }`}>
+            Name <span className="text-red-500">*</span>
+          </label>
+          <input
+            {...register("name")}
+            type="text"
+            id="name"
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 ${errors.name ? "border-red-500 border-2" : ""
+              }`}
+          />
+          {errors.name ? (
+            <p className="text-red-500">{errors.name.message}</p>
+          ) : null}
         </div>
       </div>
-    </PageLayout>
+     
+      <div className="flex gap-2 m-5">
+        <div className="">
+          <button
+            type="submit"
+            className="bg-black text-white hover:bg-white hover:text-black font-bold py-2 px-4 rounded-lg"
+          >
+            Save
+          </button>
+        </div>
+        <div className="">
+          <Link  href={'/roles'}
+            type="button"
+            className="bg-black text-white hover:bg-white hover:text-black font-bold py-2 px-4 rounded-lg"
+          >
+            Cancel
+          </Link>
+        </div>
+        </div>
+
+      </div>
+    </form>
+  
+
+    </>
+
   );
-};
-
-export default AddRoleComponent;
-
+}

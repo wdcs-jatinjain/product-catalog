@@ -1,10 +1,11 @@
 import { RESULT_STATUS } from "../../../constant";
 import { Response, Request } from "express";
 import RoleViews from "../../../views/admin/roles";
+import { getAllRolesType } from "../../../types";
 
 export default async function getAllRoles(req: Request, res: Response) {
   try {
-    const fetchAllRoles = await RoleViews.getAllRoleViews()
+    const fetchAllRoles:getAllRolesType = await RoleViews.getAllRoleViews()
     return res.status(200).json(fetchAllRoles);
   } catch (error: any) {
     if (error.name === "ValidationError") {
