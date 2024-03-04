@@ -15,7 +15,6 @@ import clientResolver from "./customer/resolvers/client.resolver.js";
 import { configurePassport } from "./passport/passport.config.js";
 import { MONGO_URL, SESSION_SECRET } from "./config.js";
 
-
 dotenv.config();
 configurePassport();
 

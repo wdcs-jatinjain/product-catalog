@@ -20,7 +20,6 @@ type Mutation {
     login(input:LoginInput!):Client
     logout:LogoutResponse
 }
-
 input SignUpInput {
     name:String!
     email:String!

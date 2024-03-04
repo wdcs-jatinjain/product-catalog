@@ -12,5 +12,4 @@ const CustomerSchema = new mongoose.Schema({
   }, { timestamps: true });
 
 const Customer = mongoose.models.Customer || mongoose.model('customers', CustomerSchema);
-
 export default Customer
