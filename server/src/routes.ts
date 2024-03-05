@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/api", router);
+app.use("/graphql", router);
 
 export default app
 
