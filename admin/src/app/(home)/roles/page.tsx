@@ -1,5 +1,5 @@
 import React from 'react'
-import RolesComponent from '@/app/components/RolesComponent'
+import RolesComponent from '@/app/components/Roles'
 
 const RolesPage = () => {
   return (
@@ -8,3 +8,5 @@ const RolesPage = () => {
 }
 
 export default RolesPage
+
+

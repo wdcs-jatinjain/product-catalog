@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { RESULT_STATUS } from "../../../constant";
 import Roles from "../../../models/role";
 
-export default async function checkAdminLogin({
+export default async function doLogin({
   email,
   password,
 }: {
@@ -12,7 +12,7 @@ export default async function checkAdminLogin({
   password: string;
 }) {
   try {
-    const userDetails = await User.findOne({ email });
+    const userDetails = await User.findOne({ email, isActive: true, isDeleted: false });
     if (!userDetails) {
       return {
         status: RESULT_STATUS.FAILURE,
@@ -22,7 +22,8 @@ export default async function checkAdminLogin({
     if (password !== userDetails.password) {
       return { status: RESULT_STATUS.FAILURE, message: "Invalid Password" };
     }
-    const assignedRolePermission = await Roles.findOne({_id: userDetails.role}).select({rolePermissions:1});
+    const assignedRolePermission = await Roles.findOne({_id:userDetails.role})
+    console.log("🚀 ~ assignedRolePermission:", assignedRolePermission)
     const newToken = jwt.sign(
       { adminID: userDetails._id },
       ADMIN_SECRET_KEY as string,
@@ -39,3 +40,12 @@ export default async function checkAdminLogin({
     throw new Error("An error occurred while logging in the Admin");
   }
 }
+
+
+
+
+
+
+
+
+

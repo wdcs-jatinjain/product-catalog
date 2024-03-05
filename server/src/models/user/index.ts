@@ -4,7 +4,7 @@ const UserSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String }, //required: true
+    password: { type: String, required: true },
     streetAddress: { type: String,required: true },
     role: {type: mongoose.Types.ObjectId, ref:'Role'},
     postalCode: { type: Number, required: true },
@@ -12,6 +12,8 @@ const UserSchema = new mongoose.Schema(
     country: { type: String, required: true },
     phone: { type: String, required: true },
     isAdmin: { type: Boolean, default: true },
+    isDeleted: { type: Boolean, default: false },
+    isActive: { type: Boolean, default: true }
   },
   { timestamps: true }
 );

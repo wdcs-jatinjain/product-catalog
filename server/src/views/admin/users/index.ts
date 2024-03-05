@@ -1,12 +1,13 @@
-import checkAdminLogin from "./checkAdminLogin";
+
 import createUser from "./createUser";
 import getAllUser from "./getAllUser";
 import editUser from "./editUser";
 import getSingleUser from "./getSingleUser";
 import deletedUser from "./deletedUser";
+import doLogin from "./doLogin";
 
 const UserViews = Object.freeze({
-  checkAdminLoginViews: checkAdminLogin,
+  doLoginViews: doLogin,
   createUserViews: createUser,
   getAllUserViews: getAllUser,
   deletedUserViews: deletedUser,

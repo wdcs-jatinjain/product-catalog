@@ -1,3 +1,4 @@
+
 export type inputFormDataTypes = {
   email: string;
   password: string;
@@ -22,6 +23,9 @@ export type AddUserFormDataTypes = {
   password:string
   
 };
+export type AddRoleFormDataTypes={
+  name: string;
+}
 export type EditUserFormDataTypes = {
   _id:string;
   name: string;
@@ -35,10 +39,22 @@ export type EditUserFormDataTypes = {
   password:string
   
 };
+export type EditRoleFormDataTypes = {
+  _id:string;
+  name: string;
+ 
+};
 export type UserAddReturnData = {
   status: string;
   message: string;
   data: { id: string };
+};
+export type RoleAddReturnData = {
+  status: string;
+  message: string;
+  data?: {
+    id: string
+  }
 };
 
 export type UserEditResponseData = {
@@ -46,7 +62,19 @@ export type UserEditResponseData = {
   message: string;
   data: { updateUser: string };
 };
+export type RoleEditResponseData = {
+  status: string;
+  message: string;
+  data: {
+     updateRole: string 
+    };
+};
 export type UserDeleteReturnData = {
+  status: string;
+  message: string;
+};
+
+export type RoleDeleteReturnData = {
   status: string;
   message: string;
 };
@@ -81,6 +109,19 @@ export type GetUserReturnData=
 
 }
 }
+
+type data = {
+  _id: string,
+  name: string
+}
+
+export type GetRoleReturnData=
+{
+  status: string
+  message: string
+  data: data[]
+ 
+}
 export type GetAllUsersReturnData=
 {
   _id: string
@@ -101,5 +142,10 @@ export type GetAllUsersReturnData=
 
 
 export type GetAllRolesReturnData={
-  
+status:string
+message:string
+data:[{
+  _id: string,
+  name: string
+}]
 }

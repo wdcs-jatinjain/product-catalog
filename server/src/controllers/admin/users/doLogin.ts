@@ -1,9 +1,9 @@
 import Views from "../../../views";
 import { RESULT_STATUS } from "../../../constant";
 import { Response } from "express";
-import { validateAdminUser } from "./checkAdminLoginValidation";
+import { validateAdminUser } from "./doAdminLoginValidation";
 
-export default async function checkAdminLogin(
+export default async function doLogin(
   { body: { email, password } }: { body: { email: string; password: string } },
   res: Response
 ) {
@@ -12,11 +12,11 @@ export default async function checkAdminLogin(
       { email, password },
       { abortEarly: false }
     );
-    const checkAdminLoginViewsRes = await Views.UserViews.checkAdminLoginViews({
+    const doLoginViewsRes = await Views.UserViews.doLoginViews({
       email,
       password,
     });
-    return res.status(200).json(checkAdminLoginViewsRes);
+    return res.status(200).json(doLoginViewsRes);
   } catch (error: any) {
     if (error.name === "ValidationError") {
       return {

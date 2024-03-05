@@ -28,7 +28,7 @@ export default function LoginForm() {
       await UserLoginValidationSchema.validate(inputFormData, {
         abortEarly: false,
       });
-      const response = await fetch("/api/login", {
+      const response = await fetch("/api/login/do-login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

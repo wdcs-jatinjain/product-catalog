@@ -23,6 +23,10 @@ export const UserFields = [
     id: 5,
     name: "Created At",
 
-  }
+  },
+  {
+    id: 6,
+    name: "Is Active",
+  },
 
 ]

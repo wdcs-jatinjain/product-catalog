@@ -3,12 +3,11 @@ import React, { useState } from "react";
 import AddUserValidationSchema from './userValidation'
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-
 import { AddUserFormDataTypes } from "@/types";
 import Link from "next/link";
 
 
-export default function AddUserForm({ onAddingUser }: {  onAddingUser: (AddUserData: AddUserFormDataTypes) => Promise<void>; }) {
+export default function AddUserForm({ onAddingUser, roles }: { roles:[{_id: string, name: string}], onAddingUser: (AddUserData: AddUserFormDataTypes) => Promise<void>; }) {
 const initialState = {
   email: "",
   name: "",
@@ -196,8 +195,11 @@ const initialState = {
               }`}
           >
             <option value="">Select a role</option>
-            <option value="Admin">Admin</option>
-            <option value="Manager">Manager</option>
+            {roles.map((role: {_id: string, name: string}, roleIndex: number)=>{
+              return ( 
+              <option key={ roleIndex} value={role._id}>{role.name}</option>
+              )
+            })}
           </select>
           {errors.role ? (
             <p className="text-red-500">{errors.role.message}</p>

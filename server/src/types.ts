@@ -7,6 +7,7 @@ export type loginReturnBody = {
   status: string,
   message: string,
   token: string,
+  permissions:string
 }
 
 export type registerBody = {
@@ -47,6 +48,11 @@ export type deleteUserRes ={
   message:string
 }
 
+export type deleteRoleRes ={
+  status:string
+  message:string
+}
+
 export type addUserRes = {
   
     status:string
@@ -54,4 +60,40 @@ export type addUserRes = {
     data?: {
       id: string
     }
+}
+
+export type addRoleBody = {
+  name:string
+
+}
+export type addRoleRes = {
+  status:string
+  message: string
+  data?: {
+    id: string
+  }
+}
+ type data = {
+  _id: string,
+  name: string
+}
+export type getAllRolesType={
+  status: string
+  message: string
+  data: data[]
+}
+
+export type getRoleType={
+  status: string
+  message: string
+  data: data[]
+}
+
+
+export type editRoleRes={
+  status: string
+  message: string
+  data?:{
+    updatedRole:string 
+  } 
 }

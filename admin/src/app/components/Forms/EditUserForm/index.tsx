@@ -28,7 +28,7 @@ export default function EditUserForm({
   return (
     <form onSubmit={handleSubmit(onEditingUser)}>
       <div className="grid grid-cols-3 grid-rows-3 gap-4  px-20 py-10 bg-slate-100">
-        <div className={`sm:col-span-3 ${errors.name ? "error" : ""}`}>
+        <div className={`sm:col-span-3 ${errors._id ? "error" : ""}`}>
           <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
             ID
           </label>
