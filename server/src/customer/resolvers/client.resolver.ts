@@ -8,7 +8,6 @@ const clientResolver = {
                 const { email, name, password, phone, city, address, country, zipCode } = input
                 if (!email || !name || !password || !phone || !city || !address || !country || !zipCode) {
                     throw new Error("All fields are required")
-
                 }
                 const existingCustomer = await Customer.findOne({ email })
                 if (existingCustomer) {

@@ -10,6 +10,5 @@ const CustomerSchema = new mongoose.Schema({
   country:{type:String, required: true},
   zipCode:{type:String, required: true}
   }, { timestamps: true });
-
 const Customer = mongoose.models.Customer || mongoose.model('customers', CustomerSchema);
 export default Customer

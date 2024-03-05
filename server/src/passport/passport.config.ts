@@ -30,7 +30,6 @@ export const configurePassport = async () => {
 				if (!validPassword) {
 					throw new Error("Invalid email or password");
 				}
-
 				return done(null, client);
 			} catch (err) {
 				return done(err);

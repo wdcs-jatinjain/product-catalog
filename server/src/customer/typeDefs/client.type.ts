@@ -14,7 +14,6 @@ type Query {
     authClient:Client
     client(clientId:ID!): Client
 }
-
 type Mutation {
     signUp(input:SignUpInput!):Client
     login(input:LoginInput!):Client
@@ -37,7 +36,7 @@ input LoginInput {
 
 type LogoutResponse {
     message:String!
-}
-`
-export default clientTypeDef
+}`
+
+export default clientTypeDef;
 

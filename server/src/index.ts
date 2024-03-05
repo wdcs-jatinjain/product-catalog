@@ -53,7 +53,6 @@ const server = new ApolloServer({
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
 await server.start()
-
 app.use(
     "/graphql",
     cors({
