@@ -1,42 +1,52 @@
-const clientTypeDef = `#graphql
-type Client {
-    _id:ID!
-    name:String!
-    email:String!
-    password:String!
-    phone:String!
-    city:String!
-    address:String!
-    country:String!
-    zipCode:String!
-}
-type Query {
-    authClient:Client
-    client(clientId:ID!): Client
-}
-type Mutation {
-    signUp(input:SignUpInput!):Client
-    login(input:LoginInput!):Client
-    logout:LogoutResponse
-}
-input SignUpInput {
-    name:String!
-    email:String!
-    password:String!
-    phone:String!
-    city:String!
-    address:String!
-    country:String!
-    zipCode:String!
-}
-input LoginInput {
-    email:String!
-    password:String!
-}
+// const clientTypeDef = `#graphql
+//   type Client {
+//     _id: ID!
+//     name:String!
+//     email:String!
+//     password:String!
+//     phone:String!
+//     city:String!
+//     address:String!
+//     country:String!
+//     zipCode:String!
+//   }
 
-type LogoutResponse {
-    message:String!
-}`
+//   type Query {
+//     clients: [Client!]
+//     client(clientId:ID!): Client
+//   }
 
-export default clientTypeDef;
+//   type Mutation {
+//     createClient(input: CreateClientInput!): Client!
+//     updateClient(input: UpdateClientInput!): Client!
+//     deleteClient(clientId:ID!): Client!
+//   }
 
+ 
+
+//   input CreateClientInput {
+//     name:String!
+//     email:String!
+//     password:String!
+//     phone:String!
+//     city:String!
+//     address:String!
+//     country:String!
+//     zipCode:String!
+//   }
+
+//   input UpdateClientInput {
+//     _id: ID!
+
+//     name:String
+//     email:String
+//     password:String
+//     phone:String
+//     city:String
+//     address:String
+//     country:String
+//     zipCode:String
+//   }
+// `;
+
+// export default clientTypeDef;

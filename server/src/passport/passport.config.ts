@@ -4,9 +4,9 @@ import Customer from "../models/customer";
 import { GraphQLLocalStrategy } from "graphql-passport";
 
 export const configurePassport = async () => {
-	passport.serializeUser((client, done) => {
+	passport.serializeCustomer((customer, done) => {
 		console.log("Serializing client");
-		done(null, client.id);
+		done(null, customer._id);
 	});
 
 	passport.deserializeUser(async (id, done) => {
