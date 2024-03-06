@@ -1,9 +1,8 @@
-import { mergeTypeDefs } from "@graphql-tools/merge";
+// import { mergeTypeDefs } from "@graphql-tools/merge";
 
-// import clientTypeDef from "./client.type.js";
-import clientAuthTypeDef from "./clientauth.type.js";
+// import clientAuthTypeDef from "./clientauth.type";
 
-const mergedTypeDefs = mergeTypeDefs([clientAuthTypeDef]);
+// const mergedTypeDefs = mergeTypeDefs([clientAuthTypeDef]);
 
-export default mergedTypeDefs;
+// export default mergedTypeDefs;
 

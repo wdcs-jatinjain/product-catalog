@@ -1,5 +1,5 @@
-import { mergeResolvers } from "@graphql-tools/merge" 
-import clientResolver from "./client.resolver"
+// import { mergeResolvers } from "@graphql-tools/merge" 
+// import clientResolver from "./client.resolver"
 
-const mergedResolvers = mergeResolvers([clientResolver])
-export default mergedResolvers
+// const mergedResolvers = mergeResolvers([clientResolver])
+// export default mergedResolvers

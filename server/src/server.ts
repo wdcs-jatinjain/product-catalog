@@ -1,35 +1,48 @@
-import express from "express";
+import express, { Request } from "express";
 import { server as GraphqlServer } from "./graphql/index";
-
 import connectDB from "./shared/utils/dataBase/mongo";
 import router from "./controllers";
-import { SERVER_PORT } from "./config";
+import {  SERVER_PORT } from "./config";
+
+const context = async (request:Request) => {
+  return { dataLoaders: {}, headers: request.headers };
+};
 
 export class Server {
   app: any;
-  port: any;
+  port: Number;
 
-  constructor(port: any) {
+  constructor(port:Number) {
     this.port = port;
     this.app = express();
     this.setupRoutes();
     this.setupMiddleware();
     this.setupServer()
   }
+  async start() {
+    try {
+      await this.graphql();
+await this.app.listen(this.port, '0.0.0.0')
+console.log(`GraphQl server running on ${this.port}`)
+     } catch (err) {
+      this.app.log.error(err);
+    }
+  }
+
+
   setupMiddleware() {
     this.app.use(express.json());
     connectDB();
   }
   setupServer() {
     try {
-      this.app.listen(SERVER_PORT, "8500");
+      this.app.listen(SERVER_PORT);
       console.log(`REST server listening on ${SERVER_PORT}`);
     } catch (err) {
       this.app.log.error(err);
     }
   }
   setupRoutes() {
-    this.setupServer();
     this.app.get("/", (req: any, res: any) => {
       res.json({
         message:
@@ -39,22 +52,14 @@ export class Server {
     });
     this.app.use("/api", router);
   }
-
-  async start() {
-    try {
-      await this.graphql();
-      await this.app.listen(this.port, "4000");
-      console.log(`Graphql server listening on ${this.port}`);
-    } catch (err) {
-      this.app.log.error(err);
-    }
-  }
-
   async graphql() {
     try {
       await GraphqlServer.start();
       this.app.route({
         url: "/graphql",
+        method: ['GET', 'POST', 'PUT', 'DELETE'],
+        handler: { context },
+
       });
     } catch (e: any) {
       console.log("ERROR ON CREATING GRAPHQL");
@@ -62,4 +67,6 @@ export class Server {
       throw e;
     }
   }
+  
+
 }
