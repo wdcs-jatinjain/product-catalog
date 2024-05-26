@@ -55,3 +55,9 @@ export type addUserRes = {
       id: string
     }
 }
+
+
+export type addRoles = {
+  name: string
+  rolePermissions: string[]
+}

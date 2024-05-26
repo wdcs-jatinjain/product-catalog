@@ -14,9 +14,12 @@ export default async function addUser(
       { abortEarly: false }
     );
     const createUserViewsRes:addUserRes = await Views.UserViews.createUserViews( { email, name, role, streetAddress,postalCode,city, country, phone,password})
+    console.log("🚀 ~ createUserViewsRes:", createUserViewsRes)
     return res.status(200).json(createUserViewsRes);
 
   } catch (error: any) {
+    console.log(error);
+    
     if (error.name === "ValidationError") {
       return {
         status: RESULT_STATUS.FAILURE,

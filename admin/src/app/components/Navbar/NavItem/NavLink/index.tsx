@@ -16,7 +16,7 @@ const NavLink = ({ item }: { item?: { title: string; path: string, permission: b
         <Link
           href={item.path}
           className={
-            pathname.includes(item.path) ? "bg-black text-white hover:bg-white hover:text-black font-bold py-2 px-4 rounded-lg" : "hover:bg-black hover:text-white font-bold py-2 px-4 rounded-lg"
+            pathname.includes(item.path) ? "text-lg font-extrabold bg-black text-white hover:bg-white hover:text-black py-2 px-4 rounded-lg" : "hover:bg-black hover:text-white font-bold py-2 px-4 rounded-lg"
 
           }
         >

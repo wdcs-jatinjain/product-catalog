@@ -8,6 +8,7 @@ import { RESULT_STATUS } from "@/constant";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { AddUserFormDataTypes, UserAddReturnData } from "@/types";
+import CustomLeftArrowIcon from "../../Icons/LeftArrowIcon";
 
 const AddUserComponent = () => {
   const router = useRouter();
@@ -37,8 +38,8 @@ const AddUserComponent = () => {
   return (
     <PageLayout>
       <div className="flex-col ">
-        <div className="flex gap-5 m-5">
-          <Link href={"/users"}>{"<"}</Link>
+        <div className="flex items-center gap-5 m-5">
+          <Link href={"/users"}><CustomLeftArrowIcon /></Link>
           <PageHeader pageTitle="Add User" showAddButton={false} />
         </div>
         <div className="m-5 justify-between">

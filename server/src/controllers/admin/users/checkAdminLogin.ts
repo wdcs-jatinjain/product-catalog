@@ -7,6 +7,7 @@ export default async function checkAdminLogin(
   { body: { email, password } }: { body: { email: string; password: string } },
   res: Response
 ) {
+  console.log("🚀 ~ email, password :", email, password )
   try {
     await validateAdminUser.validateAsync(
       { email, password },
